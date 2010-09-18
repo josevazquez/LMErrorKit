@@ -21,6 +21,8 @@ void throwError(NSError *error) {
 @property (nonatomic, retain) id receiver;
 @property (nonatomic, assign) SEL selector;
 @property (nonatomic, retain) id userObject;
+@property (nonatomic, assign) LMErrorHandlerFunctionPtr function;
+@property (nonatomic, assign) void *userData;
 @property (nonatomic, assign) LMErrorHandlerCallbackType callbackType;
 
 - (NSUInteger)validArgumentCountForSelectorHandler;
@@ -68,6 +70,15 @@ void throwError(NSError *error) {
     return errorHandler;
 }
 
++ (LMErrorHandler *)errorHandlerWithFunction:(LMErrorHandlerFunctionPtr)function andUserData:(void *)data {
+    LMErrorHandler *errorHandler = [[[LMErrorHandler alloc] init] autorelease];
+    errorHandler.function = function;
+    errorHandler.userData = data;
+
+    errorHandler.callbackType = kLMErrorHandlerCallbackTypeFunction;
+    return errorHandler;
+}
+
 - (void)handleError:(NSError *)error onThread:(NSThread *)thread {
     switch (self.callbackType) {
         case kLMErrorHandlerCallbackTypeSelector:
@@ -78,6 +89,10 @@ void throwError(NSError *error) {
                 #warning figure out how to perform a selector with 2 argument an a specific thread
                 [self.receiver performSelector:self.selector withObject:error withObject:self.userObject];
             }
+            break;
+        case kLMErrorHandlerCallbackTypeFunction:
+            #warning figure out how to perform function on a specific thread
+            (self.function)(error, self.userData);
             break;
         default:
             break;
@@ -114,6 +129,8 @@ void throwError(NSError *error) {
 @synthesize receiver=_receiver;
 @synthesize selector=_selector;
 @synthesize userObject=_userObject;
+@synthesize function=_functionPtr;
+@synthesize userData=_userData;
 @synthesize callbackType=_callbackType;
 
 @end

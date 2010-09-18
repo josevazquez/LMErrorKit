@@ -39,6 +39,7 @@ typedef LMErrorHandlerResult (*LMErrorHandlerFunctionPtr) (NSError *error, void 
 
 + (LMErrorHandler *)errorHandlerWithReceiver:(id)receiver andSelector:(SEL)selector;
 + (LMErrorHandler *)errorHandlerWithReceiver:(id)receiver selector:(SEL)selector andUserObject:(id)object;
++ (LMErrorHandler *)errorHandlerWithFunction:(LMErrorHandlerFunctionPtr)function andUserData:(void *)data;
 
 - (void)handleError:(NSError *)error onThread:(NSThread *)thread;
 

@@ -23,6 +23,11 @@
     NSLog(@"** Selector with User Object: %@ **, %@", message, error);
 }
 
+LMErrorHandlerResult errorHandlerFunction(NSError *error, void *message) {
+    NSLog(@"** Function with User Data: %s **, %@", message, error);
+    return kLMErrorHandlerResultErrorHandled;
+}
+
 #pragma mark -
 #pragma mark IBAction Methods
 - (IBAction)throwPOSIXError:(id)sender {
@@ -46,6 +51,7 @@
             break;
         case 2: // Function
             NSLog(@"Function");
+            self.errorHandler = [LMErrorHandler errorHandlerWithFunction:errorHandlerFunction andUserData:"This is a c-string user data"];
             break;
         case 3: // Block
             NSLog(@"Block");
