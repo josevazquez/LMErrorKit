@@ -72,7 +72,7 @@ void throwError(NSError *error) {
 #pragma mark -
 #pragma mark Helper Methods
 - (NSUInteger)validArgumentCountForSelectorHandler {
-    NSMethodSignature *signature = [self.receiver instanceMethodSignatureForSelector:self.selector];
+    NSMethodSignature *signature = [self.receiver methodSignatureForSelector:self.selector];
     NSUInteger argumentCount = [signature numberOfArguments];
     if (argumentCount == 3) { // one argument plus self and _cmd
         // verify that the argument is of type id
