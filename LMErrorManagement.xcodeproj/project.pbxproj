@@ -24,7 +24,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 82F30DB4124426AD00A441FC /* LMErrorKit */;
+			remoteGlobalIDString = 82F30DB4124426AD00A441FC;
 			remoteInfo = LMErrorKit;
 		};
 /* End PBXContainerItemProxy section */

@@ -11,14 +11,13 @@
 
 @implementation ErrorExampleAppDelegate
 
-@synthesize window;
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    LMErrorHandler *handler = [[LMErrorHandler alloc] init];
-    NSLog(@"description :%@", handler);
-
+    self.errorHandler = [LMErrorHandler errorHandlerWithReceiver:self andSelector:@selector(handleError:)];
 }
 
+- (void)handleError:(NSError *)error {
+    NSLog(@"Selector: Handling: %@", error);
+}
 
 #pragma mark -
 #pragma mark IBAction Methods
@@ -26,6 +25,8 @@
 - (IBAction)throwPOSIXError:(id)sender {
     NSInteger errorCode = [sender tag];
     NSLog(@"POSIX error code: %d", errorCode);
+    [self.errorHandler handleError:[NSError errorWithDomain:NSPOSIXErrorDomain code:errorCode userInfo:nil] 
+                          onThread:[NSThread mainThread]];
 }
 
 - (IBAction)selectHandleType:(id)sender {
@@ -43,5 +44,12 @@
             break;
     }
 }
+
+
+#pragma mark -
+#pragma mark Accessors
+
+@synthesize window=_window;
+@synthesize errorHandler=_errorHandler;
 
 @end

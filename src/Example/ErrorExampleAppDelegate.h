@@ -7,9 +7,11 @@
 */
 
 #import <Cocoa/Cocoa.h>
+@class LMErrorHandler;
 
 @interface ErrorExampleAppDelegate : NSObject <NSApplicationDelegate> {
-    NSWindow *window;
+    NSWindow *_window;
+    LMErrorHandler *_errorHandler;
 }
 
 - (IBAction)throwPOSIXError:(id)sender;
@@ -17,5 +19,6 @@
 
 
 @property (assign) IBOutlet NSWindow *window;
+@property (nonatomic, retain) LMErrorHandler *errorHandler;
 
 @end
