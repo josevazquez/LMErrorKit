@@ -12,6 +12,10 @@
     NSWindow *window;
 }
 
+- (IBAction)throwPOSIXError:(id)sender;
+- (IBAction)selectHandleType:(id)sender;
+
+
 @property (assign) IBOutlet NSWindow *window;
 
 @end

@@ -16,7 +16,32 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     LMErrorHandler *handler = [[LMErrorHandler alloc] init];
     NSLog(@"description :%@", handler);
-	// Insert code here to initialize your application 
+
+}
+
+
+#pragma mark -
+#pragma mark IBAction Methods
+
+- (IBAction)throwPOSIXError:(id)sender {
+    NSInteger errorCode = [sender tag];
+    NSLog(@"POSIX error code: %d", errorCode);
+}
+
+- (IBAction)selectHandleType:(id)sender {
+    switch ([[sender selectedCell] tag]) {
+        case 0: // Selector
+            NSLog(@"Selector");
+            break;
+        case 1: // Function
+            NSLog(@"Function");
+            break;
+        case 2: // Block
+            NSLog(@"Block");
+            break;
+        default:
+            break;
+    }
 }
 
 @end

@@ -9,8 +9,8 @@
 #import <Cocoa/Cocoa.h>
 
 enum LMErrorHandlerCallbackType {
-    kLMErrorHandlerCallbackTypeFunction,
     kLMErrorHandlerCallbackTypeSelector,
+    kLMErrorHandlerCallbackTypeFunction,
     kLMErrorHandlerCallbackTypeBlock,
     kLMErrorHandlerCallbackTypeUndefined
 };
