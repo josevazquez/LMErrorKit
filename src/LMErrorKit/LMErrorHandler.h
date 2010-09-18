@@ -23,10 +23,8 @@ enum LMErrorHandlerResult {
 };
 typedef enum LMErrorHandlerResult LMErrorHandlerResult;
 
-typedef LMErrorHandlerResult (*LMErrorHandlerFunctionPtr) (
-                                                void    *userData,
-                                                NSError *error
-                                                );
+typedef LMErrorHandlerResult (*LMErrorHandlerFunctionPtr) (NSError *error, void *userData);
+
 
 @interface LMErrorHandler : NSObject {
     LMErrorHandlerCallbackType _callbackType;
@@ -40,6 +38,7 @@ typedef LMErrorHandlerResult (*LMErrorHandlerFunctionPtr) (
 }
 
 + (LMErrorHandler *)errorHandlerWithReceiver:(id)receiver andSelector:(SEL)selector;
++ (LMErrorHandler *)errorHandlerWithReceiver:(id)receiver selector:(SEL)selector andUserObject:(id)object;
 
 - (void)handleError:(NSError *)error onThread:(NSThread *)thread;
 

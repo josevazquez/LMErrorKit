@@ -16,12 +16,15 @@
 }
 
 - (void)handleError:(NSError *)error {
-    NSLog(@"Selector: Handling: %@", error);
+    NSLog(@"** Selector **, %@", error);
+}
+
+- (void)handleError:(NSError *)error andMessage:(NSString *)message {
+    NSLog(@"** Selector with User Object: %@ **, %@", message, error);
 }
 
 #pragma mark -
 #pragma mark IBAction Methods
-
 - (IBAction)throwPOSIXError:(id)sender {
     NSInteger errorCode = [sender tag];
     NSLog(@"POSIX error code: %d", errorCode);
@@ -33,11 +36,18 @@
     switch ([[sender selectedCell] tag]) {
         case 0: // Selector
             NSLog(@"Selector");
+            self.errorHandler = [LMErrorHandler errorHandlerWithReceiver:self andSelector:@selector(handleError:)];
             break;
-        case 1: // Function
+        case 1: // Selector with User Object
+            NSLog(@"Selector with User Object");
+            self.errorHandler = [LMErrorHandler errorHandlerWithReceiver:self
+                                                                selector:@selector(handleError:andMessage:)
+                                                           andUserObject:@"This is the user object"];
+            break;
+        case 2: // Function
             NSLog(@"Function");
             break;
-        case 2: // Block
+        case 3: // Block
             NSLog(@"Block");
             break;
         default:
@@ -48,7 +58,6 @@
 
 #pragma mark -
 #pragma mark Accessors
-
 @synthesize window=_window;
 @synthesize errorHandler=_errorHandler;
 

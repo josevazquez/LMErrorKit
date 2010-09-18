@@ -52,6 +52,22 @@ void throwError(NSError *error) {
     return errorHandler;
 }
 
++ (LMErrorHandler *)errorHandlerWithReceiver:(id)receiver selector:(SEL)selector andUserObject:(id)object {
+    LMErrorHandler *errorHandler = [[[LMErrorHandler alloc] init] autorelease];
+    errorHandler.receiver = receiver;
+    errorHandler.selector = selector;
+    errorHandler.userObject = object;
+
+    // Verify that selector takes two (id) arguments
+    if ([errorHandler validArgumentCountForSelectorHandler] != 2) {
+        throwError([NSError errorWithDomain:NSOSStatusErrorDomain code:kEINVALErr userInfo:nil]);
+        return nil;
+    }
+
+    errorHandler.callbackType = kLMErrorHandlerCallbackTypeSelector;
+    return errorHandler;
+}
+
 - (void)handleError:(NSError *)error onThread:(NSThread *)thread {
     switch (self.callbackType) {
         case kLMErrorHandlerCallbackTypeSelector:
