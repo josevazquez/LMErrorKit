@@ -51,7 +51,7 @@ void throwError(NSError *error) {
     return errorHandler;
 }
 
-- (void)invokeOnThread:(NSThread *)thread WithError:(NSError *)error {
+- (void)handleError:(NSError *)error onThread:(NSThread *)thread {
     switch (self.callbackType) {
         case kLMErrorHandlerCallbackTypeSelector:
             if ([self validArgumentCountForSelectorHandler] == 1) {

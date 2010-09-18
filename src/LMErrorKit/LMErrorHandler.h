@@ -41,6 +41,6 @@ typedef LMErrorHandlerResult (*LMErrorHandlerFunctionPtr) (
 
 + (LMErrorHandler *)errorHandlerWithReceiver:(id)receiver andSelector:(SEL)selector;
 
-- (void)invokeOnThread:(NSThread *)thread WithError:(NSError *)error;
+- (void)handleError:(NSError *)error onThread:(NSThread *)thread;
 
 @end
