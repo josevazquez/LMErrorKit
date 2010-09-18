@@ -40,9 +40,10 @@ void throwError(NSError *error) {
     LMErrorHandler *errorHandler = [[[LMErrorHandler alloc] init] autorelease];
     errorHandler.receiver = receiver;
     errorHandler.selector = selector;
+    errorHandler.userObject = nil;
     
-    // Verify that selector takes just one or two (id) argument
-    if (![errorHandler validArgumentCountForSelectorHandler]) {
+    // Verify that selector takes just one (id) argument
+    if ([errorHandler validArgumentCountForSelectorHandler] != 1) {
         throwError([NSError errorWithDomain:NSOSStatusErrorDomain code:kEINVALErr userInfo:nil]);
         return nil;
     }
