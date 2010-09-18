@@ -7,12 +7,15 @@
 */
 
 #import "ErrorExampleAppDelegate.h"
+#import <LMErrorKit/LMErrorKit.h>
 
 @implementation ErrorExampleAppDelegate
 
 @synthesize window;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    LMErrorHandler *handler = [[LMErrorHandler alloc] init];
+    NSLog(@"description :%@", handler);
 	// Insert code here to initialize your application 
 }
 

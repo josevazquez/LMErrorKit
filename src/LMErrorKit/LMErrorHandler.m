@@ -1,0 +1,102 @@
+/*
+//  LMErrorHandler.m
+//  miRecorder
+//
+//  Created by Jose Vazquez on 9/14/10.
+//  Copyright 2010 Little Mustard LLC. All rights reserved.
+*/
+
+#import "LMErrorHandler.h"
+
+NSString *const LMErrorInternalDomain = @"LMErrorInternalDomain";
+
+void throwError(NSError *error) {
+    NSLog(@"failed to throw the error: %@", error);
+    #warning Change this to have it throw an error.
+    assert(FALSE);
+}
+
+// private interface
+@interface LMErrorHandler ()
+@property (nonatomic, retain) id receiver;
+@property (nonatomic, assign) SEL selector;
+@property (nonatomic, retain) id userObject;
+@property (nonatomic, assign) LMErrorHandlerCallbackType callbackType;
+
+- (NSUInteger)validArgumentCountForSelectorHandler;
+@end
+
+
+@implementation LMErrorHandler
+
+- (id)init {
+    if ((self = [super init])) {
+        _callbackType = kLMErrorHandlerCallbackTypeUndefined;
+    }
+    return self;
+}
+
++ (LMErrorHandler *)errorHandlerWithReceiver:(id)receiver andSelector:(SEL)selector {
+    LMErrorHandler *errorHandler = [[[LMErrorHandler alloc] init] autorelease];
+    errorHandler.receiver = receiver;
+    errorHandler.selector = selector;
+    
+    // Verify that selector takes just one or two (id) argument
+    if (![errorHandler validArgumentCountForSelectorHandler]) {
+        throwError([NSError errorWithDomain:NSOSStatusErrorDomain code:kEINVALErr userInfo:nil]);
+        return nil;
+    }
+    
+    errorHandler.callbackType = kLMErrorHandlerCallbackTypeSelector;
+    return errorHandler;
+}
+
+- (void)invokeOnThread:(NSThread *)thread WithError:(NSError *)error {
+    switch (self.callbackType) {
+        case kLMErrorHandlerCallbackTypeSelector:
+            if ([self validArgumentCountForSelectorHandler] == 1) {
+                [self.receiver performSelector:self.selector withObject:error];                
+            }
+            if ([self validArgumentCountForSelectorHandler] == 2) {
+                #warning figure out how to perform a selector with 2 argument an a specific thread
+                [self.receiver performSelector:self.selector withObject:error withObject:self.userObject];
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+
+#pragma mark -
+#pragma mark Helper Methods
+- (NSUInteger)validArgumentCountForSelectorHandler {
+    NSMethodSignature *signature = [self.receiver instanceMethodSignatureForSelector:self.selector];
+    NSUInteger argumentCount = [signature numberOfArguments];
+    if (argumentCount == 3) { // one argument plus self and _cmd
+        // verify that the argument is of type id
+        if (strcmp([signature getArgumentTypeAtIndex:2], @encode(id))==0) {     // this argument should be an NSError*
+            return 1;
+        }
+    }
+    
+    if (argumentCount == 4) { // two arguments plus self and _cmd
+        // verify that the arguments are both of type id
+        if (strcmp([signature getArgumentTypeAtIndex:2], @encode(id))==0) {     // this argument should be an NSError*
+            if (strcmp([signature getArgumentTypeAtIndex:3], @encode(id))==0) { // this is the user Object of type id
+                return 2;
+            }
+        }
+    }
+    return 0;
+}
+
+
+#pragma mark -
+#pragma mark Accessors
+@synthesize receiver=_receiver;
+@synthesize selector=_selector;
+@synthesize userObject=_userObject;
+@synthesize callbackType=_callbackType;
+
+@end
