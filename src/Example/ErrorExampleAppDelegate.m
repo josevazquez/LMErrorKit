@@ -15,12 +15,14 @@
     self.errorHandler = [LMErrorHandler errorHandlerWithReceiver:self andSelector:@selector(handleError:)];
 }
 
-- (void)handleError:(NSError *)error {
+- (NSNumber *)handleError:(NSError *)error {
     NSLog(@"** Selector **, %@", error);
+    return kLMErrorHandled;
 }
 
-- (void)handleError:(NSError *)error andMessage:(NSString *)message {
+- (NSNumber *)handleError:(NSError *)error andMessage:(NSString *)message {
     NSLog(@"** Selector with User Object: %@ **, %@", message, error);
+    return kLMErrorPassed;
 }
 
 LMErrorHandlerResult errorHandlerFunction(NSError *error, void *message) {
@@ -33,8 +35,22 @@ LMErrorHandlerResult errorHandlerFunction(NSError *error, void *message) {
 - (IBAction)throwPOSIXError:(id)sender {
     NSInteger errorCode = [sender tag];
     NSLog(@"POSIX error code: %d", errorCode);
-    [self.errorHandler handleError:[NSError errorWithDomain:NSPOSIXErrorDomain code:errorCode userInfo:nil] 
+    NSError *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:errorCode userInfo:nil];
+
+    LMErrorHandlerResult result = [self.errorHandler handleError:error
                           onThread:[NSThread mainThread]];
+    switch (result) {
+        case kLMErrorHandlerResultErrorHandled:
+            NSLog(@"Error was Handled");
+            break;
+        case kLMErrorHandlerResultErrorPassed:
+            NSLog(@"Error was Passed");
+            break;
+        case kLMErrorHandlerResultUndefined:
+        default:
+            NSLog(@"Error Handler returned an undefined result");
+            break;
+    }
 }
 
 - (IBAction)selectHandleType:(id)sender {

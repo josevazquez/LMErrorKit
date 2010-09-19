@@ -25,6 +25,9 @@ enum LMErrorHandlerResult {
     kLMErrorHandlerResultUndefined
 };
 typedef enum LMErrorHandlerResult LMErrorHandlerResult;
+// Defines to return
+#define kLMErrorHandled ([NSNumber numberWithInt:kLMErrorHandlerResultErrorHandled])
+#define kLMErrorPassed ([NSNumber numberWithInt:kLMErrorHandlerResultErrorPassed])
 
 
 // Type for error handling functions.
@@ -34,6 +37,7 @@ typedef LMErrorHandlerResult (*LMErrorHandlerFunctionPtr) (NSError *error, void 
 
 // Type for error handling blocks
 // Takes an id for the NSError argument and returns an LMErrorHandlerResult
+#warning return type is an int instead of a LMErrorHandlerResult because block compiler resolves to int. Should I use NSNumber instead?
 typedef int (^LMErrorHandlerBlock)(id);
 
 
@@ -56,6 +60,6 @@ typedef int (^LMErrorHandlerBlock)(id);
 + (LMErrorHandler *)errorHandlerWithFunction:(LMErrorHandlerFunctionPtr)function andUserData:(void *)data;
 + (LMErrorHandler *)errorHandlerWithBlock:(LMErrorHandlerBlock)block;
 
-- (void)handleError:(NSError *)error onThread:(NSThread *)thread;
+- (LMErrorHandlerResult)handleError:(NSError *)error onThread:(NSThread *)thread;
 
 @end

@@ -89,28 +89,35 @@ void throwError(NSError *error) {
 }
 
 #warning Discuss with Mike, Should handler only run on Main thread? or not?
-- (void)handleError:(NSError *)error onThread:(NSThread *)thread {
+- (LMErrorHandlerResult)handleError:(NSError *)error onThread:(NSThread *)thread {
+    LMErrorHandlerResult result = kLMErrorHandlerResultUndefined;
+    NSNumber *resultObject = nil;
     switch (self.callbackType) {
         case kLMErrorHandlerCallbackTypeSelector:
             if ([self validArgumentCountForSelectorHandler] == 1) {
-                [self.receiver performSelector:self.selector withObject:error];                
+                resultObject = [self.receiver performSelector:self.selector withObject:error];
             }
             if ([self validArgumentCountForSelectorHandler] == 2) {
                 #warning figure out how to perform a selector with 2 argument an a specific thread
-                [self.receiver performSelector:self.selector withObject:error withObject:self.userObject];
+                resultObject = [self.receiver performSelector:self.selector withObject:error withObject:self.userObject];
             }
+            if (resultObject == nil) {
+                throwError([NSError errorWithDomain:@"com.littlemustard.lmerror.internal" code:0 userInfo:nil]);
+            }
+            result = [resultObject intValue];
             break;
         case kLMErrorHandlerCallbackTypeFunction:
             #warning figure out how to perform function on a specific thread
-            (self.function)(error, self.userData);
+            result = (self.function)(error, self.userData);
             break;
         case kLMErrorHandlerCallbackTypeBlock:
             #warning figure out how to perform a block on a specific thread
-            (self.block)(error);
+            result = (self.block)(error);
             break;
         default:
             break;
     }
+    return result;
 }
 
 
