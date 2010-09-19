@@ -9,9 +9,9 @@
 
 // Return constants for error handlers.
 enum LMErrorHandlerResult {
+    kLMErrorHandlerResultUndefined = 0,
     kLMErrorHandlerResultErrorHandled,
-    kLMErrorHandlerResultErrorPassed,
-    kLMErrorHandlerResultUndefined
+    kLMErrorHandlerResultErrorPassed
 };
 typedef enum LMErrorHandlerResult LMErrorHandlerResult;
 

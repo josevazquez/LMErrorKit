@@ -19,14 +19,14 @@
 
 #pragma mark -
 #pragma mark Error Handlers
-- (NSNumber *)handleError:(NSError *)error {
+- (LMErrorHandlerResult)handleError:(NSError *)error {
     NSLog(@"** Selector **, %@", error);
-    return kLMErrorHandled;
+    return kLMErrorHandlerResultErrorHandled;
 }
 
-- (NSNumber *)handleError:(NSError *)error andMessage:(NSString *)message {
+- (LMErrorHandlerResult)handleError:(NSError *)error andMessage:(NSString *)message {
     NSLog(@"** Selector with User Object: %@ **, %@", message, error);
-    return kLMErrorPassed;
+    return kLMErrorHandlerResultErrorPassed;
 }
 
 LMErrorHandlerResult errorHandlerFunction(NSError *error, void *message) {
