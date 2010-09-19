@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+// Callback type constants. For internal use only.
 enum LMErrorHandlerCallbackType {
     kLMErrorHandlerCallbackTypeSelector,
     kLMErrorHandlerCallbackTypeFunction,
@@ -16,6 +17,8 @@ enum LMErrorHandlerCallbackType {
 };
 typedef enum LMErrorHandlerCallbackType LMErrorHandlerCallbackType;
 
+
+// Return constants for error handlers.
 enum LMErrorHandlerResult {
     kLMErrorHandlerResultErrorHandled,
     kLMErrorHandlerResultErrorPassed,
@@ -23,13 +26,17 @@ enum LMErrorHandlerResult {
 };
 typedef enum LMErrorHandlerResult LMErrorHandlerResult;
 
+
 // Type for error handling functions.
 #warning ask Mike if userData should be void * or id. (What every  dev should know)
 typedef LMErrorHandlerResult (*LMErrorHandlerFunctionPtr) (NSError *error, void *userData);
 
+
 // Type for error handling blocks
 // Takes an id for the NSError argument and returns an LMErrorHandlerResult
 typedef int (^LMErrorHandlerBlock)(id);
+
+
 
 @interface LMErrorHandler : NSObject {
     LMErrorHandlerCallbackType _callbackType;
