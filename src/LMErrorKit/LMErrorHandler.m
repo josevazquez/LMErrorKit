@@ -24,6 +24,7 @@ void throwError(NSError *error) {
 @property (nonatomic, assign) LMErrorHandlerFunctionPtr function;
 @property (nonatomic, assign) void *userData;
 @property (nonatomic, assign) LMErrorHandlerBlock block;
+@property (nonatomic, assign) id <LMErrorHandlerDelegate> delegate;
 @property (nonatomic, assign) LMErrorHandlerCallbackType callbackType;
 
 - (NSUInteger)validArgumentCountForSelectorHandler;
@@ -32,6 +33,7 @@ void throwError(NSError *error) {
 
 @implementation LMErrorHandler
 
+#pragma mark -
 - (id)init {
     if ((self = [super init])) {
         _callbackType = kLMErrorHandlerCallbackTypeUndefined;
@@ -39,6 +41,14 @@ void throwError(NSError *error) {
     return self;
 }
 
+- (void)dealloc {
+    [_receiver release], _receiver=nil;
+    [_userObject release], _userObject=nil;
+    [super dealloc];
+}
+
+#pragma mark -
+#pragma mark Creating an LMErrorHandler
 + (LMErrorHandler *)errorHandlerWithReceiver:(id)receiver andSelector:(SEL)selector {
     LMErrorHandler *errorHandler = [[[LMErrorHandler alloc] init] autorelease];
     errorHandler.receiver = receiver;
@@ -88,6 +98,17 @@ void throwError(NSError *error) {
     return errorHandler;
 }
 
++ (LMErrorHandler *)errorHandlerWithDelegate:(id <LMErrorHandlerDelegate>)delegate {
+    LMErrorHandler *errorHandler = [[[LMErrorHandler alloc] init] autorelease];
+    errorHandler.delegate = delegate;
+
+    errorHandler.callbackType = kLMErrorHandlerCallbackTypeDelegate;
+    return errorHandler;
+}
+
+
+#pragma mark -
+#pragma mark Using an LMErrorHandler
 #warning Discuss with Mike, Should handler only run on Main thread? or not?
 - (LMErrorHandlerResult)handleError:(NSError *)error onThread:(NSThread *)thread {
     LMErrorHandlerResult result = kLMErrorHandlerResultUndefined;
@@ -113,6 +134,10 @@ void throwError(NSError *error) {
         case kLMErrorHandlerCallbackTypeBlock:
             #warning figure out how to perform a block on a specific thread
             result = (self.block)(error);
+            break;
+        case kLMErrorHandlerCallbackTypeDelegate:
+            #warning figure out how to perform a delegate method on a specific thread
+            result = [self.delegate handleLMError:error];
             break;
         default:
             break;
@@ -153,6 +178,7 @@ void throwError(NSError *error) {
 @synthesize function=_functionPtr;
 @synthesize userData=_userData;
 @synthesize block=_block;
+@synthesize delegate=_delegate;
 @synthesize callbackType=_callbackType;
 
 @end

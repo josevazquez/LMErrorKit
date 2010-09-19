@@ -11,10 +11,14 @@
 
 @implementation ErrorExampleAppDelegate
 
+#pragma mark -
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     self.errorHandler = [LMErrorHandler errorHandlerWithReceiver:self andSelector:@selector(handleError:)];
 }
 
+
+#pragma mark -
+#pragma mark Error Handlers
 - (NSNumber *)handleError:(NSError *)error {
     NSLog(@"** Selector **, %@", error);
     return kLMErrorHandled;
@@ -29,6 +33,12 @@ LMErrorHandlerResult errorHandlerFunction(NSError *error, void *message) {
     NSLog(@"** Function with User Data: %s **, %@", message, error);
     return kLMErrorHandlerResultErrorHandled;
 }
+
+- (LMErrorHandlerResult)handleLMError:(NSError *)error {
+    NSLog(@"** Delegate **, %@", error);
+    return kLMErrorHandlerResultErrorHandled;
+}
+
 
 #pragma mark -
 #pragma mark IBAction Methods
@@ -75,6 +85,10 @@ LMErrorHandlerResult errorHandlerFunction(NSError *error, void *message) {
                 NSLog(@"** Block **, %@", error);
                 return kLMErrorHandlerResultErrorHandled;
             }];
+            break;
+        case 4: // Delegate
+            NSLog(@"Delegate");
+            self.errorHandler = [LMErrorHandler errorHandlerWithDelegate:self];
             break;
         default:
             break;

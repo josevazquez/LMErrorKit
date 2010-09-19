@@ -7,9 +7,10 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import <LMErrorKit/LMErrorHandlerDelegate.h>
 @class LMErrorHandler;
 
-@interface ErrorExampleAppDelegate : NSObject <NSApplicationDelegate> {
+@interface ErrorExampleAppDelegate : NSObject <NSApplicationDelegate, LMErrorHandlerDelegate> {
     NSWindow *_window;
     LMErrorHandler *_errorHandler;
 }

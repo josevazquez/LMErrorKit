@@ -7,25 +7,20 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import <LMErrorKit/LMErrorHandlerDelegate.h>
 
 // Callback type constants. For internal use only.
 enum LMErrorHandlerCallbackType {
     kLMErrorHandlerCallbackTypeSelector,
     kLMErrorHandlerCallbackTypeFunction,
     kLMErrorHandlerCallbackTypeBlock,
+    kLMErrorHandlerCallbackTypeDelegate,
     kLMErrorHandlerCallbackTypeUndefined
 };
 typedef enum LMErrorHandlerCallbackType LMErrorHandlerCallbackType;
 
 
-// Return constants for error handlers.
-enum LMErrorHandlerResult {
-    kLMErrorHandlerResultErrorHandled,
-    kLMErrorHandlerResultErrorPassed,
-    kLMErrorHandlerResultUndefined
-};
-typedef enum LMErrorHandlerResult LMErrorHandlerResult;
-// Defines to return
+// Defines to return an LMErrorHandlerResult wrapped in an NSNumber instance.
 #define kLMErrorHandled ([NSNumber numberWithInt:kLMErrorHandlerResultErrorHandled])
 #define kLMErrorPassed ([NSNumber numberWithInt:kLMErrorHandlerResultErrorPassed])
 
@@ -41,7 +36,6 @@ typedef LMErrorHandlerResult (*LMErrorHandlerFunctionPtr) (NSError *error, void 
 typedef int (^LMErrorHandlerBlock)(id);
 
 
-
 @interface LMErrorHandler : NSObject {
     LMErrorHandlerCallbackType _callbackType;
 
@@ -53,12 +47,15 @@ typedef int (^LMErrorHandlerBlock)(id);
     LMErrorHandlerFunctionPtr _functionPtr;
 
     LMErrorHandlerBlock _block;
+
+    id <LMErrorHandlerDelegate> _delegate;
 }
 
 + (LMErrorHandler *)errorHandlerWithReceiver:(id)receiver andSelector:(SEL)selector;
 + (LMErrorHandler *)errorHandlerWithReceiver:(id)receiver selector:(SEL)selector andUserObject:(id)object;
 + (LMErrorHandler *)errorHandlerWithFunction:(LMErrorHandlerFunctionPtr)function andUserData:(void *)data;
 + (LMErrorHandler *)errorHandlerWithBlock:(LMErrorHandlerBlock)block;
++ (LMErrorHandler *)errorHandlerWithDelegate:(id <LMErrorHandlerDelegate>)delegate;
 
 - (LMErrorHandlerResult)handleError:(NSError *)error onThread:(NSThread *)thread;
 
