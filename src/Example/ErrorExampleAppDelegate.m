@@ -55,6 +55,10 @@ LMErrorHandlerResult errorHandlerFunction(NSError *error, void *message) {
             break;
         case 3: // Block
             NSLog(@"Block");
+            self.errorHandler = [LMErrorHandler errorHandlerWithBlock:^(id error) {
+                NSLog(@"** Block **, %@", error);
+                return kLMErrorHandlerResultErrorHandled;
+            }];
             break;
         default:
             break;

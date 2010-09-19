@@ -23,6 +23,7 @@ void throwError(NSError *error) {
 @property (nonatomic, retain) id userObject;
 @property (nonatomic, assign) LMErrorHandlerFunctionPtr function;
 @property (nonatomic, assign) void *userData;
+@property (nonatomic, assign) LMErrorHandlerBlock block;
 @property (nonatomic, assign) LMErrorHandlerCallbackType callbackType;
 
 - (NSUInteger)validArgumentCountForSelectorHandler;
@@ -79,6 +80,15 @@ void throwError(NSError *error) {
     return errorHandler;
 }
 
++ (LMErrorHandler *)errorHandlerWithBlock:(LMErrorHandlerBlock)block {
+    LMErrorHandler *errorHandler = [[[LMErrorHandler alloc] init] autorelease];
+    errorHandler.block = block;
+
+    errorHandler.callbackType = kLMErrorHandlerCallbackTypeBlock;
+    return errorHandler;
+}
+
+#warning Discuss with Mike, Should handler only run on Main thread? or not?
 - (void)handleError:(NSError *)error onThread:(NSThread *)thread {
     switch (self.callbackType) {
         case kLMErrorHandlerCallbackTypeSelector:
@@ -93,6 +103,10 @@ void throwError(NSError *error) {
         case kLMErrorHandlerCallbackTypeFunction:
             #warning figure out how to perform function on a specific thread
             (self.function)(error, self.userData);
+            break;
+        case kLMErrorHandlerCallbackTypeBlock:
+            #warning figure out how to perform a block on a specific thread
+            (self.block)(error);
             break;
         default:
             break;
@@ -131,6 +145,7 @@ void throwError(NSError *error) {
 @synthesize userObject=_userObject;
 @synthesize function=_functionPtr;
 @synthesize userData=_userData;
+@synthesize block=_block;
 @synthesize callbackType=_callbackType;
 
 @end
