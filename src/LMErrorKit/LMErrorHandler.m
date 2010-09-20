@@ -114,10 +114,24 @@ void throwError(NSError *error) {
     switch (self.callbackType) {
         case kLMErrorHandlerCallbackTypeSelector:
             if ([self validArgumentCountForSelectorHandler] == 1) {
-                result = (LMErrorHandlerResult)[self.receiver performSelector:self.selector withObject:error];
+                // declare the method function pointer
+                LMErrorHandlerResult (*methodPointer)(id self, SEL _cmd, id error);
+
+                // fetch the pointer, cast to avoid warnings
+                methodPointer = (void *)[self.receiver methodForSelector:self.selector];
+
+                // call the method
+                result = methodPointer(self.receiver, self.selector, error);
             }
             if ([self validArgumentCountForSelectorHandler] == 2) {
-                result = (LMErrorHandlerResult)[self.receiver performSelector:self.selector withObject:error withObject:self.userObject];
+                // declare the method function pointer
+                LMErrorHandlerResult (*methodPointer)(id self, SEL _cmd, id error, id userObject);
+
+                // fetch the pointer, cast to avoid warnings
+                methodPointer = (void *)[self.receiver methodForSelector:self.selector];
+
+                // call the method
+                result = methodPointer(self.receiver, self.selector, error, self.userObject);
             }
             break;
         case kLMErrorHandlerCallbackTypeFunction:
