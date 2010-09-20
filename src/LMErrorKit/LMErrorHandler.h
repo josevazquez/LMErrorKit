@@ -26,6 +26,7 @@ typedef enum LMErrorHandlerCallbackType LMErrorHandlerCallbackType;
 
 
 // Type for error handling functions.
+#warning consider allowing the user to specify a "free" function to perform memory cleanup when done.
 typedef LMErrorHandlerResult (*LMErrorHandlerFunctionPtr) (NSError *error, void *userData);
 
 
