@@ -26,7 +26,6 @@ typedef enum LMErrorHandlerCallbackType LMErrorHandlerCallbackType;
 
 
 // Type for error handling functions.
-#warning ask Mike if userData should be void * or id. (What every  dev should know)
 typedef LMErrorHandlerResult (*LMErrorHandlerFunctionPtr) (NSError *error, void *userData);
 
 
