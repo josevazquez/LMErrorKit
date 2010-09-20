@@ -109,30 +109,24 @@ void throwError(NSError *error) {
 
 #pragma mark -
 #pragma mark Using an LMErrorHandler
-#warning Discuss with Mike, Should handler only run on Main thread? or not?
-- (LMErrorHandlerResult)handleError:(NSError *)error onThread:(NSThread *)thread {
+- (LMErrorHandlerResult)handleError:(NSError *)error {
     LMErrorHandlerResult result = kLMErrorHandlerResultUndefined;
     switch (self.callbackType) {
         case kLMErrorHandlerCallbackTypeSelector:
             if ([self validArgumentCountForSelectorHandler] == 1) {
-                #warning Not crazy about passing an LMErrorHandlerResult as an id and having to cast. thoughts?
                 result = (LMErrorHandlerResult)[self.receiver performSelector:self.selector withObject:error];
             }
             if ([self validArgumentCountForSelectorHandler] == 2) {
-                #warning figure out how to perform a selector with 2 argument an a specific thread
                 result = (LMErrorHandlerResult)[self.receiver performSelector:self.selector withObject:error withObject:self.userObject];
             }
             break;
         case kLMErrorHandlerCallbackTypeFunction:
-            #warning figure out how to perform function on a specific thread
             result = (self.function)(error, self.userData);
             break;
         case kLMErrorHandlerCallbackTypeBlock:
-            #warning figure out how to perform a block on a specific thread
             result = (self.block)(error);
             break;
         case kLMErrorHandlerCallbackTypeDelegate:
-            #warning figure out how to perform a delegate method on a specific thread
             result = [self.delegate handleLMError:error];
             break;
         default:

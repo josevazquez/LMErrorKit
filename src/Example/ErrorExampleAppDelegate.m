@@ -47,8 +47,8 @@ LMErrorHandlerResult errorHandlerFunction(NSError *error, void *message) {
     NSLog(@"POSIX error code: %d", errorCode);
     NSError *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:errorCode userInfo:nil];
 
-    LMErrorHandlerResult result = [self.errorHandler handleError:error
-                          onThread:[NSThread mainThread]];
+    LMErrorHandlerResult result = [self.errorHandler handleError:error];
+
     switch (result) {
         case kLMErrorHandlerResultErrorHandled:
             NSLog(@"Error was Handled");

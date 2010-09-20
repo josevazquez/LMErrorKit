@@ -56,6 +56,6 @@ typedef int (^LMErrorHandlerBlock)(id);
 + (LMErrorHandler *)errorHandlerWithBlock:(LMErrorHandlerBlock)block;
 + (LMErrorHandler *)errorHandlerWithDelegate:(id <LMErrorHandlerDelegate>)delegate;
 
-- (LMErrorHandlerResult)handleError:(NSError *)error onThread:(NSThread *)thread;
+- (LMErrorHandlerResult)handleError:(NSError *)error;
 
 @end
