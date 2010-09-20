@@ -31,8 +31,7 @@ typedef LMErrorHandlerResult (*LMErrorHandlerFunctionPtr) (NSError *error, void 
 
 // Type for error handling blocks
 // Takes an id for the NSError argument and returns an LMErrorHandlerResult
-#warning return type is an int instead of a LMErrorHandlerResult because block compiler resolves to int. Should I use NSNumber instead?
-typedef int (^LMErrorHandlerBlock)(id);
+typedef LMErrorHandlerResult (^LMErrorHandlerBlock)(id);
 
 
 @interface LMErrorHandler : NSObject {

@@ -13,7 +13,7 @@ enum LMErrorHandlerResult {
     kLMErrorHandlerResultErrorHandled,
     kLMErrorHandlerResultErrorPassed
 };
-typedef enum LMErrorHandlerResult LMErrorHandlerResult;
+typedef int LMErrorHandlerResult;
 
 @protocol LMErrorHandlerDelegate <NSObject>
 @required
