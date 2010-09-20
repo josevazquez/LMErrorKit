@@ -13,7 +13,7 @@
 
 #pragma mark -
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    self.errorHandler = [LMErrorHandler errorHandlerWithReceiver:self andSelector:@selector(handleError:)];
+    self.errorHandler = [LMErrorHandler errorHandlerWithReceiver:self selector:@selector(handleError:)];
 }
 
 
@@ -32,6 +32,10 @@
 LMErrorHandlerResult errorHandlerFunction(NSError *error, void *message) {
     NSLog(@"** Function with User Data: %s **, %@", message, error);
     return kLMErrorHandlerResultErrorHandled;
+}
+
+void userDataDestructor(void *ptr) {
+    NSLog(@"Data Destructor was called with pointer to 0x%08X", ptr);
 }
 
 - (LMErrorHandlerResult)handleLMError:(NSError *)error {
@@ -67,17 +71,20 @@ LMErrorHandlerResult errorHandlerFunction(NSError *error, void *message) {
     switch ([[sender selectedCell] tag]) {
         case 0: // Selector
             NSLog(@"Selector");
-            self.errorHandler = [LMErrorHandler errorHandlerWithReceiver:self andSelector:@selector(handleError:)];
+            self.errorHandler = [LMErrorHandler errorHandlerWithReceiver:self
+                                                                selector:@selector(handleError:)];
             break;
         case 1: // Selector with User Object
             NSLog(@"Selector with User Object");
             self.errorHandler = [LMErrorHandler errorHandlerWithReceiver:self
                                                                 selector:@selector(handleError:andMessage:)
-                                                           andUserObject:@"This is the user object"];
+                                                           userObject:@"This is the user object"];
             break;
         case 2: // Function
             NSLog(@"Function");
-            self.errorHandler = [LMErrorHandler errorHandlerWithFunction:errorHandlerFunction andUserData:"This is a c-string user data"];
+            self.errorHandler = [LMErrorHandler errorHandlerWithFunction:errorHandlerFunction
+                                                                userData:"This is a c-string user data"
+                                                              destructor:userDataDestructor];
             break;
         case 3: // Block
             NSLog(@"Block");

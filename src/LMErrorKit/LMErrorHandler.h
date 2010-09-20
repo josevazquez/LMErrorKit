@@ -25,9 +25,11 @@ typedef enum LMErrorHandlerCallbackType LMErrorHandlerCallbackType;
 #define kLMErrorPassed ([NSNumber numberWithInt:kLMErrorHandlerResultErrorPassed])
 
 
-// Type for error handling functions.
-#warning consider allowing the user to specify a "free" function to perform memory cleanup when done.
-typedef LMErrorHandlerResult (*LMErrorHandlerFunctionPtr) (NSError *error, void *userData);
+// Type definition for error handling functions.
+typedef LMErrorHandlerResult (*LMErrorHandlerFunction) (NSError *error, void *userData);
+
+// Type definitino for optional userData destructor.
+typedef void (*LMErrorHandlerContextDestructor) (void *ptr);
 
 
 // Type for error handling blocks
@@ -43,16 +45,17 @@ typedef LMErrorHandlerResult (^LMErrorHandlerBlock)(id);
     id _userObject;
     
     void *_userData;
-    LMErrorHandlerFunctionPtr _functionPtr;
+    LMErrorHandlerFunction _function;
+    LMErrorHandlerContextDestructor _destructor;
 
     LMErrorHandlerBlock _block;
 
     id <LMErrorHandlerDelegate> _delegate;
 }
 
-+ (LMErrorHandler *)errorHandlerWithReceiver:(id)receiver andSelector:(SEL)selector;
-+ (LMErrorHandler *)errorHandlerWithReceiver:(id)receiver selector:(SEL)selector andUserObject:(id)object;
-+ (LMErrorHandler *)errorHandlerWithFunction:(LMErrorHandlerFunctionPtr)function andUserData:(void *)data;
++ (LMErrorHandler *)errorHandlerWithReceiver:(id)receiver selector:(SEL)selector;
++ (LMErrorHandler *)errorHandlerWithReceiver:(id)receiver selector:(SEL)selector userObject:(id)object;
++ (LMErrorHandler *)errorHandlerWithFunction:(LMErrorHandlerFunction)function userData:(void *)data destructor:(LMErrorHandlerContextDestructor)destructor;
 + (LMErrorHandler *)errorHandlerWithBlock:(LMErrorHandlerBlock)block;
 + (LMErrorHandler *)errorHandlerWithDelegate:(id <LMErrorHandlerDelegate>)delegate;
 

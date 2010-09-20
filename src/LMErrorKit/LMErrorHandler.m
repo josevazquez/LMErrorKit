@@ -21,7 +21,8 @@ void throwError(NSError *error) {
 @property (nonatomic, retain) id receiver;
 @property (nonatomic, assign) SEL selector;
 @property (nonatomic, retain) id userObject;
-@property (nonatomic, assign) LMErrorHandlerFunctionPtr function;
+@property (nonatomic, assign) LMErrorHandlerFunction function;
+@property (nonatomic, assign) LMErrorHandlerContextDestructor destructor;
 @property (nonatomic, assign) void *userData;
 @property (nonatomic, copy) LMErrorHandlerBlock block;
 @property (nonatomic, assign) id <LMErrorHandlerDelegate> delegate;
@@ -37,19 +38,25 @@ void throwError(NSError *error) {
 - (id)init {
     if ((self = [super init])) {
         _callbackType = kLMErrorHandlerCallbackTypeUndefined;
+        _destructor = NULL;
+        _userData = NULL;
     }
     return self;
 }
 
 - (void)dealloc {
+    if ((_destructor != NULL) && (_userData != NULL)) {
+        _destructor(_userData);
+    }
     [_receiver release], _receiver=nil;
     [_userObject release], _userObject=nil;
     [super dealloc];
 }
 
+
 #pragma mark -
 #pragma mark Creating an LMErrorHandler
-+ (LMErrorHandler *)errorHandlerWithReceiver:(id)receiver andSelector:(SEL)selector {
++ (LMErrorHandler *)errorHandlerWithReceiver:(id)receiver selector:(SEL)selector {
     LMErrorHandler *errorHandler = [[[LMErrorHandler alloc] init] autorelease];
     errorHandler.receiver = receiver;
     errorHandler.selector = selector;
@@ -65,7 +72,7 @@ void throwError(NSError *error) {
     return errorHandler;
 }
 
-+ (LMErrorHandler *)errorHandlerWithReceiver:(id)receiver selector:(SEL)selector andUserObject:(id)object {
++ (LMErrorHandler *)errorHandlerWithReceiver:(id)receiver selector:(SEL)selector userObject:(id)object {
     LMErrorHandler *errorHandler = [[[LMErrorHandler alloc] init] autorelease];
     errorHandler.receiver = receiver;
     errorHandler.selector = selector;
@@ -81,10 +88,13 @@ void throwError(NSError *error) {
     return errorHandler;
 }
 
-+ (LMErrorHandler *)errorHandlerWithFunction:(LMErrorHandlerFunctionPtr)function andUserData:(void *)data {
++ (LMErrorHandler *)errorHandlerWithFunction:(LMErrorHandlerFunction)function
+                                    userData:(void *)data
+                          destructor:(LMErrorHandlerContextDestructor)destructor {
     LMErrorHandler *errorHandler = [[[LMErrorHandler alloc] init] autorelease];
     errorHandler.function = function;
     errorHandler.userData = data;
+    errorHandler.destructor = destructor;
 
     errorHandler.callbackType = kLMErrorHandlerCallbackTypeFunction;
     return errorHandler;
@@ -179,10 +189,22 @@ void throwError(NSError *error) {
 @synthesize receiver=_receiver;
 @synthesize selector=_selector;
 @synthesize userObject=_userObject;
-@synthesize function=_functionPtr;
+//@synthesize function=_function;
+@synthesize destructor=_destructor;
 @synthesize userData=_userData;
 @synthesize block=_block;
 @synthesize delegate=_delegate;
 @synthesize callbackType=_callbackType;
+
+- (LMErrorHandlerFunction)function {
+    return _function;
+}
+- (void)setFunction:(LMErrorHandlerFunction)function {
+    if ((_destructor != NULL) && (_userData != NULL)) {
+        _destructor(_userData);
+    }
+    _function = function;
+}
+
 
 @end
