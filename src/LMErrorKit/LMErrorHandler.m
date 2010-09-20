@@ -23,7 +23,7 @@ void throwError(NSError *error) {
 @property (nonatomic, retain) id userObject;
 @property (nonatomic, assign) LMErrorHandlerFunctionPtr function;
 @property (nonatomic, assign) void *userData;
-@property (nonatomic, assign) LMErrorHandlerBlock block;
+@property (nonatomic, copy) LMErrorHandlerBlock block;
 @property (nonatomic, assign) id <LMErrorHandlerDelegate> delegate;
 @property (nonatomic, assign) LMErrorHandlerCallbackType callbackType;
 
