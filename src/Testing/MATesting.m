@@ -32,12 +32,50 @@ void MAT_Test(void (*func)(void), const char *name)
 
 @implementation MATesting
 
+void runMethodWithNameOnReceiver(id receiver, NSArray *methods, NSString *name) {
+    for (RTMethod *method in methods) {
+        NSString *methodName = NSStringFromSelector([method selector]);
+        if ([methodName hasPrefix:name]) {
+            [receiver performSelector:[method selector]];
+            return;
+        }
+    }
+}
+
 + (void)runTests {
+    // Find all subclasses of our testing base class.
     NSArray *testClasses = [MATesting rt_subclasses];
     for (Class testClass in testClasses) {
-        for (RTMethod *method in [testClass rt_methods]) {
-            NSLog(@"method: %@", method);
-        }
+        MAT_WithPool(^{
+
+            // Create an instance of each testing class.
+            id receiver = [[[testClass alloc] init] autorelease];
+            NSArray *methods = [testClass rt_methods];
+
+            // If it exists, run the setUpClass method on the instance.
+            runMethodWithNameOnReceiver(receiver, methods, @"setUpClass");
+
+            // Send a message to any test method in the class.
+            for (RTMethod *method in methods) {
+                NSString *methodName = NSStringFromSelector([method selector]);
+                if ([methodName hasPrefix:@"test"]) {
+                    MAT_WithPool(^{
+
+                        // If it exists, run the setUp method on the instance.
+                        runMethodWithNameOnReceiver(receiver, methods, @"setUp");
+
+                        // Perform the test method now.
+                        [receiver performSelector:[method selector]];
+
+                        // If it exists, run the tearDown method on the instance.
+                        runMethodWithNameOnReceiver(receiver, methods, @"tearDown");
+                    });
+                }
+            }
+
+            // If it exists, run the tearDownClass method on the instance.
+            runMethodWithNameOnReceiver(receiver, methods, @"tearDownClass");
+        });
     }
 }
 
