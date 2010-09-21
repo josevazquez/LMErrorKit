@@ -43,39 +43,54 @@ void runMethodWithNameOnReceiver(id receiver, NSArray *methods, NSString *name) 
 }
 
 + (void)runTests {
-    // Find all subclasses of our testing base class.
-    NSArray *testClasses = [MATesting rt_subclasses];
-    for (Class testClass in testClasses) {
-        MAT_WithPool(^{
+    @try {
+        gMAT_FailureCount = 0;
 
-            // Create an instance of each testing class.
-            id receiver = [[[testClass alloc] init] autorelease];
-            NSArray *methods = [testClass rt_methods];
+        // Find all subclasses of our testing base class.
+        NSArray *testClasses = [MATesting rt_subclasses];
+        for (Class testClass in testClasses) {
+            MAT_WithPool(^{
 
-            // If it exists, run the setUpClass method on the instance.
-            runMethodWithNameOnReceiver(receiver, methods, @"setUpClass");
+                // Create an instance of each testing class.
+                id receiver = [[[testClass alloc] init] autorelease];
+                NSArray *methods = [testClass rt_methods];
 
-            // Send a message to any test method in the class.
-            for (RTMethod *method in methods) {
-                NSString *methodName = NSStringFromSelector([method selector]);
-                if ([methodName hasPrefix:@"test"]) {
-                    MAT_WithPool(^{
+                // If it exists, run the setUpClass method on the instance.
+                runMethodWithNameOnReceiver(receiver, methods, @"setUpClass");
 
-                        // If it exists, run the setUp method on the instance.
-                        runMethodWithNameOnReceiver(receiver, methods, @"setUp");
+                // Send a message to any test method in the class.
+                for (RTMethod *method in methods) {
+                    NSString *methodName = NSStringFromSelector([method selector]);
+                    if ([methodName hasPrefix:@"test"]) {
+                        MAT_WithPool(^{
 
-                        // Perform the test method now.
-                        [receiver performSelector:[method selector]];
+                            // If it exists, run the setUp method on the instance.
+                            runMethodWithNameOnReceiver(receiver, methods, @"setUp");
 
-                        // If it exists, run the tearDown method on the instance.
-                        runMethodWithNameOnReceiver(receiver, methods, @"tearDown");
-                    });
+                            // Perform the test method now.
+                            [receiver performSelector:[method selector]];
+
+                            // If it exists, run the tearDown method on the instance.
+                            runMethodWithNameOnReceiver(receiver, methods, @"tearDown");
+                        });
+                    }
                 }
-            }
 
-            // If it exists, run the tearDownClass method on the instance.
-            runMethodWithNameOnReceiver(receiver, methods, @"tearDownClass");
-        });
+                // If it exists, run the tearDownClass method on the instance.
+                runMethodWithNameOnReceiver(receiver, methods, @"tearDownClass");
+            });
+        }
+
+        NSString *message;
+        if(gMAT_FailureCount) {
+            message = [NSString stringWithFormat: @"FAILED: %d total assertion failure%s", gMAT_FailureCount, gMAT_FailureCount > 1 ? "s" : ""];
+        } else {
+            message = @"SUCCESS";
+        }
+        NSLog(@"Tests complete: %@", message);
+    }
+    @catch(id exception) {
+        NSLog(@"FAILED: exception: %@", exception);
     }
 }
 
