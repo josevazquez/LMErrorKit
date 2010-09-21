@@ -17,7 +17,7 @@
 
 - (IBAction)throwPOSIXError:(id)sender;
 - (IBAction)selectHandleType:(id)sender;
-
+- (IBAction)runTests:(id)sender;
 
 @property (assign) IBOutlet NSWindow *window;
 @property (nonatomic, retain) LMErrorHandler *errorHandler;

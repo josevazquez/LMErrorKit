@@ -15,6 +15,7 @@
 		820BBDFD1248661B00DEBE59 /* RTIvar.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BBDDC1248661B00DEBE59 /* RTIvar.m */; };
 		820BBDFE1248661B00DEBE59 /* RTMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BBDDE1248661B00DEBE59 /* RTMethod.m */; };
 		820BBDFF1248661B00DEBE59 /* RTUnregisteredClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BBDE01248661B00DEBE59 /* RTUnregisteredClass.m */; };
+		820BBE091248802A00DEBE59 /* LMErrorHandlerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BBE081248802A00DEBE59 /* LMErrorHandlerTest.m */; };
 		82F30DC2124427CB00A441FC /* LMErrorHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 82F30DC0124427CB00A441FC /* LMErrorHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82F30DC3124427CB00A441FC /* LMErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F30DC1124427CB00A441FC /* LMErrorHandler.m */; };
 		82F30DD61244333C00A441FC /* LMErrorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F30DB5124426AD00A441FC /* LMErrorKit.framework */; };
@@ -71,6 +72,8 @@
 		820BBDDE1248661B00DEBE59 /* RTMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTMethod.m; sourceTree = "<group>"; };
 		820BBDDF1248661B00DEBE59 /* RTUnregisteredClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTUnregisteredClass.h; sourceTree = "<group>"; };
 		820BBDE01248661B00DEBE59 /* RTUnregisteredClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTUnregisteredClass.m; sourceTree = "<group>"; };
+		820BBE071248802A00DEBE59 /* LMErrorHandlerTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMErrorHandlerTest.h; sourceTree = "<group>"; };
+		820BBE081248802A00DEBE59 /* LMErrorHandlerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMErrorHandlerTest.m; sourceTree = "<group>"; };
 		82F30DB5124426AD00A441FC /* LMErrorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LMErrorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82F30DB6124426AD00A441FC /* LMErrorKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LMErrorKit-Info.plist"; sourceTree = "<group>"; };
 		82F30DC0124427CB00A441FC /* LMErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMErrorHandler.h; sourceTree = "<group>"; };
@@ -183,6 +186,8 @@
 			children = (
 				820BBD881247F08100DEBE59 /* MATesting.h */,
 				820BBD891247F08100DEBE59 /* MATesting.m */,
+				820BBE071248802A00DEBE59 /* LMErrorHandlerTest.h */,
+				820BBE081248802A00DEBE59 /* LMErrorHandlerTest.m */,
 			);
 			path = Testing;
 			sourceTree = "<group>";
@@ -342,6 +347,7 @@
 				820BBDFD1248661B00DEBE59 /* RTIvar.m in Sources */,
 				820BBDFE1248661B00DEBE59 /* RTMethod.m in Sources */,
 				820BBDFF1248661B00DEBE59 /* RTUnregisteredClass.m in Sources */,
+				820BBE091248802A00DEBE59 /* LMErrorHandlerTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

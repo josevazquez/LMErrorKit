@@ -131,6 +131,9 @@ void userDataDestructor(void *ptr) {
     }
 }
 
+- (IBAction)runTests:(id)sender {
+    [MATesting runTests];
+}
 
 #pragma mark -
 #pragma mark Accessors
