@@ -69,13 +69,19 @@ NSString * const kHandlerTypeDelegate = @"kHandlerTypeDelegate";
     return kLMErrorHandlerResultErrorPassed;
 }
 
-LMErrorHandlerResult errorHandlerFunctionForTest(NSError *error, void *message) {
-    NSLog(@"** Function with User Data: %s **, %@", message, error);
-    return kLMErrorHandlerResultErrorHandled;
+LMErrorHandlerResult errorHandlerFunctionForTest(NSError *error, void *selfPtr) {
+    LMErrorHandlerTest *self = selfPtr;
+    self.aString = kUltimateQuestion;
+    self.handlerType = kHandlerTypeFunction;
+    if ([error code] == kPOSIXErrorEINPROGRESS) {
+        return kLMErrorHandlerResultErrorHandled;
+    }
+    return kLMErrorHandlerResultErrorPassed;
 }
 
-void userDataDestructorForTest(void *ptr) {
-    NSLog(@"Data Destructor was called with pointer to 0x%08X", ptr);
+void userDataDestructorForTest(void *selfPtr) {
+    LMErrorHandlerTest *self = selfPtr;
+    self.aNumber = kUltimateAnswer;
 }
 
 - (LMErrorHandlerResult)handleLMError:(NSError *)error {
@@ -93,15 +99,15 @@ void userDataDestructorForTest(void *ptr) {
     NSError *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorEINPROGRESS userInfo:nil];
     LMErrorHandlerResult result = [errorHandler handleError:error];
 
-    TEST_ASSERT(result=kLMErrorHandlerResultErrorHandled);
-    TEST_ASSERT(self.aNumber = kUltimateAnswer);
+    TEST_ASSERT(result == kLMErrorHandlerResultErrorHandled);
+    TEST_ASSERT(self.aNumber == kUltimateAnswer);
     TEST_ASSERT([self.aString isEqualTo:kUltimateQuestion]);
     TEST_ASSERT([self.handlerType isEqualTo:kHandlerTypeSelector]);
 
     error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorENXIO userInfo:nil];
     result = [errorHandler handleError:error];
 
-    TEST_ASSERT(result==kLMErrorHandlerResultErrorPassed);
+    TEST_ASSERT(result == kLMErrorHandlerResultErrorPassed);
 }
 
 - (void)testSelectorHandlerWithUserObject {
@@ -112,21 +118,44 @@ void userDataDestructorForTest(void *ptr) {
     NSError *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorEINPROGRESS userInfo:nil];
     LMErrorHandlerResult result = [errorHandler handleError:error];
 
-    TEST_ASSERT(result=kLMErrorHandlerResultErrorHandled);
-    TEST_ASSERT(self.aNumber = kUltimateAnswer);
+    TEST_ASSERT(result == kLMErrorHandlerResultErrorHandled);
+    TEST_ASSERT(self.aNumber == kUltimateAnswer);
     TEST_ASSERT([self.aString isEqualTo:kUltimateQuestion]);
     TEST_ASSERT([self.handlerType isEqualTo:kHandlerTypeSelectorWithUserObject]);
 
     error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorENXIO userInfo:nil];
     result = [errorHandler handleError:error];
 
-    TEST_ASSERT(result==kLMErrorHandlerResultErrorPassed);
+    TEST_ASSERT(result == kLMErrorHandlerResultErrorPassed);
 }
 
-
 - (void)testFunctionHandler {
-    TEST_ASSERT(NO);
-    NSLog(@"testFunctionHandler Invoked!!");
+    // We need an autorelease pool here to test the destructor callback.
+    MAT_WithPool(^{
+        LMErrorHandler *errorHandler = [LMErrorHandler errorHandlerWithFunction:errorHandlerFunctionForTest
+                                                                       userData:self
+                                                                     destructor:userDataDestructorForTest];
+
+        NSError *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorEINPROGRESS userInfo:nil];
+        LMErrorHandlerResult result = [errorHandler handleError:error];
+
+        TEST_ASSERT(result == kLMErrorHandlerResultErrorHandled);
+        // aNumber should still be 0 before the destructor is called.
+        TEST_ASSERT(self.aNumber == 0);
+        TEST_ASSERT([self.aString isEqualTo:kUltimateQuestion]);
+        TEST_ASSERT([self.handlerType isEqualTo:kHandlerTypeFunction]);
+    });
+    //Verifies that destructor function sets aNumber
+    TEST_ASSERT(self.aNumber == kUltimateAnswer);
+
+    LMErrorHandler *errorHandler = [LMErrorHandler errorHandlerWithFunction:errorHandlerFunctionForTest
+                                                                   userData:self
+                                                                 destructor:userDataDestructorForTest];
+
+    NSError *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorENXIO userInfo:nil];
+    LMErrorHandlerResult result = [errorHandler handleError:error];
+
+    TEST_ASSERT(result == kLMErrorHandlerResultErrorPassed);
 }
 
 - (void)testSetup {
