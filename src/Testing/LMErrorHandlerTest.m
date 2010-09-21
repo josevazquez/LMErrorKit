@@ -158,6 +158,31 @@ void userDataDestructorForTest(void *selfPtr) {
     TEST_ASSERT(result == kLMErrorHandlerResultErrorPassed);
 }
 
+- (void)testBlockHandler {
+    LMErrorHandler *errorHandler = [LMErrorHandler errorHandlerWithBlock:^(id error) {
+        self.aString = kUltimateQuestion;
+        self.aNumber = kUltimateAnswer;
+        self.handlerType = kHandlerTypeBlock;
+        if ([error code] == kPOSIXErrorEINPROGRESS) {
+            return kLMErrorHandlerResultErrorHandled;
+        }
+        return kLMErrorHandlerResultErrorPassed;
+    }];
+
+    NSError *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorEINPROGRESS userInfo:nil];
+    LMErrorHandlerResult result = [errorHandler handleError:error];
+
+    TEST_ASSERT(result == kLMErrorHandlerResultErrorHandled);
+    TEST_ASSERT(self.aNumber == kUltimateAnswer);
+    TEST_ASSERT([self.aString isEqualTo:kUltimateQuestion]);
+    TEST_ASSERT([self.handlerType isEqualTo:kHandlerTypeBlock]);
+
+    error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorENXIO userInfo:nil];
+    result = [errorHandler handleError:error];
+
+    TEST_ASSERT(result == kLMErrorHandlerResultErrorPassed);
+}
+
 - (void)testSetup {
     TEST_ASSERT(self.aNumber == 0);
     TEST_ASSERT(self.aString == nil);
