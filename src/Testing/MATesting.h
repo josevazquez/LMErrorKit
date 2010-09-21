@@ -30,4 +30,6 @@ void MAT_Test(void (*func)(void), const char *name);
 
 }
 
++ (void)runTests;
+
 @end

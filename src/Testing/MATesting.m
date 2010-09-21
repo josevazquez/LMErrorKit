@@ -7,7 +7,7 @@
 */
 
 #import "MATesting.h"
-
+#import "MARTNSObject.h"
 
 
 void MAT_WithPool(void (^block)(void))
@@ -31,5 +31,14 @@ void MAT_Test(void (*func)(void), const char *name)
 
 
 @implementation MATesting
+
++ (void)runTests {
+    NSArray *testClasses = [MATesting rt_subclasses];
+    for (Class testClass in testClasses) {
+        for (RTMethod *method in [testClass rt_methods]) {
+            NSLog(@"method: %@", method);
+        }
+    }
+}
 
 @end
