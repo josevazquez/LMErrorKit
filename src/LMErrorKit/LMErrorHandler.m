@@ -80,6 +80,7 @@ void throwError(NSError *error) {
 
     // Verify that selector takes two (id) arguments
     if ([errorHandler validArgumentCountForSelectorHandler] != 2) {
+        #warning Try using the wrong Handler to check user experience on error.
         throwError([NSError errorWithDomain:NSOSStatusErrorDomain code:kEINVALErr userInfo:nil]);
         return nil;
     }
