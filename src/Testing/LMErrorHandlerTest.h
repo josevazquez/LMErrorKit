@@ -8,8 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MATesting.h"
+#import <LMErrorKit/LMErrorHandlerDelegate.h>
 
-@interface LMErrorHandlerTest : MATesting {
+@interface LMErrorHandlerTest : MATesting <LMErrorHandlerDelegate> {
     NSInteger _aNumber;
     NSString *_aString;
     NSString *_handlerType;
