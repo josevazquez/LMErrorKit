@@ -22,33 +22,31 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
 }
 
 - (void)setUpClass {
-    [[LMErrorManager sharedLMErrorManager] pushHandler:[LMErrorHandler errorHandlerWithBlock:^(id error) {
+    pushErrorHandlerBlock(^(id error) {
         NSLog(@"kPOSIXErrorEINPROGRESS Handler");
         if ([error code] == kPOSIXErrorEINPROGRESS) {
             self.handlerName = kHandlerNamePOSIXErrorEINPROGRESS;
             return kLMHandled;
         }
         return kLMPassed;
-    }]];
-    [[LMErrorManager sharedLMErrorManager] pushHandler:[LMErrorHandler errorHandlerWithBlock:^(id error) {
+    })
+    pushErrorHandlerBlock(^(id error) {
         NSLog(@"kPOSIXErrorENXIO Handler");
         if ([error code] == kPOSIXErrorENXIO) {
             self.handlerName = kHandlerNamePOSIXErrorENXIO;
             return kLMHandled;
         }
         return kLMPassed;
-    }]];
+    })
 }
 
 - (void)testBlockHandler {
-    NSError *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorEINPROGRESS userInfo:nil];
-    LMErrorResult result = [[LMErrorManager sharedLMErrorManager] handleError:error];
+    LMErrorResult result = postPOSIXError(kPOSIXErrorEINPROGRESS);
 
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqual:kHandlerNamePOSIXErrorEINPROGRESS]);
 
-    error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorENXIO userInfo:nil];
-    result = [[LMErrorManager sharedLMErrorManager] handleError:error];
+    result = postPOSIXError(kPOSIXErrorENXIO);
 
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqual:kHandlerNamePOSIXErrorENXIO]);
