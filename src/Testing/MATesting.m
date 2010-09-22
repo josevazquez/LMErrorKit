@@ -8,7 +8,7 @@
 
 #import "MATesting.h"
 #import "MARTNSObject.h"
-
+#import "RTMethod.h"
 
 void MAT_WithPool(void (^block)(void))
 {
@@ -34,7 +34,7 @@ void MAT_Test(void (*func)(void), const char *name)
 
 void runMethodWithNameOnReceiver(id receiver, NSArray *methods, NSString *name) {
     for (RTMethod *method in methods) {
-        NSString *methodName = NSStringFromSelector([method selector]);
+        NSString *methodName = [method selectorName];
         if ([methodName hasPrefix:name]) {
             [receiver performSelector:[method selector]];
             return;
@@ -60,7 +60,7 @@ void runMethodWithNameOnReceiver(id receiver, NSArray *methods, NSString *name) 
 
                 // Send a message to any test method in the class.
                 for (RTMethod *method in methods) {
-                    NSString *methodName = NSStringFromSelector([method selector]);
+                    NSString *methodName = [method selectorName];
                     if ([methodName hasPrefix:@"test"]) {
                         MAT_WithPool(^{
 

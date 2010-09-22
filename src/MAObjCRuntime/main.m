@@ -199,6 +199,58 @@ static void TestEquality(void)
     TEST_ASSERT([set count] == 2);
 }
 
+static void TestMessageSending(void)
+{
+    id obj1 = [[[NSObject rt_class] rt_methodForSelector: @selector(alloc)] sendToTarget: [NSObject class]];
+    id obj2;
+    [[[NSObject rt_class] rt_methodForSelector: @selector(alloc)] returnValue: &obj2 sendToTarget: [NSObject class]];
+    
+    TEST_ASSERT(obj1);
+    TEST_ASSERT(obj2);
+    
+    BOOL equal;
+    [[NSObject rt_methodForSelector: @selector(isEqual:)] returnValue: &equal sendToTarget: obj1, RTARG(obj1)];
+    TEST_ASSERT(equal);
+    [[NSObject rt_methodForSelector: @selector(isEqual:)] returnValue: &equal sendToTarget: obj1, RTARG(obj2)];
+    TEST_ASSERT(!equal);
+    
+    [obj1 release];
+    [obj2 release];
+}
+
+static void TestMessageSendingNSObjectCategory(void)
+{
+    id obj1 = [NSObject rt_sendMethod: [[NSObject rt_class] rt_methodForSelector: @selector(alloc)]];
+    id obj2;
+    [NSObject rt_returnValue: &obj2 sendMethod: [[NSObject rt_class] rt_methodForSelector: @selector(alloc)]];
+    
+    TEST_ASSERT(obj1);
+    TEST_ASSERT(obj2);
+    
+    BOOL equal;
+    [obj1 rt_returnValue: &equal sendMethod: [NSObject rt_methodForSelector: @selector(isEqual:)], RTARG(obj1)];
+    TEST_ASSERT(equal);
+    [obj1 rt_returnValue: &equal sendMethod: [NSObject rt_methodForSelector: @selector(isEqual:)], RTARG(obj2)];
+    TEST_ASSERT(!equal);
+    
+    [obj1 release];
+    [obj2 release];
+    
+    obj1 = [NSObject rt_sendSelector: @selector(alloc)];
+    [NSObject rt_returnValue: &obj2 sendSelector: @selector(alloc)];
+    
+    TEST_ASSERT(obj1);
+    TEST_ASSERT(obj2);
+    
+    [obj1 rt_returnValue: &equal sendSelector: @selector(isEqual:), RTARG(obj1)];
+    TEST_ASSERT(equal);
+    [obj1 rt_returnValue: &equal sendSelector: @selector(isEqual:), RTARG(obj2)];
+    TEST_ASSERT(!equal);
+    
+    [obj1 release];
+    [obj2 release];
+}
+
 int main(int argc, char **argv)
 {
     @try
@@ -217,6 +269,8 @@ int main(int argc, char **argv)
             TEST(TestIvarQuery);
             TEST(TestIvarAdd);
             TEST(TestEquality);
+            TEST(TestMessageSending);
+            TEST(TestMessageSendingNSObjectCategory);
             
             NSString *message;
             if(gFailureCount)
