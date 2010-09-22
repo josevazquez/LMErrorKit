@@ -7,13 +7,15 @@
 */
 
 #import <Cocoa/Cocoa.h>
-@class LMErrorHandler;
+#import "LMErrorKit.h"
 
 @interface LMErrorManager : NSObject {
 
 }
 
++ (id)sharedLMErrorManager;
+
 - (void)pushHandler:(LMErrorHandler *)handler;
 - (void)popHandler;
-
+- (LMErrorResult)handleError:(NSError *)error;
 @end
