@@ -18,6 +18,7 @@
 		820BBE091248802A00DEBE59 /* LMErrorHandlerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BBE081248802A00DEBE59 /* LMErrorHandlerTest.m */; };
 		820BC026124979FD00DEBE59 /* LMErrorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 820BC024124979FD00DEBE59 /* LMErrorManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		820BC027124979FD00DEBE59 /* LMErrorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BC025124979FD00DEBE59 /* LMErrorManager.m */; };
+		820BC07A1249A5F100DEBE59 /* LMErrorManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BC0791249A5F100DEBE59 /* LMErrorManagerTest.m */; };
 		82F30DC2124427CB00A441FC /* LMErrorHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 82F30DC0124427CB00A441FC /* LMErrorHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82F30DC3124427CB00A441FC /* LMErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F30DC1124427CB00A441FC /* LMErrorHandler.m */; };
 		82F30DD61244333C00A441FC /* LMErrorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F30DB5124426AD00A441FC /* LMErrorKit.framework */; };
@@ -78,6 +79,8 @@
 		820BBE081248802A00DEBE59 /* LMErrorHandlerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMErrorHandlerTest.m; sourceTree = "<group>"; };
 		820BC024124979FD00DEBE59 /* LMErrorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMErrorManager.h; sourceTree = "<group>"; };
 		820BC025124979FD00DEBE59 /* LMErrorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMErrorManager.m; sourceTree = "<group>"; };
+		820BC0781249A5F100DEBE59 /* LMErrorManagerTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMErrorManagerTest.h; sourceTree = "<group>"; };
+		820BC0791249A5F100DEBE59 /* LMErrorManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMErrorManagerTest.m; sourceTree = "<group>"; };
 		82F30DB5124426AD00A441FC /* LMErrorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LMErrorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82F30DB6124426AD00A441FC /* LMErrorKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LMErrorKit-Info.plist"; sourceTree = "<group>"; };
 		82F30DC0124427CB00A441FC /* LMErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMErrorHandler.h; sourceTree = "<group>"; };
@@ -192,6 +195,8 @@
 				820BBD891247F08100DEBE59 /* MATesting.m */,
 				820BBE071248802A00DEBE59 /* LMErrorHandlerTest.h */,
 				820BBE081248802A00DEBE59 /* LMErrorHandlerTest.m */,
+				820BC0781249A5F100DEBE59 /* LMErrorManagerTest.h */,
+				820BC0791249A5F100DEBE59 /* LMErrorManagerTest.m */,
 			);
 			path = Testing;
 			sourceTree = "<group>";
@@ -356,6 +361,7 @@
 				820BBDFE1248661B00DEBE59 /* RTMethod.m in Sources */,
 				820BBDFF1248661B00DEBE59 /* RTUnregisteredClass.m in Sources */,
 				820BBE091248802A00DEBE59 /* LMErrorHandlerTest.m in Sources */,
+				820BC07A1249A5F100DEBE59 /* LMErrorManagerTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
