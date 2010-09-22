@@ -120,13 +120,13 @@ void throwError(NSError *error) {
 
 #pragma mark -
 #pragma mark Using an LMErrorHandler
-- (LMErrorHandlerResult)handleError:(NSError *)error {
-    LMErrorHandlerResult result = kLMErrorHandlerResultUndefined;
+- (LMErrorResult)handleError:(NSError *)error {
+    LMErrorResult result = kLMUndefined;
     switch (self.callbackType) {
         case kLMErrorHandlerCallbackTypeSelector:
             if ([self validArgumentCountForSelectorHandler] == 1) {
                 // declare the method function pointer
-                LMErrorHandlerResult (*methodPointer)(id self, SEL _cmd, id error);
+                LMErrorResult (*methodPointer)(id self, SEL _cmd, id error);
 
                 // fetch the pointer, cast to avoid warnings
                 methodPointer = (void *)[self.receiver methodForSelector:self.selector];
@@ -136,7 +136,7 @@ void throwError(NSError *error) {
             }
             if ([self validArgumentCountForSelectorHandler] == 2) {
                 // declare the method function pointer
-                LMErrorHandlerResult (*methodPointer)(id self, SEL _cmd, id error, id userObject);
+                LMErrorResult (*methodPointer)(id self, SEL _cmd, id error, id userObject);
 
                 // fetch the pointer, cast to avoid warnings
                 methodPointer = (void *)[self.receiver methodForSelector:self.selector];

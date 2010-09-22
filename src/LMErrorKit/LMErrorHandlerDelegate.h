@@ -9,13 +9,15 @@
 
 // Return constants for error handlers.
 enum LMErrorHandlerResult {
-    kLMErrorHandlerResultUndefined = 0,
-    kLMErrorHandlerResultErrorHandled,
-    kLMErrorHandlerResultErrorPassed
+    kLMUndefined = 0,
+    kLMHandled,
+    kLMResolved,
+    kLMPassed,
+    kLMInternalError = 0xDEADBEEF
 };
-typedef int LMErrorHandlerResult;
+typedef int LMErrorResult;
 
 @protocol LMErrorHandlerDelegate <NSObject>
 @required
-- (LMErrorHandlerResult)handleLMError:(NSError *)error;
+- (LMErrorResult)handleLMError:(NSError *)error;
 @end

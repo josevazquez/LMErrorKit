@@ -49,34 +49,34 @@ NSString * const kHandlerTypeDelegate = @"kHandlerTypeDelegate";
 
 #pragma mark -
 #pragma mark Error Handlers
-- (LMErrorHandlerResult)handleError:(NSError *)error {
+- (LMErrorResult)handleError:(NSError *)error {
     self.aString = kUltimateQuestion;
     self.aNumber = kUltimateAnswer;
     self.handlerType = kHandlerTypeSelector;
     if ([error code] == kPOSIXErrorEINPROGRESS) {
-        return kLMErrorHandlerResultErrorHandled;
+        return kLMHandled;
     }
-    return kLMErrorHandlerResultErrorPassed;
+    return kLMPassed;
 }
 
-- (LMErrorHandlerResult)handleError:(NSError *)error andMessage:(NSString *)message {
+- (LMErrorResult)handleError:(NSError *)error andMessage:(NSString *)message {
     self.aString = message;
     self.aNumber = kUltimateAnswer;
     self.handlerType = kHandlerTypeSelectorWithUserObject;
     if ([error code] == kPOSIXErrorEINPROGRESS) {
-        return kLMErrorHandlerResultErrorHandled;
+        return kLMHandled;
     }
-    return kLMErrorHandlerResultErrorPassed;
+    return kLMPassed;
 }
 
-LMErrorHandlerResult errorHandlerFunctionForTest(NSError *error, void *selfPtr) {
+LMErrorResult errorHandlerFunctionForTest(NSError *error, void *selfPtr) {
     LMErrorHandlerTest *self = selfPtr;
     self.aString = kUltimateQuestion;
     self.handlerType = kHandlerTypeFunction;
     if ([error code] == kPOSIXErrorEINPROGRESS) {
-        return kLMErrorHandlerResultErrorHandled;
+        return kLMHandled;
     }
-    return kLMErrorHandlerResultErrorPassed;
+    return kLMPassed;
 }
 
 void userDataDestructorForTest(void *selfPtr) {
@@ -84,14 +84,14 @@ void userDataDestructorForTest(void *selfPtr) {
     self.aNumber = kUltimateAnswer;
 }
 
-- (LMErrorHandlerResult)handleLMError:(NSError *)error {
+- (LMErrorResult)handleLMError:(NSError *)error {
     self.aString = kUltimateQuestion;
     self.aNumber = kUltimateAnswer;
     self.handlerType = kHandlerTypeDelegate;
     if ([error code] == kPOSIXErrorEINPROGRESS) {
-        return kLMErrorHandlerResultErrorHandled;
+        return kLMHandled;
     }
-    return kLMErrorHandlerResultErrorPassed;
+    return kLMPassed;
 }
 
 
@@ -102,9 +102,9 @@ void userDataDestructorForTest(void *selfPtr) {
                                                                    selector:@selector(handleError:)];
 
     NSError *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorEINPROGRESS userInfo:nil];
-    LMErrorHandlerResult result = [errorHandler handleError:error];
+    LMErrorResult result = [errorHandler handleError:error];
 
-    TEST_ASSERT(result == kLMErrorHandlerResultErrorHandled);
+    TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT(self.aNumber == kUltimateAnswer);
     TEST_ASSERT([self.aString isEqualTo:kUltimateQuestion]);
     TEST_ASSERT([self.handlerType isEqualTo:kHandlerTypeSelector]);
@@ -112,7 +112,7 @@ void userDataDestructorForTest(void *selfPtr) {
     error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorENXIO userInfo:nil];
     result = [errorHandler handleError:error];
 
-    TEST_ASSERT(result == kLMErrorHandlerResultErrorPassed);
+    TEST_ASSERT(result == kLMPassed);
 }
 
 - (void)testSelectorHandlerWithUserObject {
@@ -121,9 +121,9 @@ void userDataDestructorForTest(void *selfPtr) {
                                                                  userObject:kUltimateQuestion];
 
     NSError *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorEINPROGRESS userInfo:nil];
-    LMErrorHandlerResult result = [errorHandler handleError:error];
+    LMErrorResult result = [errorHandler handleError:error];
 
-    TEST_ASSERT(result == kLMErrorHandlerResultErrorHandled);
+    TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT(self.aNumber == kUltimateAnswer);
     TEST_ASSERT([self.aString isEqualTo:kUltimateQuestion]);
     TEST_ASSERT([self.handlerType isEqualTo:kHandlerTypeSelectorWithUserObject]);
@@ -131,7 +131,7 @@ void userDataDestructorForTest(void *selfPtr) {
     error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorENXIO userInfo:nil];
     result = [errorHandler handleError:error];
 
-    TEST_ASSERT(result == kLMErrorHandlerResultErrorPassed);
+    TEST_ASSERT(result == kLMPassed);
 }
 
 - (void)testFunctionHandler {
@@ -142,9 +142,9 @@ void userDataDestructorForTest(void *selfPtr) {
                                                                      destructor:userDataDestructorForTest];
 
         NSError *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorEINPROGRESS userInfo:nil];
-        LMErrorHandlerResult result = [errorHandler handleError:error];
+        LMErrorResult result = [errorHandler handleError:error];
 
-        TEST_ASSERT(result == kLMErrorHandlerResultErrorHandled);
+        TEST_ASSERT(result == kLMHandled);
         // aNumber should still be 0 before the destructor is called.
         TEST_ASSERT(self.aNumber == 0);
         TEST_ASSERT([self.aString isEqualTo:kUltimateQuestion]);
@@ -158,9 +158,9 @@ void userDataDestructorForTest(void *selfPtr) {
                                                                  destructor:userDataDestructorForTest];
 
     NSError *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorENXIO userInfo:nil];
-    LMErrorHandlerResult result = [errorHandler handleError:error];
+    LMErrorResult result = [errorHandler handleError:error];
 
-    TEST_ASSERT(result == kLMErrorHandlerResultErrorPassed);
+    TEST_ASSERT(result == kLMPassed);
 }
 
 - (void)testBlockHandler {
@@ -169,15 +169,15 @@ void userDataDestructorForTest(void *selfPtr) {
         self.aNumber = kUltimateAnswer;
         self.handlerType = kHandlerTypeBlock;
         if ([error code] == kPOSIXErrorEINPROGRESS) {
-            return kLMErrorHandlerResultErrorHandled;
+            return kLMHandled;
         }
-        return kLMErrorHandlerResultErrorPassed;
+        return kLMPassed;
     }];
 
     NSError *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorEINPROGRESS userInfo:nil];
-    LMErrorHandlerResult result = [errorHandler handleError:error];
+    LMErrorResult result = [errorHandler handleError:error];
 
-    TEST_ASSERT(result == kLMErrorHandlerResultErrorHandled);
+    TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT(self.aNumber == kUltimateAnswer);
     TEST_ASSERT([self.aString isEqualTo:kUltimateQuestion]);
     TEST_ASSERT([self.handlerType isEqualTo:kHandlerTypeBlock]);
@@ -185,16 +185,16 @@ void userDataDestructorForTest(void *selfPtr) {
     error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorENXIO userInfo:nil];
     result = [errorHandler handleError:error];
 
-    TEST_ASSERT(result == kLMErrorHandlerResultErrorPassed);
+    TEST_ASSERT(result == kLMPassed);
 }
 
 - (void)testDelegateHandler {
     LMErrorHandler *errorHandler = [LMErrorHandler errorHandlerWithDelegate:self];
 
     NSError *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorEINPROGRESS userInfo:nil];
-    LMErrorHandlerResult result = [errorHandler handleError:error];
+    LMErrorResult result = [errorHandler handleError:error];
 
-    TEST_ASSERT(result == kLMErrorHandlerResultErrorHandled);
+    TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT(self.aNumber == kUltimateAnswer);
     TEST_ASSERT([self.aString isEqualTo:kUltimateQuestion]);
     TEST_ASSERT([self.handlerType isEqualTo:kHandlerTypeDelegate]);
@@ -202,7 +202,7 @@ void userDataDestructorForTest(void *selfPtr) {
     error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorENXIO userInfo:nil];
     result = [errorHandler handleError:error];
 
-    TEST_ASSERT(result == kLMErrorHandlerResultErrorPassed);
+    TEST_ASSERT(result == kLMPassed);
 }
 
 - (void)testSetup {

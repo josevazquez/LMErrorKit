@@ -48,28 +48,28 @@ static void TestFail(void) {
 
 #pragma mark -
 #pragma mark Error Handlers
-- (LMErrorHandlerResult)handleError:(NSError *)error {
+- (LMErrorResult)handleError:(NSError *)error {
     NSLog(@"** Selector **, %@", error);
-    return kLMErrorHandlerResultErrorHandled;
+    return kLMHandled;
 }
 
-- (LMErrorHandlerResult)handleError:(NSError *)error andMessage:(NSString *)message {
+- (LMErrorResult)handleError:(NSError *)error andMessage:(NSString *)message {
     NSLog(@"** Selector with User Object: %@ **, %@", message, error);
-    return kLMErrorHandlerResultErrorPassed;
+    return kLMPassed;
 }
 
-LMErrorHandlerResult errorHandlerFunction(NSError *error, void *message) {
+LMErrorResult errorHandlerFunction(NSError *error, void *message) {
     NSLog(@"** Function with User Data: %s **, %@", message, error);
-    return kLMErrorHandlerResultErrorHandled;
+    return kLMHandled;
 }
 
 void userDataDestructor(void *ptr) {
     NSLog(@"Data Destructor was called with pointer to 0x%08X", ptr);
 }
 
-- (LMErrorHandlerResult)handleLMError:(NSError *)error {
+- (LMErrorResult)handleLMError:(NSError *)error {
     NSLog(@"** Delegate **, %@", error);
-    return kLMErrorHandlerResultErrorHandled;
+    return kLMHandled;
 }
 
 
@@ -80,16 +80,16 @@ void userDataDestructor(void *ptr) {
     NSLog(@"POSIX error code: %d", errorCode);
     NSError *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:errorCode userInfo:nil];
 
-    LMErrorHandlerResult result = [self.errorHandler handleError:error];
+    LMErrorResult result = [self.errorHandler handleError:error];
 
     switch (result) {
-        case kLMErrorHandlerResultErrorHandled:
+        case kLMHandled:
             NSLog(@"Error was Handled");
             break;
-        case kLMErrorHandlerResultErrorPassed:
+        case kLMPassed:
             NSLog(@"Error was Passed");
             break;
-        case kLMErrorHandlerResultUndefined:
+        case kLMUndefined:
         default:
             NSLog(@"Error Handler returned an undefined result");
             break;
@@ -119,7 +119,7 @@ void userDataDestructor(void *ptr) {
             NSLog(@"Block");
             self.errorHandler = [LMErrorHandler errorHandlerWithBlock:^(id error) {
                 NSLog(@"** Block **, %@", error);
-                return kLMErrorHandlerResultErrorHandled;
+                return kLMHandled;
             }];
             break;
         case 4: // Delegate

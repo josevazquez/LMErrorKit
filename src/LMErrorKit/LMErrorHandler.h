@@ -26,7 +26,7 @@ typedef enum LMErrorHandlerCallbackType LMErrorHandlerCallbackType;
 
 
 // Type definition for error handling functions.
-typedef LMErrorHandlerResult (*LMErrorHandlerFunction) (NSError *error, void *userData);
+typedef LMErrorResult (*LMErrorHandlerFunction) (NSError *error, void *userData);
 
 // Type definitino for optional userData destructor.
 typedef void (*LMErrorHandlerContextDestructor) (void *ptr);
@@ -34,7 +34,7 @@ typedef void (*LMErrorHandlerContextDestructor) (void *ptr);
 
 // Type for error handling blocks
 // Takes an id for the NSError argument and returns an LMErrorHandlerResult
-typedef LMErrorHandlerResult (^LMErrorHandlerBlock)(id);
+typedef LMErrorResult (^LMErrorHandlerBlock)(id);
 
 
 @interface LMErrorHandler : NSObject {
@@ -59,6 +59,6 @@ typedef LMErrorHandlerResult (^LMErrorHandlerBlock)(id);
 + (LMErrorHandler *)errorHandlerWithBlock:(LMErrorHandlerBlock)block;
 + (LMErrorHandler *)errorHandlerWithDelegate:(id <LMErrorHandlerDelegate>)delegate;
 
-- (LMErrorHandlerResult)handleError:(NSError *)error;
+- (LMErrorResult)handleError:(NSError *)error;
 
 @end
