@@ -23,26 +23,6 @@ static void TestFail(void) {
 #pragma mark -
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     self.errorHandler = [LMErrorHandler errorHandlerWithReceiver:self selector:@selector(handleError:)];
-
-    @try
-    {
-        MAT_WithPool(^{
-            TEST(TestPass);
-            TEST(TestFail);
-
-            NSString *message;
-            if(gMAT_FailureCount)
-                message = [NSString stringWithFormat: @"FAILED: %d total assertion failure%s", gMAT_FailureCount, gMAT_FailureCount > 1 ? "s" : ""];
-            else
-                message = @"SUCCESS";
-            NSLog(@"Tests complete: %@", message);
-        });
-    }
-    @catch(id exception)
-    {
-        NSLog(@"FAILED: exception: %@", exception);
-    }
-
 }
 
 
