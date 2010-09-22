@@ -8,3 +8,4 @@
  */
 
 #import <LMErrorKit/LMErrorHandler.h>
+#import <LMErrorKit/LMErrorManager.h>
