@@ -36,6 +36,7 @@ NSString * const kLMErrorManagerCurrentStack = @"kLMErrorManagerCurrentStack";
     return stack;
 }
 
+
 #pragma mark -
 #pragma mark Handler Management
 - (void)pushHandler:(LMErrorHandler *)handler {
@@ -60,6 +61,11 @@ NSString * const kLMErrorManagerCurrentStack = @"kLMErrorManagerCurrentStack";
         #warning post internal Error here.
         abort();
     }
+
+    // This is the error handler of last resort.
+    NSLog(@"Aboorting Application due to unhandled error : %@", error);
+    abort();
+
     //last ditch here
     return kLMInternalError;
 }
