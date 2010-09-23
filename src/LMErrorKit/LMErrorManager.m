@@ -70,6 +70,14 @@ NSString * const kLMErrorManagerCurrentStack = @"kLMErrorManagerCurrentStack";
     return kLMInternalError;
 }
 
+
+#pragma mark -
+#pragma mark Accessors
+- (NSUInteger)handlerCountForCurrentThread {
+    return [[self stackForCurrentThread] count];
+}
+
+
 /*
 doWithHandler(^{
     stuffIwnat to doWithHandler

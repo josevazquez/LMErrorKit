@@ -13,9 +13,12 @@
 
 }
 
+@property (nonatomic, assign, readonly) NSUInteger handlerCountForCurrentThread;
+
 + (id)sharedLMErrorManager;
 
 - (void)pushHandler:(LMErrorHandler *)handler;
 - (void)popHandler;
 - (LMErrorResult)handleError:(NSError *)error;
+
 @end
