@@ -9,7 +9,4 @@
 
 #import <LMErrorKit/LMErrorHandler.h>
 #import <LMErrorKit/LMErrorManager.h>
-
-#define pushErrorHandlerBlock(block) [[LMErrorManager sharedLMErrorManager] pushHandler:[LMErrorHandler errorHandlerWithBlock:block]];
-
-#define postPOSIXError(posixCode) [[LMErrorManager sharedLMErrorManager] handleError:[NSError errorWithDomain:NSPOSIXErrorDomain code:posixCode userInfo:nil]];
+#import <LMErrorKit/LMErrorConvenience.h>

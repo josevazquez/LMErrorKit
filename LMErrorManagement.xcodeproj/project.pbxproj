@@ -19,6 +19,8 @@
 		820BC026124979FD00DEBE59 /* LMErrorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 820BC024124979FD00DEBE59 /* LMErrorManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		820BC027124979FD00DEBE59 /* LMErrorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BC025124979FD00DEBE59 /* LMErrorManager.m */; };
 		820BC07A1249A5F100DEBE59 /* LMErrorManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BC0791249A5F100DEBE59 /* LMErrorManagerTest.m */; };
+		820BC125124C102800DEBE59 /* LMErrorConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BC121124C0CB400DEBE59 /* LMErrorConvenience.m */; };
+		820BC12A124C108900DEBE59 /* LMErrorConvenience.h in Headers */ = {isa = PBXBuildFile; fileRef = 820BC120124C0CB400DEBE59 /* LMErrorConvenience.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82F30DC2124427CB00A441FC /* LMErrorHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 82F30DC0124427CB00A441FC /* LMErrorHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82F30DC3124427CB00A441FC /* LMErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F30DC1124427CB00A441FC /* LMErrorHandler.m */; };
 		82F30DD61244333C00A441FC /* LMErrorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F30DB5124426AD00A441FC /* LMErrorKit.framework */; };
@@ -81,6 +83,8 @@
 		820BC025124979FD00DEBE59 /* LMErrorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMErrorManager.m; sourceTree = "<group>"; };
 		820BC0781249A5F100DEBE59 /* LMErrorManagerTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMErrorManagerTest.h; sourceTree = "<group>"; };
 		820BC0791249A5F100DEBE59 /* LMErrorManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMErrorManagerTest.m; sourceTree = "<group>"; };
+		820BC120124C0CB400DEBE59 /* LMErrorConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMErrorConvenience.h; sourceTree = "<group>"; };
+		820BC121124C0CB400DEBE59 /* LMErrorConvenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMErrorConvenience.m; sourceTree = "<group>"; };
 		82F30DB5124426AD00A441FC /* LMErrorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LMErrorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82F30DB6124426AD00A441FC /* LMErrorKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LMErrorKit-Info.plist"; sourceTree = "<group>"; };
 		82F30DC0124427CB00A441FC /* LMErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMErrorHandler.h; sourceTree = "<group>"; };
@@ -226,6 +230,8 @@
 				82F30DB6124426AD00A441FC /* LMErrorKit-Info.plist */,
 				82F30E1D12444B2800A441FC /* LMErrorKit.h */,
 				820BBC781246B92900DEBE59 /* LMErrorHandlerDelegate.h */,
+				820BC120124C0CB400DEBE59 /* LMErrorConvenience.h */,
+				820BC121124C0CB400DEBE59 /* LMErrorConvenience.m */,
 			);
 			path = LMErrorKit;
 			sourceTree = "<group>";
@@ -248,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				82F30DC2124427CB00A441FC /* LMErrorHandler.h in Headers */,
+				820BC12A124C108900DEBE59 /* LMErrorConvenience.h in Headers */,
 				82F30E1E12444B2800A441FC /* LMErrorKit.h in Headers */,
 				820BBC791246B92900DEBE59 /* LMErrorHandlerDelegate.h in Headers */,
 				820BC026124979FD00DEBE59 /* LMErrorManager.h in Headers */,
@@ -346,6 +353,7 @@
 			files = (
 				82F30DC3124427CB00A441FC /* LMErrorHandler.m in Sources */,
 				820BC027124979FD00DEBE59 /* LMErrorManager.m in Sources */,
+				820BC125124C102800DEBE59 /* LMErrorConvenience.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
