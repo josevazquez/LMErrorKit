@@ -8,7 +8,7 @@
 
 #import "LMErrorHandler.h"
 
-NSString *const LMErrorInternalDomain = @"LMErrorInternalDomain";
+NSString *const LMErrorInternalDomain = @"com.littlemustard.LMErrorKit.InternalDomain";
 
 void throwError(NSError *error) {
     NSLog(@"failed to throw the error: %@", error);

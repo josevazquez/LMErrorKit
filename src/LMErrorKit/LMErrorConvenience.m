@@ -8,6 +8,8 @@
 
 #import "LMErrorConvenience.h"
 
+NSString *const kLMErrorFileNameErrorKey       = @"kLMErrorFileNameErrorKey";
+NSString *const kLMErrorFileLineNumberErrorKey = @"kLMErrorFileLineNumberErrorKey";
 
 @implementation LMErrorConvenience
 
