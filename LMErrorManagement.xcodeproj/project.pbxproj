@@ -21,7 +21,9 @@
 		820BC07A1249A5F100DEBE59 /* LMErrorManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BC0791249A5F100DEBE59 /* LMErrorManagerTest.m */; };
 		820BC125124C102800DEBE59 /* LMErrorConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BC121124C0CB400DEBE59 /* LMErrorConvenience.m */; };
 		820BC12A124C108900DEBE59 /* LMErrorConvenience.h in Headers */ = {isa = PBXBuildFile; fileRef = 820BC120124C0CB400DEBE59 /* LMErrorConvenience.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		82791696124E9794008AEA13 /* LMLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 82791695124E9794008AEA13 /* LMLog.m */; };
+		827916BD124F0EDA008AEA13 /* LMLogTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 827916BC124F0EDA008AEA13 /* LMLogTest.m */; };
+		827916BE124F0F0C008AEA13 /* LMLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 82791695124E9794008AEA13 /* LMLog.m */; };
+		827916C7124F1A7C008AEA13 /* LMLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 82791694124E9794008AEA13 /* LMLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82F30DC2124427CB00A441FC /* LMErrorHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 82F30DC0124427CB00A441FC /* LMErrorHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82F30DC3124427CB00A441FC /* LMErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F30DC1124427CB00A441FC /* LMErrorHandler.m */; };
 		82F30DD61244333C00A441FC /* LMErrorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F30DB5124426AD00A441FC /* LMErrorKit.framework */; };
@@ -88,6 +90,8 @@
 		820BC121124C0CB400DEBE59 /* LMErrorConvenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMErrorConvenience.m; sourceTree = "<group>"; };
 		82791694124E9794008AEA13 /* LMLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMLog.h; sourceTree = "<group>"; };
 		82791695124E9794008AEA13 /* LMLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMLog.m; sourceTree = "<group>"; };
+		827916BB124F0EDA008AEA13 /* LMLogTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMLogTest.h; sourceTree = "<group>"; };
+		827916BC124F0EDA008AEA13 /* LMLogTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMLogTest.m; sourceTree = "<group>"; };
 		82F30DB5124426AD00A441FC /* LMErrorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LMErrorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82F30DB6124426AD00A441FC /* LMErrorKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LMErrorKit-Info.plist"; sourceTree = "<group>"; };
 		82F30DC0124427CB00A441FC /* LMErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMErrorHandler.h; sourceTree = "<group>"; };
@@ -204,6 +208,8 @@
 				820BBE081248802A00DEBE59 /* LMErrorHandlerTest.m */,
 				820BC0781249A5F100DEBE59 /* LMErrorManagerTest.h */,
 				820BC0791249A5F100DEBE59 /* LMErrorManagerTest.m */,
+				827916BB124F0EDA008AEA13 /* LMLogTest.h */,
+				827916BC124F0EDA008AEA13 /* LMLogTest.m */,
 			);
 			path = Testing;
 			sourceTree = "<group>";
@@ -266,6 +272,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				827916C7124F1A7C008AEA13 /* LMLog.h in Headers */,
 				82F30DC2124427CB00A441FC /* LMErrorHandler.h in Headers */,
 				820BC12A124C108900DEBE59 /* LMErrorConvenience.h in Headers */,
 				82F30E1E12444B2800A441FC /* LMErrorKit.h in Headers */,
@@ -367,6 +374,7 @@
 				82F30DC3124427CB00A441FC /* LMErrorHandler.m in Sources */,
 				820BC027124979FD00DEBE59 /* LMErrorManager.m in Sources */,
 				820BC125124C102800DEBE59 /* LMErrorConvenience.m in Sources */,
+				827916BE124F0F0C008AEA13 /* LMLog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,7 +391,7 @@
 				820BBDFF1248661B00DEBE59 /* RTUnregisteredClass.m in Sources */,
 				820BBE091248802A00DEBE59 /* LMErrorHandlerTest.m in Sources */,
 				820BC07A1249A5F100DEBE59 /* LMErrorManagerTest.m in Sources */,
-				82791696124E9794008AEA13 /* LMLog.m in Sources */,
+				827916BD124F0EDA008AEA13 /* LMLogTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
