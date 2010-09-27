@@ -18,23 +18,36 @@
 
 - (void)setUpClass {
     pushErrorHandlerBlock(^(id error) {
-        NSLog(@"LMLog Filter --------------");
         if ([[error domain] isEqualToString:kLMErrorLogDomain]) {
-            NSString *message = [[error userInfo] objectForKey:kLMLogMessageStringErrorKey];
-            NSString *fileName = [[error userInfo] objectForKey:kLMErrorFileNameErrorKey];
-            NSString *fileLineNumber = [[error userInfo] objectForKey:kLMErrorFileLineNumberErrorKey];
+            self.message = [[error userInfo] objectForKey:kLMLogMessageStringErrorKey];
+            self.fileName = [[error userInfo] objectForKey:kLMErrorFileNameErrorKey];
+            self.fileLineNumber = [[error userInfo] objectForKey:kLMErrorFileLineNumberErrorKey];
             
-            NSLog(@"%@:%@: %@", fileName, fileLineNumber, message);
+            //NSLog(@"%@:%@: %@", self.fileName, self.fileLineNumber, self.message);
             return kLMHandled;
         }
         return kLMPassed;
     })
 }
 
+- (void)setUp {
+    self.message = nil;
+    self.fileName = nil;
+    self.fileLineNumber = nil;
+}
 
 - (void)testDebug {
     DEBUG(@"Testing Debuggin Log: %@ %d", @"Hello World", 123);
+
+    TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMLogTest.m"]);
+    TEST_ASSERT([self.fileLineNumber isEqualToString:@"40"]);
+    TEST_ASSERT([self.message isEqualToString:@"Testing Debuggin Log: Hello World 123"]);
 }
 
 
+#pragma mark -
+#pragma mark Accessors
+@synthesize message;
+@synthesize fileName;
+@synthesize fileLineNumber;
 @end

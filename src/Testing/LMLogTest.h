@@ -10,7 +10,10 @@
 #import "MATesting.h"
 
 @interface LMLogTest : MATesting {
-
 }
+
+@property (nonatomic, retain) NSString *message;
+@property (nonatomic, retain) NSString *fileName;
+@property (nonatomic, retain) NSString *fileLineNumber;
 
 @end
