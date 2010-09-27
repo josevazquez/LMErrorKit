@@ -29,7 +29,7 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
             return kLMHandled;
         }
         return kLMPassed;
-    })
+    });
     pushErrorHandlerBlock(^(id error) {
         NSLog(@"kPOSIXErrorENXIO Handler");
         if ([error code] == kPOSIXErrorENXIO) {
@@ -37,7 +37,7 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
             return kLMHandled;
         }
         return kLMPassed;
-    })
+    });
 }
 
 - (void)testBlockHandler {
@@ -50,6 +50,33 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
 
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqual:kHandlerNamePOSIXErrorENXIO]);
+}
+
+- (void)testHandlerAdditionAndRemoval {
+    LMErrorResult result = postPOSIXError(kPOSIXErrorEINPROGRESS);
+    TEST_ASSERT(result == kLMHandled);
+    TEST_ASSERT([self.handlerName isEqual:kHandlerNamePOSIXErrorEINPROGRESS]);
+
+    self.handlerName = nil;
+
+    NSString *localHandler = @"This is the local handler";
+    pushErrorHandlerBlock(^(id error) {
+        if ([error code] == kPOSIXErrorEINPROGRESS) {
+            self.handlerName = localHandler;
+            return kLMHandled;
+        }
+        return kLMPassed;
+    })
+    result = postPOSIXError(kPOSIXErrorEINPROGRESS);
+    TEST_ASSERT(result == kLMHandled);
+    TEST_ASSERT([self.handlerName isEqual:localHandler]);
+
+    self.handlerName = nil;
+
+    popErrorHandler();
+    result = postPOSIXError(kPOSIXErrorEINPROGRESS);
+    TEST_ASSERT(result == kLMHandled);
+    TEST_ASSERT([self.handlerName isEqual:kHandlerNamePOSIXErrorEINPROGRESS]);
 }
 
 

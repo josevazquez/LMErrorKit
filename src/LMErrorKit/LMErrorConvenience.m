@@ -11,6 +11,12 @@
 NSString *const kLMErrorFileNameErrorKey       = @"kLMErrorFileNameErrorKey";
 NSString *const kLMErrorFileLineNumberErrorKey = @"kLMErrorFileLineNumberErrorKey";
 
+#warning figure out how to implement this as an inline function.
+/*inline void pushErrorHandlerBlock(LMErrorHandlerBlock myBlock) {
+    [[LMErrorManager sharedLMErrorManager] pushHandler:[LMErrorHandler errorHandlerWithBlock:myBlock]];
+}//*/
+
+
 @implementation LMErrorConvenience
 
 @end
