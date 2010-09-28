@@ -18,6 +18,8 @@ void MAT_WithPool(void (^block)(void))
 }
 
 int gMAT_FailureCount;
+int gMAT_AssertionCount;
+int gMAT_testCount;
 
 void MAT_Test(void (*func)(void), const char *name)
 {
@@ -45,6 +47,8 @@ void runMethodWithNameOnReceiver(id receiver, NSArray *methods, NSString *name) 
 + (void)runTests {
     @try {
         gMAT_FailureCount = 0;
+        gMAT_AssertionCount = 0;
+        gMAT_testCount = 0;
 
         // Find all subclasses of our testing base class.
         NSArray *testClasses = [MATesting rt_subclasses];
@@ -68,6 +72,7 @@ void runMethodWithNameOnReceiver(id receiver, NSArray *methods, NSString *name) 
                             runMethodWithNameOnReceiver(receiver, methods, @"setUp");
 
                             // Perform the test method now.
+                            gMAT_testCount++;
                             [receiver performSelector:[method selector]];
 
                             // If it exists, run the tearDown method on the instance.
@@ -87,7 +92,9 @@ void runMethodWithNameOnReceiver(id receiver, NSArray *methods, NSString *name) 
         } else {
             message = @"SUCCESS";
         }
-        NSLog(@"Tests complete: %@", message);
+        NSString *assertCountMessage = [NSString stringWithFormat: @"%d assertion%s", gMAT_AssertionCount, gMAT_AssertionCount > 1 ? "s" : ""];
+        NSString *testCountMessage = [NSString stringWithFormat: @"%d test%s", gMAT_testCount, gMAT_testCount > 1 ? "s" : ""];
+        NSLog(@"Tests complete. %@, %@: %@", testCountMessage, assertCountMessage, message);
     }
     @catch(id exception) {
         NSLog(@"FAILED: exception: %@", exception);
