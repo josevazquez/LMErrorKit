@@ -31,7 +31,8 @@ typedef LMErrorResult (*LMErrorHandlerFunction) (NSError *error, void *userData)
 typedef void (*LMErrorHandlerContextDestructor) (void *ptr);
 
 
+#if NS_BLOCKS_AVAILABLE
 // Type for error handling blocks
 // Takes an id for the NSError argument and returns an LMErrorHandlerResult
 typedef LMErrorResult (^LMErrorHandlerBlock)(id);
-
+#endif
