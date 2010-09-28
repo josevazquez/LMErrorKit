@@ -27,7 +27,7 @@
             return kLMHandled;
         }
         return kLMPassed;
-    })
+    });
 }
 
 - (void)setUp {

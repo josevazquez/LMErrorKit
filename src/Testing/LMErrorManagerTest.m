@@ -66,7 +66,7 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
             return kLMHandled;
         }
         return kLMPassed;
-    })
+    });
     result = postPOSIXError(kPOSIXErrorEINPROGRESS);
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqual:localHandler]);
