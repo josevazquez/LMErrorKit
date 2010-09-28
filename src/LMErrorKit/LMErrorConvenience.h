@@ -23,9 +23,19 @@ static inline void popErrorHandler() {
     [[LMErrorManager sharedLMErrorManager] popHandler];
 }
 
+static inline LMErrorResult postError(NSString *domain, NSInteger code, NSString *fileName, NSUInteger lineNumber) {
+    return [[LMErrorManager sharedLMErrorManager] handleError:
+        [NSError errorWithDomain:domain code:code userInfo:
+            [NSDictionary dictionaryWithObjectsAndKeys:
+                fileName, kLMErrorFileNameErrorKey,
+                [NSString stringWithFormat:@"%d", lineNumber], kLMErrorFileLineNumberErrorKey,
+                nil
+             ]
+         ]
+    ];
+}
 
-#define postPOSIXError(posixCode) [[LMErrorManager sharedLMErrorManager] handleError:[NSError errorWithDomain:NSPOSIXErrorDomain code:posixCode userInfo:nil]];
-
+#define postPOSIXError(posixCode) postError(NSPOSIXErrorDomain, posixCode, @"" __FILE__, __LINE__);
 
 @interface LMErrorConvenience : NSObject {
 
