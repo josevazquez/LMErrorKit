@@ -19,7 +19,10 @@ static inline void pushErrorHandlerBlock(LMErrorHandlerBlock myBlock) {
     [[LMErrorManager sharedLMErrorManager] pushHandler:[LMErrorHandler errorHandlerWithBlock:myBlock]];
 }
 
-#define popErrorHandler() [[LMErrorManager sharedLMErrorManager] popHandler];
+static inline void popErrorHandler() {
+    [[LMErrorManager sharedLMErrorManager] popHandler];
+}
+
 
 #define postPOSIXError(posixCode) [[LMErrorManager sharedLMErrorManager] handleError:[NSError errorWithDomain:NSPOSIXErrorDomain code:posixCode userInfo:nil]];
 
