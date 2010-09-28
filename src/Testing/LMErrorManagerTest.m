@@ -44,12 +44,12 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
     LMErrorResult result = postPOSIXError(kPOSIXErrorEINPROGRESS);
 
     TEST_ASSERT(result == kLMHandled);
-    TEST_ASSERT([self.handlerName isEqual:kHandlerNamePOSIXErrorEINPROGRESS]);
+    TEST_ASSERT([self.handlerName isEqualToString:kHandlerNamePOSIXErrorEINPROGRESS]);
 
     result = postPOSIXError(kPOSIXErrorENXIO);
 
     TEST_ASSERT(result == kLMHandled);
-    TEST_ASSERT([self.handlerName isEqual:kHandlerNamePOSIXErrorENXIO]);
+    TEST_ASSERT([self.handlerName isEqualToString:kHandlerNamePOSIXErrorENXIO]);
 }
 
 - (void)testHandlerAdditionAndRemoval {
@@ -69,14 +69,14 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
     });
     result = postPOSIXError(kPOSIXErrorEINPROGRESS);
     TEST_ASSERT(result == kLMHandled);
-    TEST_ASSERT([self.handlerName isEqual:localHandler]);
+    TEST_ASSERT([self.handlerName isEqualToString:localHandler]);
 
     self.handlerName = nil;
 
     popErrorHandler();
     result = postPOSIXError(kPOSIXErrorEINPROGRESS);
     TEST_ASSERT(result == kLMHandled);
-    TEST_ASSERT([self.handlerName isEqual:kHandlerNamePOSIXErrorEINPROGRESS]);
+    TEST_ASSERT([self.handlerName isEqualToString:kHandlerNamePOSIXErrorEINPROGRESS]);
 }
 
 

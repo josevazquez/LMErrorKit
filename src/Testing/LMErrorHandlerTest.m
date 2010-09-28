@@ -106,8 +106,8 @@ void userDataDestructorForTest(void *selfPtr) {
 
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT(self.aNumber == kUltimateAnswer);
-    TEST_ASSERT([self.aString isEqualTo:kUltimateQuestion]);
-    TEST_ASSERT([self.handlerType isEqualTo:kHandlerTypeSelector]);
+    TEST_ASSERT([self.aString isEqualToString:kUltimateQuestion]);
+    TEST_ASSERT([self.handlerType isEqualToString:kHandlerTypeSelector]);
 
     error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorENXIO userInfo:nil];
     result = [errorHandler handleError:error];
@@ -125,8 +125,8 @@ void userDataDestructorForTest(void *selfPtr) {
 
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT(self.aNumber == kUltimateAnswer);
-    TEST_ASSERT([self.aString isEqualTo:kUltimateQuestion]);
-    TEST_ASSERT([self.handlerType isEqualTo:kHandlerTypeSelectorWithUserObject]);
+    TEST_ASSERT([self.aString isEqualToString:kUltimateQuestion]);
+    TEST_ASSERT([self.handlerType isEqualToString:kHandlerTypeSelectorWithUserObject]);
 
     error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorENXIO userInfo:nil];
     result = [errorHandler handleError:error];
@@ -147,8 +147,8 @@ void userDataDestructorForTest(void *selfPtr) {
         TEST_ASSERT(result == kLMHandled);
         // aNumber should still be 0 before the destructor is called.
         TEST_ASSERT(self.aNumber == 0);
-        TEST_ASSERT([self.aString isEqualTo:kUltimateQuestion]);
-        TEST_ASSERT([self.handlerType isEqualTo:kHandlerTypeFunction]);
+        TEST_ASSERT([self.aString isEqualToString:kUltimateQuestion]);
+        TEST_ASSERT([self.handlerType isEqualToString:kHandlerTypeFunction]);
     });
     //Verifies that destructor function sets aNumber
     TEST_ASSERT(self.aNumber == kUltimateAnswer);
@@ -179,8 +179,8 @@ void userDataDestructorForTest(void *selfPtr) {
 
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT(self.aNumber == kUltimateAnswer);
-    TEST_ASSERT([self.aString isEqualTo:kUltimateQuestion]);
-    TEST_ASSERT([self.handlerType isEqualTo:kHandlerTypeBlock]);
+    TEST_ASSERT([self.aString isEqualToString:kUltimateQuestion]);
+    TEST_ASSERT([self.handlerType isEqualToString:kHandlerTypeBlock]);
 
     error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorENXIO userInfo:nil];
     result = [errorHandler handleError:error];
@@ -196,8 +196,8 @@ void userDataDestructorForTest(void *selfPtr) {
 
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT(self.aNumber == kUltimateAnswer);
-    TEST_ASSERT([self.aString isEqualTo:kUltimateQuestion]);
-    TEST_ASSERT([self.handlerType isEqualTo:kHandlerTypeDelegate]);
+    TEST_ASSERT([self.aString isEqualToString:kUltimateQuestion]);
+    TEST_ASSERT([self.handlerType isEqualToString:kHandlerTypeDelegate]);
 
     error = [NSError errorWithDomain:NSPOSIXErrorDomain code:kPOSIXErrorENXIO userInfo:nil];
     result = [errorHandler handleError:error];
