@@ -31,7 +31,7 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
 }
 
 - (void)setUpClass {
-    pushErrorHandlerBlock(^(id error) {
+    pushErrorHandlerWithBlock(^(id error) {
         self.handlerName = kHandlerNameGeneric;
         self.domain = [error domain];
         self.code = [error code];
@@ -39,7 +39,7 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
         self.lineNumber = [[error userInfo] objectForKey:kLMErrorFileLineNumberErrorKey];
         return kLMHandled;
     });
-    pushErrorHandlerBlock(^(id error) {
+    pushErrorHandlerWithBlock(^(id error) {
         //NSLog(@"kPOSIXErrorEINPROGRESS Handler");
         if ([error code] == kPOSIXErrorEINPROGRESS) {
             self.handlerName = kHandlerNamePOSIXErrorEINPROGRESS;
@@ -51,7 +51,7 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
         }
         return kLMPassed;
     });
-    pushErrorHandlerBlock(^(id error) {
+    pushErrorHandlerWithBlock(^(id error) {
         //NSLog(@"kPOSIXErrorENXIO Handler");
         if ([error code] == kPOSIXErrorENXIO) {
             self.handlerName = kHandlerNamePOSIXErrorENXIO;
@@ -87,7 +87,7 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
     self.handlerName = nil;
 
     NSString *localHandler = @"This is the local handler";
-    pushErrorHandlerBlock(^(id error) {
+    pushErrorHandlerWithBlock(^(id error) {
         if ([error code] == kPOSIXErrorEINPROGRESS) {
             self.handlerName = localHandler;
             return kLMHandled;

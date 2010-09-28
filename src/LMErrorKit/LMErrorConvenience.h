@@ -14,11 +14,39 @@
 FOUNDATION_EXPORT NSString *const kLMErrorFileNameErrorKey;
 FOUNDATION_EXPORT NSString *const kLMErrorFileLineNumberErrorKey;
 
-// Managing Handlers
-static inline void pushErrorHandlerBlock(LMErrorHandlerBlock myBlock) {
-    [[LMErrorManager sharedLMErrorManager] pushHandler:[LMErrorHandler errorHandlerWithBlock:myBlock]];
+// Pushing Error Handlers to the thread stack //////////////////////////////////
+static inline void pushErrorHandlerWithReceiverSelector(id receiver, SEL selector) {
+    [[LMErrorManager sharedLMErrorManager] pushHandler:
+        [LMErrorHandler errorHandlerWithReceiver:receiver selector:selector]
+     ];
 }
 
+static inline void pushErrorHandlerWithReceiverSelectorAndObject(id receiver, SEL selector, id object) {
+    [[LMErrorManager sharedLMErrorManager] pushHandler:
+        [LMErrorHandler errorHandlerWithReceiver:receiver selector:selector userObject:object]
+     ];
+}
+
+static inline void pushErrorHandlerWithFunction(LMErrorHandlerFunction function, void *data, LMErrorHandlerContextDestructor destructor) {
+    [[LMErrorManager sharedLMErrorManager] pushHandler:
+        [LMErrorHandler errorHandlerWithFunction:function userData:data destructor:destructor]
+     ];
+}
+
+static inline void pushErrorHandlerWithBlock(LMErrorHandlerBlock myBlock) {
+    [[LMErrorManager sharedLMErrorManager] pushHandler:
+        [LMErrorHandler errorHandlerWithBlock:myBlock]
+     ];
+}
+
+static inline void pushErrorHandlerWithDelegate(id <LMErrorHandlerDelegate> delegate) {
+    [[LMErrorManager sharedLMErrorManager] pushHandler:
+        [LMErrorHandler errorHandlerWithDelegate:delegate]
+     ];
+}
+
+
+// Popping Error Handlers from the thread stack ////////////////////////////////
 static inline void popErrorHandler() {
     [[LMErrorManager sharedLMErrorManager] popHandler];
 }

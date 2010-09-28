@@ -17,7 +17,7 @@
 @implementation LMLogTest
 
 - (void)setUpClass {
-    pushErrorHandlerBlock(^(id error) {
+    pushErrorHandlerWithBlock(^(id error) {
         if ([[error domain] isEqualToString:kLMErrorLogDomain]) {
             self.message = [[error userInfo] objectForKey:kLMLogMessageStringErrorKey];
             self.fileName = [[error userInfo] objectForKey:kLMErrorFileNameErrorKey];
