@@ -23,17 +23,21 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
 
 - (void)setUpClass {
     pushErrorHandlerBlock(^(id error) {
-        NSLog(@"kPOSIXErrorEINPROGRESS Handler");
+        //NSLog(@"kPOSIXErrorEINPROGRESS Handler");
         if ([error code] == kPOSIXErrorEINPROGRESS) {
             self.handlerName = kHandlerNamePOSIXErrorEINPROGRESS;
+            self.fileName = [[error userInfo] objectForKey:kLMErrorFileNameErrorKey];
+            self.lineNumber = [[error userInfo] objectForKey:kLMErrorFileLineNumberErrorKey];
             return kLMHandled;
         }
         return kLMPassed;
     });
     pushErrorHandlerBlock(^(id error) {
-        NSLog(@"kPOSIXErrorENXIO Handler");
+        //NSLog(@"kPOSIXErrorENXIO Handler");
         if ([error code] == kPOSIXErrorENXIO) {
             self.handlerName = kHandlerNamePOSIXErrorENXIO;
+            self.fileName = [[error userInfo] objectForKey:kLMErrorFileNameErrorKey];
+            self.lineNumber = [[error userInfo] objectForKey:kLMErrorFileLineNumberErrorKey];
             return kLMHandled;
         }
         return kLMPassed;
@@ -45,6 +49,8 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
 
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNamePOSIXErrorEINPROGRESS]);
+    TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMErrorManagerTest.m"]);
+    TEST_ASSERT([self.lineNumber isEqualToString:@"48"]);
 
     result = postPOSIXError(kPOSIXErrorENXIO);
 
@@ -83,5 +89,7 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
 #pragma mark -
 #pragma mark Accessor
 @synthesize handlerName=_handlerName;
+@synthesize fileName=_fileName;
+@synthesize lineNumber=_lineNumber;
 
 @end

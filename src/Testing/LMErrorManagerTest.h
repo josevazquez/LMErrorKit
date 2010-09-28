@@ -12,8 +12,12 @@
 
 @interface LMErrorManagerTest : MATesting {
     NSString *_handlerName;
+    NSString *_fileName;
+    NSString *_lineNumber;
 }
 
 @property (nonatomic, retain) NSString *handlerName;
+@property (nonatomic, retain) NSString *fileName;
+@property (nonatomic, retain) NSString *lineNumber;
 
 @end
