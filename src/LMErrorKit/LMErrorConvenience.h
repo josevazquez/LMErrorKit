@@ -35,7 +35,9 @@ static inline LMErrorResult postError(NSString *domain, NSInteger code, NSString
     ];
 }
 
-#define postPOSIXError(posixCode) postError(NSPOSIXErrorDomain, posixCode, @"" __FILE__, __LINE__);
+#define postPOSIXError(code) postError(NSPOSIXErrorDomain, code, @"" __FILE__, __LINE__);
+#define postOSStatusError(code) postError(NSOSStatusErrorDomain, code, @"" __FILE__, __LINE__);
+#define postMachError(code) postError(NSMachErrorDomain, code, @"" __FILE__, __LINE__);
 
 @interface LMErrorConvenience : NSObject {
 
