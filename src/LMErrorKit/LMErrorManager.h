@@ -7,7 +7,9 @@
 */
 
 #import <Cocoa/Cocoa.h>
-#import "LMErrorKit.h"
+#import "LMErrorKitTypes.h"
+
+@class LMErrorHandler;
 
 @interface LMErrorManager : NSObject {
 

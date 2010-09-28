@@ -7,15 +7,7 @@
  *
  */
 
-// Return constants for error handlers.
-enum LMErrorHandlerResult {
-    kLMUndefined = 0,
-    kLMHandled,
-    kLMResolved,
-    kLMPassed,
-    kLMInternalError = 0xDEADBEEF
-};
-typedef int LMErrorResult;
+#import "LMErrorKitTypes.h"
 
 @protocol LMErrorHandlerDelegate <NSObject>
 @required

@@ -92,6 +92,7 @@
 		82791695124E9794008AEA13 /* LMLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMLog.m; sourceTree = "<group>"; };
 		827916BB124F0EDA008AEA13 /* LMLogTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMLogTest.h; sourceTree = "<group>"; };
 		827916BC124F0EDA008AEA13 /* LMLogTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMLogTest.m; sourceTree = "<group>"; };
+		8279180312513217008AEA13 /* LMErrorKitTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMErrorKitTypes.h; sourceTree = "<group>"; };
 		82F30DB5124426AD00A441FC /* LMErrorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LMErrorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82F30DB6124426AD00A441FC /* LMErrorKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LMErrorKit-Info.plist"; sourceTree = "<group>"; };
 		82F30DC0124427CB00A441FC /* LMErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMErrorHandler.h; sourceTree = "<group>"; };
@@ -242,12 +243,13 @@
 			isa = PBXGroup;
 			children = (
 				82791692124E96D4008AEA13 /* LMLog */,
-				820BC024124979FD00DEBE59 /* LMErrorManager.h */,
-				820BC025124979FD00DEBE59 /* LMErrorManager.m */,
 				82F30DC0124427CB00A441FC /* LMErrorHandler.h */,
 				82F30DC1124427CB00A441FC /* LMErrorHandler.m */,
-				82F30DB6124426AD00A441FC /* LMErrorKit-Info.plist */,
+				820BC024124979FD00DEBE59 /* LMErrorManager.h */,
+				820BC025124979FD00DEBE59 /* LMErrorManager.m */,
 				82F30E1D12444B2800A441FC /* LMErrorKit.h */,
+				8279180312513217008AEA13 /* LMErrorKitTypes.h */,
+				82F30DB6124426AD00A441FC /* LMErrorKit-Info.plist */,
 				820BBC781246B92900DEBE59 /* LMErrorHandlerDelegate.h */,
 				820BC120124C0CB400DEBE59 /* LMErrorConvenience.h */,
 				820BC121124C0CB400DEBE59 /* LMErrorConvenience.m */,
@@ -465,7 +467,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "LMErrorKit-Info.plist";
+				INFOPLIST_FILE = "src/LMErrorKit/LMErrorKit-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
 				OTHER_LDFLAGS = (
 					"-framework",

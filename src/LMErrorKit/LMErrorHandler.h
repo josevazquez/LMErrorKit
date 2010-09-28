@@ -7,7 +7,8 @@
 */
 
 #import <Cocoa/Cocoa.h>
-#import <LMErrorKit/LMErrorHandlerDelegate.h>
+#import "LMErrorKitTypes.h"
+#import "LMErrorHandlerDelegate.h"
 
 // Callback type constants. For internal use only.
 enum LMErrorHandlerCallbackType {
@@ -18,23 +19,6 @@ enum LMErrorHandlerCallbackType {
     kLMErrorHandlerCallbackTypeUndefined
 };
 typedef enum LMErrorHandlerCallbackType LMErrorHandlerCallbackType;
-
-
-// Defines to return an LMErrorHandlerResult wrapped in an NSNumber instance.
-#define kLMErrorHandled ([NSNumber numberWithInt:kLMErrorHandlerResultErrorHandled])
-#define kLMErrorPassed ([NSNumber numberWithInt:kLMErrorHandlerResultErrorPassed])
-
-
-// Type definition for error handling functions.
-typedef LMErrorResult (*LMErrorHandlerFunction) (NSError *error, void *userData);
-
-// Type definitino for optional userData destructor.
-typedef void (*LMErrorHandlerContextDestructor) (void *ptr);
-
-
-// Type for error handling blocks
-// Takes an id for the NSError argument and returns an LMErrorHandlerResult
-typedef LMErrorResult (^LMErrorHandlerBlock)(id);
 
 
 @interface LMErrorHandler : NSObject {
