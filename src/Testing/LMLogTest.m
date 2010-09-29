@@ -43,6 +43,7 @@
     self.message = nil;
     self.fileName = nil;
     self.fileLineNumber = nil;
+    self.code = -1;
 }
 
 - (void)testDebug {

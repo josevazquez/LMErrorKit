@@ -9,16 +9,14 @@
 #import <Cocoa/Cocoa.h>
 
 // Return constants for error handlers.
-enum LMLogLevel {
-    kLMLogLevelNone = 0,     // Critical starts at 2 for syslog compatibility
-    kLMLogLevelCritical = 2, // system is unusable
-    kLMLogLevelError,        // action must be taken immediately
-    kLMLogLevelWarn,         // critical conditions
-    kLMLogLevelNotice,       // error conditions
-    kLMLogLevelInfo,         // warning conditions
-    kLMLogLevelDebug,        // normal but significant condition
-    kLMLogLevelAll           // informational
-};/* debug-level messages */
+#define kLMLogLevelNone     (0) // Critical starts at 2 for syslog compatibility
+#define kLMLogLevelCritical (2) // system is unusable
+#define kLMLogLevelError    (3) // action must be taken immediately
+#define kLMLogLevelWarn     (4) // critical conditions
+#define kLMLogLevelNotice   (5) // error conditions
+#define kLMLogLevelInfo     (6) // warning conditions
+#define kLMLogLevelDebug    (7) // normal but significant condition
+#define kLMLogLevelAll      (8) // informational
 typedef int LMLogLevel;
 
 FOUNDATION_EXPORT NSString *const kLMErrorLogDomain;
