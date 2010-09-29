@@ -10,9 +10,22 @@ The user provides a callback to handle an error and wraps it with an instance of
 
 When an error is triggered it is reported to the LMErrorManager singleton. The singleton then works it's way down the handler stack. It asks each handler in turn to deal with the error. If a handler can't deal with the error is passes and the manager invokes the next handler down the stack.
 
-## Examples
+## Quick Example
 
-Coming soon.
+	// Pushing a block based handler onto the stack.
+    LMPushHandlerWithBlock(^(id error) {
+        if ([[error domain] isEqualToString:kMyParticularDomain]) {
+            NSLog(@"Do something interesting with error: %@", error);
+            return kLMHandled;
+        }
+        return kLMPassed;
+    });
+
+	// Post an OSStatus error.
+	LMPostOSStatusError(paramErr);
+	
+	// Pop the Handler off the stack.
+	LMPopHandler();
 
 ## Credits
 
