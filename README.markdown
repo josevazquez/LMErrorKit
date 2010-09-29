@@ -33,6 +33,27 @@ In addition to handling errors, LMLog uses LMErrorKit to post logs. This logging
 	// Pop the Handler off the stack.
 	LMPopHandler();
 
+## Logging
+LMLog can be used for sending log messages.
+	
+	//Available Levels are: Critical, Error, Warn, Notice, Info and Debug
+	
+	#define LMLOG_LEVEL kLMLogLevelInfo
+
+	LMDebug(@"This will not be executed because Debug level is lower than Info set above");
+	LMNotice(@"Notice is above Info so it will be sent");
+	LMInfo(@"Additional information can be included usin a format : %@ %d", myObj, i);
+	
+	// Conditional variations exist for each level as well.
+	LMErrorIf(i != 42, @"We must seek the answer");
+	
+
+## Extras
+
+Thanks to Mike Ash, the LMErrorKit also contains a simple unit testing facility. This is contained in MATesting.m/h and it depends on MAObjCRuntime. MATesting is not a full featured unit testing framework, but it is rather lightweight and easy to work with. 
+
+Why was a custom unit testing system used instead of an existing framework? (I particularly like GHUnit) That is what happens when you spend time talking to Mike over pastries.
+
 ## Credits
 
 MAObjCRuntime and all code associated with it is distributed under a BSD license, as listed below.
