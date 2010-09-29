@@ -63,7 +63,7 @@ NSString * const kLMErrorManagerCurrentStack = @"kLMErrorManagerCurrentStack";
     }
 
     // This is the error handler of last resort.
-    NSLog(@"Aboorting Application due to unhandled error : %@", error);
+    NSLog(@"Aborting Application due to unhandled error : %@", error);
     abort();
 
     //last ditch here
