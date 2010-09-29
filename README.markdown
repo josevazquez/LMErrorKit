@@ -6,9 +6,15 @@ LMErrorKit is released under a BSD license. For the official license, see the LI
 
 ## Description
 
-The user provides a callback to handle an error and wraps it with an instance of an LMErrorHandler. These handlers can then be pushed to a thread specific stack managed by an LMErrorManager singleton.
+An LMErrorHandler is the basic building block of the system. Each instance wraps around a user provided callback. When an LMErrorHandler receives the handlerError: message, it calls that callback. The programer can supply a callback of just about any type (selector, function, block or delegate.)
 
-When an error is triggered it is reported to the LMErrorManager singleton. The singleton then works it's way down the handler stack. It asks each handler in turn to deal with the error. If a handler can't deal with the error is passes and the manager invokes the next handler down the stack.
+Once the programer creates a handler, it can be given to the LMErrorManager singleton to be pushed to the current thread's stack. Newly added handlers will be added to the top of the stack. When an application begins, it can add a general catch-all type handler. Such a handler could simply use NSLog() to dump the error and call abort() (As a matter of fact, the system does just that by default if there are no handlers available.) A more elaborate handler could notify the user and perhaps send an error report to a server. 
+
+As the application progresses, more handlers can be added to the stack to handle more specific errors. Once the scope of a handler has come to an end, the programer can pop the handler off the stack. 
+
+When an error is posted, the LMErrorManager receives it and works it way down the stack. It will invoke handleError: on each handler in the stack until can handle the error. A handler, that can not handle an error simply returns a value of kLMPassed.
+
+In addition to handling errors, LMLog uses LMErrorKit to post logs. This logging system uses levels compatible with those of syslog. Much like errors, the programer can add handlers to deal with logs. For example, depending on the programer's needs logs could be sent to NSLog(), sent over the network or added to the database. (NOTE: The dedicated stack for dealing with things like logs is not currently implemented.)
 
 ## Quick Example
 
