@@ -17,7 +17,7 @@
 
 @property (nonatomic, assign, readonly) NSUInteger handlerCountForCurrentThread;
 
-+ (id)sharedLMErrorManager;
++ (id)sharedManager;
 
 - (void)pushHandler:(LMErrorHandler *)handler;
 - (void)popHandler;

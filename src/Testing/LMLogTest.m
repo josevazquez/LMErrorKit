@@ -17,7 +17,7 @@
 @implementation LMLogTest
 
 - (void)setUpClass {
-    pushErrorHandlerWithBlock(^(id error) {
+    LMPushHandlerWithBlock(^(id error) {
         if ([[error domain] isEqualToString:kLMErrorLogDomain]) {
             self.message = [[error userInfo] objectForKey:kLMLogMessageStringErrorKey];
             self.fileName = [[error userInfo] objectForKey:kLMErrorFileNameErrorKey];
@@ -37,11 +37,11 @@
 }
 
 - (void)testDebug {
-    DEBUG(@"Testing Debuggin Log: %@ %d", @"Hello World", 123);
+    DEBUG(@"Testing Debugging Log: %@ %d", @"Hello World", 123);
 
     TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMLogTest.m"]);
     TEST_ASSERT([self.fileLineNumber isEqualToString:@"40"]);
-    TEST_ASSERT([self.message isEqualToString:@"Testing Debuggin Log: Hello World 123"]);
+    TEST_ASSERT([self.message isEqualToString:@"Testing Debugging Log: Hello World 123"]);
 }
 
 

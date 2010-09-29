@@ -24,14 +24,14 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
 }
 
 - (void)testObtainManager {
-    LMErrorManager *manager = [LMErrorManager sharedLMErrorManager];
-    LMErrorManager *manager2 = [LMErrorManager sharedLMErrorManager];
+    LMErrorManager *manager = [LMErrorManager sharedManager];
+    LMErrorManager *manager2 = [LMErrorManager sharedManager];
     TEST_ASSERT(manager != nil);
     TEST_ASSERT(manager == manager2);
 }
 
 - (void)setUpClass {
-    pushErrorHandlerWithBlock(^(id error) {
+    LMPushHandlerWithBlock(^(id error) {
         self.handlerName = kHandlerNameGeneric;
         self.domain = [error domain];
         self.code = [error code];
@@ -39,7 +39,7 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
         self.lineNumber = [[error userInfo] objectForKey:kLMErrorFileLineNumberErrorKey];
         return kLMHandled;
     });
-    pushErrorHandlerWithBlock(^(id error) {
+    LMPushHandlerWithBlock(^(id error) {
         //NSLog(@"kPOSIXErrorEINPROGRESS Handler");
         if ([error code] == kPOSIXErrorEINPROGRESS) {
             self.handlerName = kHandlerNamePOSIXErrorEINPROGRESS;
@@ -51,7 +51,7 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
         }
         return kLMPassed;
     });
-    pushErrorHandlerWithBlock(^(id error) {
+    LMPushHandlerWithBlock(^(id error) {
         //NSLog(@"kPOSIXErrorENXIO Handler");
         if ([error code] == kPOSIXErrorENXIO) {
             self.handlerName = kHandlerNamePOSIXErrorENXIO;
@@ -66,48 +66,48 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
 }
 
 - (void)testBlockHandler {
-    LMErrorResult result = postPOSIXError(kPOSIXErrorEINPROGRESS);
+    LMErrorResult result = LMPostPOSIXError(kPOSIXErrorEINPROGRESS);
 
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNamePOSIXErrorEINPROGRESS]);
     TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMErrorManagerTest.m"]);
     TEST_ASSERT([self.lineNumber isEqualToString:@"69"]);
 
-    result = postPOSIXError(kPOSIXErrorENXIO);
+    result = LMPostPOSIXError(kPOSIXErrorENXIO);
 
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNamePOSIXErrorENXIO]);
 }
 
 - (void)testHandlerAdditionAndRemoval {
-    LMErrorResult result = postPOSIXError(kPOSIXErrorEINPROGRESS);
+    LMErrorResult result = LMPostPOSIXError(kPOSIXErrorEINPROGRESS);
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqual:kHandlerNamePOSIXErrorEINPROGRESS]);
 
     self.handlerName = nil;
 
     NSString *localHandler = @"This is the local handler";
-    pushErrorHandlerWithBlock(^(id error) {
+    LMPushHandlerWithBlock(^(id error) {
         if ([error code] == kPOSIXErrorEINPROGRESS) {
             self.handlerName = localHandler;
             return kLMHandled;
         }
         return kLMPassed;
     });
-    result = postPOSIXError(kPOSIXErrorEINPROGRESS);
+    result = LMPostPOSIXError(kPOSIXErrorEINPROGRESS);
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqualToString:localHandler]);
 
     self.handlerName = nil;
 
-    popErrorHandler();
-    result = postPOSIXError(kPOSIXErrorEINPROGRESS);
+    LMPopHandler();
+    result = LMPostPOSIXError(kPOSIXErrorEINPROGRESS);
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNamePOSIXErrorEINPROGRESS]);
 }
 
 - (void)testPostOSStatusError {
-    LMErrorResult result = postOSStatusError(paramErr);
+    LMErrorResult result = LMPostOSStatusError(paramErr);
 
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
@@ -118,7 +118,7 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
 }
 
 - (void)testPostMachError {
-    LMErrorResult result = postMachError(KERN_FAILURE);
+    LMErrorResult result = LMPostMachError(KERN_FAILURE);
 
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);

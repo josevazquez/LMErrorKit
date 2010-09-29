@@ -28,8 +28,8 @@ FOUNDATION_EXPORT NSString *const kLMLogMessageStringErrorKey;
 #define LMLOG_LEVEL 0
 #endif
 
-#define postLMLog(logLevel, value, ...) \
-  [[LMErrorManager sharedLMErrorManager] handleError: \
+#define LMPostLog(logLevel, value, ...) \
+  [[LMErrorManager sharedManager] handleError: \
     [NSError errorWithDomain:kLMErrorLogDomain code:logLevel userInfo: \
       [NSDictionary dictionaryWithObjectsAndKeys: \
         @"" __FILE__, kLMErrorFileNameErrorKey, \
@@ -43,48 +43,48 @@ FOUNDATION_EXPORT NSString *const kLMLogMessageStringErrorKey;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #if LMLOG_LEVEL>=kLMLogLevelDebug
-#define DEBUG(value, ...) postLMLog(kLMLogLevelDebug, value, ## __VA_ARGS__)
-#define DEBUGIF(expression, value, ...) if(expression){postLMLog(kLMLogLevelDebug, value, ## __VA_ARGS__)}
+#define DEBUG(value, ...) LMPostLog(kLMLogLevelDebug, value, ## __VA_ARGS__)
+#define DEBUGIF(expression, value, ...) if(expression){LMPostLog(kLMLogLevelDebug, value, ## __VA_ARGS__)}
 #else 
 #define DEBUG(value, ...)
 #define DEBUGIF(expression, value, ...)
 #endif
 
 #if LMLOG_LEVEL>=kLMLogLevelInfo
-#define INFO(value, ...) postLMLog(kLMLogLevelDebug, value, ## __VA_ARGS__)
-#define INFOIF(expression, value, ...) if(expression){postLMLog(kLMLogLevelDebug, value, ## __VA_ARGS__)}
+#define INFO(value, ...) LMPostLog(kLMLogLevelDebug, value, ## __VA_ARGS__)
+#define INFOIF(expression, value, ...) if(expression){LMPostLog(kLMLogLevelDebug, value, ## __VA_ARGS__)}
 #else 
 #define INFO(value, ...)
 #define INFOIF(expression, value, ...)
 #endif
 
 #if LMLOG_LEVEL>=kLMLogLevelAssert
-#define ASSERT(value, ...) postLMLog(kLMLogLevelDebug, value, ## __VA_ARGS__)
-#define ASSERTIF(expression, value, ...) if(expression){postLMLog(kLMLogLevelDebug, value, ## __VA_ARGS__)}
+#define ASSERT(value, ...) LMPostLog(kLMLogLevelDebug, value, ## __VA_ARGS__)
+#define ASSERTIF(expression, value, ...) if(expression){LMPostLog(kLMLogLevelDebug, value, ## __VA_ARGS__)}
 #else 
 #define ASSERT(value, ...)
 #define ASSERTIF(expression, value, ...)
 #endif
 
 #if LMLOG_LEVEL>=kLMLogLevelWarn
-#define WARN(value, ...) postLMLog(kLMLogLevelDebug, value, ## __VA_ARGS__)
-#define WARNIF(expression, value, ...) if(expression){postLMLog(kLMLogLevelDebug, value, ## __VA_ARGS__)}
+#define WARN(value, ...) LMPostLog(kLMLogLevelDebug, value, ## __VA_ARGS__)
+#define WARNIF(expression, value, ...) if(expression){LMPostLog(kLMLogLevelDebug, value, ## __VA_ARGS__)}
 #else 
 #define WARN(value, ...)
 #define WARNIF(expression, value, ...)
 #endif
 
 #if LMLOG_LEVEL>=kLMLogLevelError
-#define ERROR(value, ...) postLMLog(kLMLogLevelDebug, value, ## __VA_ARGS__)
-#define ERRORIF(expression, value, ...) if(expression){postLMLog(kLMLogLevelDebug, value, ## __VA_ARGS__)}
+#define ERROR(value, ...) LMPostLog(kLMLogLevelDebug, value, ## __VA_ARGS__)
+#define ERRORIF(expression, value, ...) if(expression){LMPostLog(kLMLogLevelDebug, value, ## __VA_ARGS__)}
 #else 
 #define ERROR(value, ...)
 #define ERRORIF(expression, value, ...)
 #endif
 
 #if LMLOG_LEVEL>=kLMLogLevelFatal
-#define FATAL(value, ...) postLMLog(kLMLogLevelDebug, value, ## __VA_ARGS__)
-#define FATALIF(expression, value, ...) if(expression){postLMLog(kLMLogLevelDebug, value, ## __VA_ARGS__)}
+#define FATAL(value, ...) LMPostLog(kLMLogLevelDebug, value, ## __VA_ARGS__)
+#define FATALIF(expression, value, ...) if(expression){LMPostLog(kLMLogLevelDebug, value, ## __VA_ARGS__)}
 #else 
 #define FATAL(value, ...)
 #define FATALIF(expression, value, ...)

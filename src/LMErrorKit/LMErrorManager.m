@@ -13,7 +13,7 @@ NSString * const kLMErrorManagerCurrentStack = @"kLMErrorManagerCurrentStack";
 
 @implementation LMErrorManager
 
-+ (id)sharedLMErrorManager {
++ (id)sharedManager {
     static dispatch_once_t pred;
     static LMErrorManager *errorManager = nil;
     
