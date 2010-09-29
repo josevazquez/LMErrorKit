@@ -10,11 +10,19 @@
 
 #import <LMErrorKit/LMErrorKit.h>
 
-#warning Deal with chicken & egg issue of logging level definition before including header.
-#define LMLOG_LEVEL (7)
+#define LMLOG_LEVEL kLMLogLevelAll
 #import <LMErrorKit/LMLog.h>
 
 @implementation LMLogTest
+
+
+- (void)dealloc {
+    [_message release], _message=nil;
+    [_fileName release], _fileName=nil;
+    [_fileLineNumber release], _fileLineNumber=nil;
+
+    [super dealloc];
+}
 
 - (void)setUpClass {
     LMPushHandlerWithBlock(^(id error) {
@@ -22,8 +30,9 @@
             self.message = [[error userInfo] objectForKey:kLMLogMessageStringErrorKey];
             self.fileName = [[error userInfo] objectForKey:kLMErrorFileNameErrorKey];
             self.fileLineNumber = [[error userInfo] objectForKey:kLMErrorFileLineNumberErrorKey];
-            
-            //NSLog(@"%@:%@: %@", self.fileName, self.fileLineNumber, self.message);
+            self.code = [error code];
+
+            //NSLog(@"%d-%@:%@: %@", self.code, self.fileName, self.fileLineNumber, self.message);
             return kLMHandled;
         }
         return kLMPassed;
@@ -37,17 +46,64 @@
 }
 
 - (void)testDebug {
-    DEBUG(@"Testing Debugging Log: %@ %d", @"Hello World", 123);
+    LMDebug(@"Testing DEBUG Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
 
+    TEST_ASSERT(self.code == kLMLogLevelDebug);
     TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMLogTest.m"]);
-    TEST_ASSERT([self.fileLineNumber isEqualToString:@"40"]);
-    TEST_ASSERT([self.message isEqualToString:@"Testing Debugging Log: Hello World 123"]);
+    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.message isEqualToString:@"Testing DEBUG Log: Hello World 123"]);
 }
 
+- (void)testInfo {
+    LMInfo(@"Testing INFO Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
+    
+    TEST_ASSERT(self.code == kLMLogLevelInfo);
+    TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMLogTest.m"]);
+    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.message isEqualToString:@"Testing INFO Log: Hello World 123"]);
+}
+
+- (void)testNotice {
+    LMNotice(@"Testing NOTICE Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
+    
+    TEST_ASSERT(self.code == kLMLogLevelNotice);
+    TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMLogTest.m"]);
+    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.message isEqualToString:@"Testing NOTICE Log: Hello World 123"]);
+}
+
+- (void)testWarn {
+    LMWarn(@"Testing WARN Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
+    
+    TEST_ASSERT(self.code == kLMLogLevelWarn);
+    TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMLogTest.m"]);
+    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.message isEqualToString:@"Testing WARN Log: Hello World 123"]);
+}
+
+- (void)testError {
+    LMError(@"Testing ERROR Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
+    
+    TEST_ASSERT(self.code == kLMLogLevelError);
+    TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMLogTest.m"]);
+    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.message isEqualToString:@"Testing ERROR Log: Hello World 123"]);
+}
+
+- (void)testCritical {
+    LMCritical(@"Testing CRITICAL Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
+    
+    TEST_ASSERT(self.code == kLMLogLevelCritical);
+    TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMLogTest.m"]);
+    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.message isEqualToString:@"Testing CRITICAL Log: Hello World 123"]);
+}
 
 #pragma mark -
 #pragma mark Accessors
-@synthesize message;
-@synthesize fileName;
-@synthesize fileLineNumber;
+@synthesize message=_message;
+@synthesize fileName=_fileName;
+@synthesize fileLineNumber=_fileLineNumber;
+@synthesize code=_code;
+
 @end
