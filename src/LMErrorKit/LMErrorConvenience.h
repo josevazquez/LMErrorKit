@@ -72,16 +72,16 @@ static inline LMErrorResult LMPostError(NSString *domain, NSInteger code, NSStri
 
 #pragma mark -
 #pragma mark Macros to explicitly post errors
-#define LMPostPOSIXError(code) LMPostError(NSPOSIXErrorDomain, code, @"" __FILE__, __LINE__)
-#define LMPostOSStatusError(code) LMPostError(NSOSStatusErrorDomain, code, @"" __FILE__, __LINE__)
-#define LMPostMachError(code) LMPostError(NSMachErrorDomain, code, @"" __FILE__, __LINE__)
+#define LMPostPOSIXError(code) LMPostError(NSPOSIXErrorDomain, code, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
+#define LMPostOSStatusError(code) LMPostError(NSOSStatusErrorDomain, code, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
+#define LMPostMachError(code) LMPostError(NSMachErrorDomain, code, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
 
 
 #pragma mark -
 #pragma mark Macros to post error resulting from function calls
-#define chkOSStatus(status) InternalChkOSStatusFunction(status, @"" __FILE__, __LINE__)
-#define chkPOSIX(expression) InternalChkPOSIXFunction(expression, @"" __FILE__, __LINE__)
-#define chkMach(expression) InternalChkMachFunction(expression, @"" __FILE__, __LINE__)
+#define chkOSStatus(status) InternalChkOSStatusFunction(status, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
+#define chkPOSIX(expression) InternalChkPOSIXFunction(expression, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
+#define chkMach(expression) InternalChkMachFunction(expression, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
 
 
 #pragma mark -

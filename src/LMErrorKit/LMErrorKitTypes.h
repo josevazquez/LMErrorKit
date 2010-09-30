@@ -7,6 +7,14 @@
  *
  */
 
+#ifdef LMERROR_USE_FULL_PATH_FILENAMES
+#define __LM_FILE__ __FILE__
+#else
+#define __LM_FILE__ __func__
+#endif
+
+#define __LM_LINE__ (__LINE__)
+
 // Return constants for error handlers.
 enum LMErrorHandlerResult {
     kLMUndefined = 0,
@@ -37,5 +45,4 @@ typedef void (*LMErrorHandlerContextDestructor) (void *ptr);
 // Takes an id for the NSError argument and returns an LMErrorHandlerResult
 typedef LMErrorResult (^LMErrorHandlerBlock)(id);
 typedef void (^LMBasicBlock)(void);
-
 #endif

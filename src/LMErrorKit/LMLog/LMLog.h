@@ -10,13 +10,13 @@
 
 // Return constants for error handlers.
 #define kLMLogLevelNone     (0) // Critical starts at 2 for syslog compatibility
-#define kLMLogLevelCritical (2) // system is unusable
-#define kLMLogLevelError    (3) // action must be taken immediately
-#define kLMLogLevelWarn     (4) // critical conditions
-#define kLMLogLevelNotice   (5) // error conditions
-#define kLMLogLevelInfo     (6) // warning conditions
-#define kLMLogLevelDebug    (7) // normal but significant condition
-#define kLMLogLevelAll      (8) // informational
+#define kLMLogLevelCritical (2) // critical conditions
+#define kLMLogLevelError    (3) // error conditions
+#define kLMLogLevelWarn     (4) // warning conditions
+#define kLMLogLevelNotice   (5) // normal but significant condition
+#define kLMLogLevelInfo     (6) // informational
+#define kLMLogLevelDebug    (7)
+#define kLMLogLevelAll      (8)
 typedef int LMLogLevel;
 
 FOUNDATION_EXPORT NSString *const kLMErrorLogDomain;
@@ -30,8 +30,8 @@ FOUNDATION_EXPORT NSString *const kLMLogMessageStringErrorKey;
   [[LMErrorManager sharedManager] handleError: \
     [NSError errorWithDomain:kLMErrorLogDomain code:logLevel userInfo: \
       [NSDictionary dictionaryWithObjectsAndKeys: \
-        @"" __FILE__, kLMErrorFileNameErrorKey, \
-        [NSString stringWithFormat:@"%d",__LINE__], kLMErrorFileLineNumberErrorKey, \
+        [NSString stringWithFormat:@"%s",__LM_FILE__], kLMErrorFileNameErrorKey, \
+        [NSString stringWithFormat:@"%d",__LM_LINE__], kLMErrorFileLineNumberErrorKey, \
         [NSString stringWithFormat:value, ## __VA_ARGS__], kLMLogMessageStringErrorKey, \
         nil \
       ] \

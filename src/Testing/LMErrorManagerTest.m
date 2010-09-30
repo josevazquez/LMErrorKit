@@ -82,7 +82,7 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNamePOSIXErrorEINPROGRESS]);
     TEST_ASSERT([self.domain isEqualToString:NSPOSIXErrorDomain]);
     TEST_ASSERT(self.code == kPOSIXErrorEINPROGRESS);
-    TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMErrorManagerTest.m"]);
+    TEST_ASSERT([self.fileName isEqualToString:@"-[LMErrorManagerTest testBlockHandler]"]);
     TEST_ASSERT([self.lineNumber isEqualToString:line]);
 
     result = LMPostPOSIXError(kPOSIXErrorENXIO);
@@ -125,7 +125,7 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
     TEST_ASSERT([self.domain isEqualToString:NSOSStatusErrorDomain]);
     TEST_ASSERT(self.code == paramErr);
-    TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMErrorManagerTest.m"]);
+    TEST_ASSERT([self.fileName isEqualToString:@"-[LMErrorManagerTest testPostOSStatusError]"]);
     TEST_ASSERT([self.lineNumber isEqualToString:line]);
 }
 
@@ -136,7 +136,7 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
     TEST_ASSERT([self.domain isEqualToString:NSMachErrorDomain]);
     TEST_ASSERT(self.code == KERN_FAILURE);
-    TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMErrorManagerTest.m"]);
+    TEST_ASSERT([self.fileName isEqualToString:@"-[LMErrorManagerTest testPostMachError]"]);
     TEST_ASSERT([self.lineNumber isEqualToString:line]);
 }
 
@@ -149,7 +149,7 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
     TEST_ASSERT([self.domain isEqualToString:NSOSStatusErrorDomain]);
     TEST_ASSERT(self.code == nsvErr); // no such volume
-    TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMErrorManagerTest.m"]);
+    TEST_ASSERT([self.fileName isEqualToString:@"-[LMErrorManagerTest testChkOSStatus]"]);
     TEST_ASSERT([self.lineNumber isEqualToString:line]);
 }
 
@@ -160,20 +160,20 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
     TEST_ASSERT([self.domain isEqualToString:NSPOSIXErrorDomain]);
     TEST_ASSERT(self.code == ENOENT); // O_CREAT is not set and the named file does not exist.
-    TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMErrorManagerTest.m"]);
+    TEST_ASSERT([self.fileName isEqualToString:@"-[LMErrorManagerTest testChkPOSIX]"]);
     TEST_ASSERT([self.lineNumber isEqualToString:line]);
 }
 
 - (void)testChkMach {
-    LMErrorResult result = chkMach(vm_deallocate(mach_task_self(), (vm_address_t)NULL, vm_page_size)); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
+    LMErrorResult result = chkMach(vm_deallocate(0, (vm_address_t)NULL, vm_page_size)); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
 
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
     TEST_ASSERT([self.domain isEqualToString:NSMachErrorDomain]);
     TEST_ASSERT(self.code == KERN_INVALID_ADDRESS);
-    TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMErrorManagerTest.m"]);
+    TEST_ASSERT([self.fileName isEqualToString:@"-[LMErrorManagerTest testChkMach]"]);
     TEST_ASSERT([self.lineNumber isEqualToString:line]);
-    NSLog(@"vm_deallocate returned: %d", self.code);
+    NSLog(@"vm_deallocate returned: %X", self.code);
 }
 
 - (void)testRunBlockWithBlockHandler {
@@ -195,7 +195,7 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameLocalBlock]);
     TEST_ASSERT([self.domain isEqualToString:NSOSStatusErrorDomain]);
     TEST_ASSERT(self.code == unitTblFullErr);
-    TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMErrorManagerTest.m"]);
+    TEST_ASSERT([self.fileName isEqualToString:@"__-[LMErrorManagerTest testRunBlockWithBlockHandler]_block_invoke_1"]);
     TEST_ASSERT([self.lineNumber isEqualToString:line]);
 }
 
