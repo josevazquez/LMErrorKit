@@ -63,9 +63,9 @@ static inline LMErrorResult LMPostError(NSString *domain, NSInteger code, NSStri
     ];
 }
 
-#define LMPostPOSIXError(code) LMPostError(NSPOSIXErrorDomain, code, @"" __FILE__, __LINE__);
-#define LMPostOSStatusError(code) LMPostError(NSOSStatusErrorDomain, code, @"" __FILE__, __LINE__);
-#define LMPostMachError(code) LMPostError(NSMachErrorDomain, code, @"" __FILE__, __LINE__);
+#define LMPostPOSIXError(code) LMPostError(NSPOSIXErrorDomain, code, @"" __FILE__, __LINE__)
+#define LMPostOSStatusError(code) LMPostError(NSOSStatusErrorDomain, code, @"" __FILE__, __LINE__)
+#define LMPostMachError(code) LMPostError(NSMachErrorDomain, code, @"" __FILE__, __LINE__)
 
 @interface LMErrorConvenience : NSObject {
 
