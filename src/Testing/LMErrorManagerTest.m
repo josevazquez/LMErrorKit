@@ -12,6 +12,7 @@
 NSString * const kHandlerNameGeneric = @"kHandlerNameGeneric";
 NSString * const kHandlerNamePOSIXErrorEINPROGRESS = @"kHandlerNamePOSIXErrorEINPROGRESS";
 NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
+NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
 
 
 @implementation LMErrorManagerTest
@@ -64,6 +65,14 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
         }
         return kLMPassed;
     });
+}
+
+- (void)setUp {
+    self.handlerName = nil;
+    self.domain = nil;
+    self.fileName = nil;
+    self.lineNumber = nil;
+    self.code = -1;
 }
 
 - (void)testBlockHandler {
@@ -167,6 +176,28 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
     NSLog(@"vm_deallocate returned: %d", self.code);
 }
 
+- (void)testRunBlockWithBlockHandler {
+    __block LMErrorResult result;
+    __block NSString *line;
+
+    LMRunBlockWithBlockHandler(^(void) {
+        result = LMPostOSStatusError(unitTblFullErr); line = [NSString stringWithFormat:@"%d", __LINE__];
+    }, ^(id error) {
+        self.handlerName = kHandlerNameLocalBlock;
+        self.domain = [error domain];
+        self.code = [error code];
+        self.fileName = [[error userInfo] objectForKey:kLMErrorFileNameErrorKey];
+        self.lineNumber = [[error userInfo] objectForKey:kLMErrorFileLineNumberErrorKey];
+        return kLMHandled;
+    });
+
+    TEST_ASSERT(result == kLMHandled);
+    TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameLocalBlock]);
+    TEST_ASSERT([self.domain isEqualToString:NSOSStatusErrorDomain]);
+    TEST_ASSERT(self.code == unitTblFullErr);
+    TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMErrorManagerTest.m"]);
+    TEST_ASSERT([self.lineNumber isEqualToString:line]);
+}
 
 #pragma mark -
 #pragma mark Accessor

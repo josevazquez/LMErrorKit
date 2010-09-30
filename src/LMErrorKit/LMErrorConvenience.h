@@ -35,9 +35,9 @@ static inline void LMPushHandlerWithFunction(LMErrorHandlerFunction function, vo
      ];
 }
 
-static inline void LMPushHandlerWithBlock(LMErrorHandlerBlock myBlock) {
+static inline void LMPushHandlerWithBlock(LMErrorHandlerBlock blockHandler) {
     [[LMErrorManager sharedManager] pushHandler:
-        [LMErrorHandler errorHandlerWithBlock:myBlock]
+        [LMErrorHandler errorHandlerWithBlock:blockHandler]
      ];
 }
 
@@ -85,7 +85,16 @@ static inline LMErrorResult LMPostError(NSString *domain, NSInteger code, NSStri
 
 
 #pragma mark -
-#pragma mark internal functions to assist public macros
+#pragma mark Functions to blocks of code with a local handler
+static inline void LMRunBlockWithBlockHandler(LMBasicBlock block, LMErrorHandlerBlock blockHandler) {
+    LMPushHandlerWithBlock(blockHandler);
+    block();
+    LMPopHandler();
+}
+
+
+#pragma mark -
+#pragma mark Internal functions to assist public macros
 static inline LMErrorResult InternalChkOSStatusFunction(OSStatus status, NSString *fileName, NSUInteger lineNumber) {
     if (status != noErr) return LMPostError(NSOSStatusErrorDomain, status, fileName, lineNumber);
     return kLMNoError;
@@ -102,7 +111,7 @@ static inline LMErrorResult InternalChkMachFunction(kern_return_t result, NSStri
 }
 
 
-
+#pragma mark -
 @interface LMErrorConvenience : NSObject {
 
 }
