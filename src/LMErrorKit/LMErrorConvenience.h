@@ -68,11 +68,17 @@ static inline LMErrorResult LMPostError(NSString *domain, NSInteger code, NSStri
 #define LMPostMachError(code) LMPostError(NSMachErrorDomain, code, @"" __FILE__, __LINE__)
 
 #define chkOSStatus(status) InternalChkOSStatusFunction(status, @"" __FILE__, __LINE__)
-
 static inline LMErrorResult InternalChkOSStatusFunction(OSStatus status, NSString *fileName, NSUInteger lineNumber) {
     if (status != noErr) return LMPostError(NSOSStatusErrorDomain, status, fileName, lineNumber);
     return kLMNoError;
 }
+
+#define chkPOSIX(expression) InternalChkPOSIXFunction(expression, @"" __FILE__, __LINE__)
+static inline LMErrorResult InternalChkPOSIXFunction(int result, NSString *fileName, NSUInteger lineNumber) {
+    if (result == -1) return LMPostError(NSPOSIXErrorDomain, errno, fileName, lineNumber);
+    return kLMNoError;
+}
+
 
 @interface LMErrorConvenience : NSObject {
 

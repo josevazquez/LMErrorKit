@@ -138,7 +138,18 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
     TEST_ASSERT([self.domain isEqualToString:NSOSStatusErrorDomain]);
-    TEST_ASSERT(self.code == nsvErr);
+    TEST_ASSERT(self.code == nsvErr); // no such volume
+    TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMErrorManagerTest.m"]);
+    TEST_ASSERT([self.lineNumber isEqualToString:line]);
+}
+
+- (void)testChkPOSIX {
+    LMErrorResult result = chkPOSIX(open("bad file name", O_RDONLY)); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
+
+    TEST_ASSERT(result == kLMHandled);
+    TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
+    TEST_ASSERT([self.domain isEqualToString:NSPOSIXErrorDomain]);
+    TEST_ASSERT(self.code == ENOENT); // O_CREAT is not set and the named file does not exist.
     TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMErrorManagerTest.m"]);
     TEST_ASSERT([self.lineNumber isEqualToString:line]);
 }
