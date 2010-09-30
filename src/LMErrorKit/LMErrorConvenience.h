@@ -56,7 +56,7 @@ static inline LMErrorResult LMPostError(NSString *domain, NSInteger code, NSStri
         [NSError errorWithDomain:domain code:code userInfo:
             [NSDictionary dictionaryWithObjectsAndKeys:
                 fileName, kLMErrorFileNameErrorKey,
-                [NSString stringWithFormat:@"%d", lineNumber], kLMErrorFileLineNumberErrorKey,
+                [NSString stringWithFormat:@"%ld", (long)lineNumber], kLMErrorFileLineNumberErrorKey,
                 nil
              ]
          ]
