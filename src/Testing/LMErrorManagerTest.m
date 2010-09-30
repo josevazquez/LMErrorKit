@@ -7,6 +7,7 @@
 */
 
 #import "LMErrorManagerTest.h"
+#include <mach/mach.h>
 
 NSString * const kHandlerNameGeneric = @"kHandlerNameGeneric";
 NSString * const kHandlerNamePOSIXErrorEINPROGRESS = @"kHandlerNamePOSIXErrorEINPROGRESS";
@@ -153,6 +154,19 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
     TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMErrorManagerTest.m"]);
     TEST_ASSERT([self.lineNumber isEqualToString:line]);
 }
+
+- (void)testChkMach {
+    LMErrorResult result = chkMach(vm_deallocate(mach_task_self(), (vm_address_t)NULL, vm_page_size)); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
+
+    TEST_ASSERT(result == kLMHandled);
+    TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
+    TEST_ASSERT([self.domain isEqualToString:NSMachErrorDomain]);
+    TEST_ASSERT(self.code == KERN_INVALID_ADDRESS);
+    TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMErrorManagerTest.m"]);
+    TEST_ASSERT([self.lineNumber isEqualToString:line]);
+    NSLog(@"vm_deallocate returned: %d", self.code);
+}
+
 
 #pragma mark -
 #pragma mark Accessor

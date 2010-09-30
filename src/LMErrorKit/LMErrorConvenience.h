@@ -10,6 +10,7 @@
 #import "LMErrorKitTypes.h"
 #import "LMErrorHandler.h"
 #import "LMErrorManager.h"
+#include <mach/mach.h>
 
 FOUNDATION_EXPORT NSString *const kLMErrorFileNameErrorKey;
 FOUNDATION_EXPORT NSString *const kLMErrorFileLineNumberErrorKey;
@@ -78,6 +79,13 @@ static inline LMErrorResult InternalChkPOSIXFunction(int result, NSString *fileN
     if (result == -1) return LMPostError(NSPOSIXErrorDomain, errno, fileName, lineNumber);
     return kLMNoError;
 }
+
+#define chkMach(expression) InternalChkMachFunction(expression, @"" __FILE__, __LINE__)
+static inline LMErrorResult InternalChkMachFunction(kern_return_t result, NSString *fileName, NSUInteger lineNumber) {
+    if (result != KERN_SUCCESS) return LMPostError(NSMachErrorDomain, result, fileName, lineNumber);
+    return kLMNoError;
+}
+
 
 
 @interface LMErrorConvenience : NSObject {
