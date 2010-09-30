@@ -27,8 +27,14 @@ In addition to handling errors, LMLog uses LMErrorKit to post logs. This logging
         return kLMPassed;
     });
 
-	// Post an OSStatus error.
+	// Explicitly posting an OSStatus error.
 	LMPostOSStatusError(paramErr);
+	
+	// Verifying an OSStatus return value
+	chkOSStatus(FSRefMakePath(&fileRef, path, pathLength));
+	
+	// Verifying a POSIX return value
+	chkPOSIX(open(filename, O_RDONLY));
 	
 	// Pop the Handler off the stack.
 	LMPopHandler();
