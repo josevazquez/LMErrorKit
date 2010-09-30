@@ -130,6 +130,18 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
     TEST_ASSERT([self.lineNumber isEqualToString:line]);
 }
 
+- (void)testChkOSStatus {
+    FSRef fileRef;
+    NSString *badPath = @"EAT AT JOES";
+    LMErrorResult result = chkOSStatus(FSRefMakePath(&fileRef, (UInt8 *)[badPath UTF8String], [badPath length])); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
+
+    TEST_ASSERT(result == kLMHandled);
+    TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
+    TEST_ASSERT([self.domain isEqualToString:NSOSStatusErrorDomain]);
+    TEST_ASSERT(self.code == nsvErr);
+    TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMErrorManagerTest.m"]);
+    TEST_ASSERT([self.lineNumber isEqualToString:line]);
+}
 
 #pragma mark -
 #pragma mark Accessor

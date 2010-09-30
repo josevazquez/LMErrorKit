@@ -67,8 +67,11 @@ static inline LMErrorResult LMPostError(NSString *domain, NSInteger code, NSStri
 #define LMPostOSStatusError(code) LMPostError(NSOSStatusErrorDomain, code, @"" __FILE__, __LINE__)
 #define LMPostMachError(code) LMPostError(NSMachErrorDomain, code, @"" __FILE__, __LINE__)
 
-static inline void chkOSStatus(OSStatus status) {
-    if (status != noErr) LMPostOSStatusError(status);
+#define chkOSStatus(status) InternalChkOSStatusFunction(status, @"" __FILE__, __LINE__)
+
+static inline LMErrorResult InternalChkOSStatusFunction(OSStatus status, NSString *fileName, NSUInteger lineNumber) {
+    if (status != noErr) return LMPostError(NSOSStatusErrorDomain, status, fileName, lineNumber);
+    return kLMNoError;
 }
 
 @interface LMErrorConvenience : NSObject {

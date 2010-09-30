@@ -13,6 +13,7 @@ enum LMErrorHandlerResult {
     kLMHandled,
     kLMResolved,
     kLMPassed,
+    kLMNoError,
     kLMInternalError = 0xDEADBEEF
 };
 typedef int LMErrorResult;
