@@ -36,7 +36,7 @@ In addition to handling errors, LMLog uses LMErrorKit to post logs. This logging
 ## Logging
 LMLog can be used for sending log messages.
 	
-	//Available Levels are: Critical, Error, Warn, Notice, Info and Debug
+	// Available Levels are: Critical, Error, Warn, Notice, Info and Debug
 	
 	#define LMLOG_LEVEL kLMLogLevelInfo
 
