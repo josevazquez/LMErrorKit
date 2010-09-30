@@ -66,12 +66,14 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
 }
 
 - (void)testBlockHandler {
-    LMErrorResult result = LMPostPOSIXError(kPOSIXErrorEINPROGRESS);
+    LMErrorResult result = LMPostPOSIXError(kPOSIXErrorEINPROGRESS); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
 
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNamePOSIXErrorEINPROGRESS]);
+    TEST_ASSERT([self.domain isEqualToString:NSPOSIXErrorDomain]);
+    TEST_ASSERT(self.code == kPOSIXErrorEINPROGRESS);
     TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMErrorManagerTest.m"]);
-    TEST_ASSERT([self.lineNumber isEqualToString:@"69"]);
+    TEST_ASSERT([self.lineNumber isEqualToString:line]);
 
     result = LMPostPOSIXError(kPOSIXErrorENXIO);
 
@@ -107,25 +109,25 @@ NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
 }
 
 - (void)testPostOSStatusError {
-    LMErrorResult result = LMPostOSStatusError(paramErr);
+    LMErrorResult result = LMPostOSStatusError(paramErr); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
 
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
-    TEST_ASSERT([self.domain isEqualToString:@"NSOSStatusErrorDomain"]);
+    TEST_ASSERT([self.domain isEqualToString:NSOSStatusErrorDomain]);
     TEST_ASSERT(self.code == paramErr);
     TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMErrorManagerTest.m"]);
-    TEST_ASSERT([self.lineNumber isEqualToString:@"110"]);
+    TEST_ASSERT([self.lineNumber isEqualToString:line]);
 }
 
 - (void)testPostMachError {
-    LMErrorResult result = LMPostMachError(KERN_FAILURE);
+    LMErrorResult result = LMPostMachError(KERN_FAILURE); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
 
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
-    TEST_ASSERT([self.domain isEqualToString:@"NSMachErrorDomain"]);
+    TEST_ASSERT([self.domain isEqualToString:NSMachErrorDomain]);
     TEST_ASSERT(self.code == KERN_FAILURE);
     TEST_ASSERT([self.fileName hasSuffix:@"/src/Testing/LMErrorManagerTest.m"]);
-    TEST_ASSERT([self.lineNumber isEqualToString:@"121"]);
+    TEST_ASSERT([self.lineNumber isEqualToString:line]);
 }
 
 
