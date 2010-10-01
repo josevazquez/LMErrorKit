@@ -100,9 +100,9 @@ static inline LMErrorResult InternalChkOSStatusFunction(OSStatus status, NSStrin
     return kLMNoError;
 }
 
-static inline LMErrorResult InternalChkPOSIXFunction(int result, NSString *fileName, NSUInteger lineNumber) {
-    if (result == -1) return LMPostError(NSPOSIXErrorDomain, errno, fileName, lineNumber);
-    return kLMNoError;
+static inline int InternalChkPOSIXFunction(int result, NSString *fileName, NSUInteger lineNumber) {
+    if (result == -1) LMPostError(NSPOSIXErrorDomain, errno, fileName, lineNumber);
+    return result;
 }
 
 static inline LMErrorResult InternalChkMachFunction(kern_return_t result, NSString *fileName, NSUInteger lineNumber) {

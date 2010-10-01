@@ -154,9 +154,9 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
 }
 
 - (void)testChkPOSIX {
-    LMErrorResult result = chkPOSIX(open("bad file name", O_RDONLY)); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
+    int result = chkPOSIX(open("bad file name", O_RDONLY)); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
 
-    TEST_ASSERT(result == kLMHandled);
+    TEST_ASSERT(result == -1); // POSIX return value indicating an error occured.
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
     TEST_ASSERT([self.domain isEqualToString:NSPOSIXErrorDomain]);
     TEST_ASSERT(self.code == ENOENT); // O_CREAT is not set and the named file does not exist.
