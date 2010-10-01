@@ -18,8 +18,8 @@
 
 - (void)dealloc {
     [_message release], _message=nil;
-    [_fileName release], _fileName=nil;
-    [_fileLineNumber release], _fileLineNumber=nil;
+    [_source release], _source=nil;
+    [_line release], _line=nil;
 
     [super dealloc];
 }
@@ -28,8 +28,8 @@
     LMPushHandlerWithBlock(^(id error) {
         if ([[error domain] isEqualToString:kLMErrorLogDomain]) {
             self.message = [[error userInfo] objectForKey:kLMLogMessageStringErrorKey];
-            self.fileName = [[error userInfo] objectForKey:kLMErrorFileNameErrorKey];
-            self.fileLineNumber = [[error userInfo] objectForKey:kLMErrorFileLineNumberErrorKey];
+            self.source = [error source];
+            self.line = [error line];
             self.code = [error code];
 
             //NSLog(@"%d:%@:%@: %@", self.code, self.fileName, self.fileLineNumber, self.message);
@@ -41,8 +41,8 @@
 
 - (void)setUp {
     self.message = nil;
-    self.fileName = nil;
-    self.fileLineNumber = nil;
+    self.source = nil;
+    self.line = nil;
     self.code = -1;
 }
 
@@ -50,8 +50,8 @@
     LMDebug(@"Testing DEBUG Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
 
     TEST_ASSERT(self.code == kLMLogLevelDebug);
-    TEST_ASSERT([self.fileName isEqualToString:@"-[LMLogTest testDebug]"]);
-    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMLogTest testDebug]"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
     TEST_ASSERT([self.message isEqualToString:@"Testing DEBUG Log: Hello World 123"]);
 }
 
@@ -59,8 +59,8 @@
     LMDebugIf(YES, @"Testing DEBUG IF YES Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
 
     TEST_ASSERT(self.code == kLMLogLevelDebug);
-    TEST_ASSERT([self.fileName isEqualToString:@"-[LMLogTest testDebugIfYes]"]);
-    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMLogTest testDebugIfYes]"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
     TEST_ASSERT([self.message isEqualToString:@"Testing DEBUG IF YES Log: Hello World 123"]);
 }
 
@@ -68,8 +68,8 @@
     LMDebugIf(NO, @"Testing DEBUG IF NO Log: %@ %d", @"Hello World", 123);
 
     TEST_ASSERT(self.code == -1);
-    TEST_ASSERT(self.fileName == nil);
-    TEST_ASSERT(self.fileLineNumber == nil);
+    TEST_ASSERT(self.source == nil);
+    TEST_ASSERT(self.line == nil);
     TEST_ASSERT(self.message == nil);
 }
 
@@ -77,8 +77,8 @@
     LMInfo(@"Testing INFO Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
     
     TEST_ASSERT(self.code == kLMLogLevelInfo);
-    TEST_ASSERT([self.fileName isEqualToString:@"-[LMLogTest testInfo]"]);
-    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMLogTest testInfo]"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
     TEST_ASSERT([self.message isEqualToString:@"Testing INFO Log: Hello World 123"]);
 }
 
@@ -86,8 +86,8 @@
     LMInfoIf(YES, @"Testing INFO IF YES Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
 
     TEST_ASSERT(self.code == kLMLogLevelInfo);
-    TEST_ASSERT([self.fileName isEqualToString:@"-[LMLogTest testInfoIfYes]"]);
-    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMLogTest testInfoIfYes]"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
     TEST_ASSERT([self.message isEqualToString:@"Testing INFO IF YES Log: Hello World 123"]);
 }
 
@@ -95,8 +95,8 @@
     LMInfoIf(NO, @"Testing INFO IF NO Log: %@ %d", @"Hello World", 123);
 
     TEST_ASSERT(self.code == -1);
-    TEST_ASSERT(self.fileName == nil);
-    TEST_ASSERT(self.fileLineNumber == nil);
+    TEST_ASSERT(self.source == nil);
+    TEST_ASSERT(self.line == nil);
     TEST_ASSERT(self.message == nil);
 }
 
@@ -104,8 +104,8 @@
     LMNotice(@"Testing NOTICE Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
     
     TEST_ASSERT(self.code == kLMLogLevelNotice);
-    TEST_ASSERT([self.fileName isEqualToString:@"-[LMLogTest testNotice]"]);
-    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMLogTest testNotice]"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
     TEST_ASSERT([self.message isEqualToString:@"Testing NOTICE Log: Hello World 123"]);
 }
 
@@ -113,8 +113,8 @@
     LMNoticeIf(YES, @"Testing NOTICE IF YES Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
 
     TEST_ASSERT(self.code == kLMLogLevelNotice);
-    TEST_ASSERT([self.fileName isEqualToString:@"-[LMLogTest testNoticeIfYes]"]);
-    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMLogTest testNoticeIfYes]"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
     TEST_ASSERT([self.message isEqualToString:@"Testing NOTICE IF YES Log: Hello World 123"]);
 }
 
@@ -122,8 +122,8 @@
     LMNoticeIf(NO, @"Testing NOTICE IF NO Log: %@ %d", @"Hello World", 123);
 
     TEST_ASSERT(self.code == -1);
-    TEST_ASSERT(self.fileName == nil);
-    TEST_ASSERT(self.fileLineNumber == nil);
+    TEST_ASSERT(self.source == nil);
+    TEST_ASSERT(self.line == nil);
     TEST_ASSERT(self.message == nil);
 }
 
@@ -131,8 +131,8 @@
     LMWarn(@"Testing WARN Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
     
     TEST_ASSERT(self.code == kLMLogLevelWarn);
-    TEST_ASSERT([self.fileName isEqualToString:@"-[LMLogTest testWarn]"]);
-    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMLogTest testWarn]"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
     TEST_ASSERT([self.message isEqualToString:@"Testing WARN Log: Hello World 123"]);
 }
 
@@ -140,8 +140,8 @@
     LMWarnIf(YES, @"Testing WARN IF YES Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
 
     TEST_ASSERT(self.code == kLMLogLevelWarn);
-    TEST_ASSERT([self.fileName isEqualToString:@"-[LMLogTest testWarnIfYes]"]);
-    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMLogTest testWarnIfYes]"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
     TEST_ASSERT([self.message isEqualToString:@"Testing WARN IF YES Log: Hello World 123"]);
 }
 
@@ -149,8 +149,8 @@
     LMDebugIf(NO, @"Testing WARN IF NO Log: %@ %d", @"Hello World", 123);
 
     TEST_ASSERT(self.code == -1);
-    TEST_ASSERT(self.fileName == nil);
-    TEST_ASSERT(self.fileLineNumber == nil);
+    TEST_ASSERT(self.source == nil);
+    TEST_ASSERT(self.line == nil);
     TEST_ASSERT(self.message == nil);
 }
 
@@ -158,8 +158,8 @@
     LMError(@"Testing ERROR Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
     
     TEST_ASSERT(self.code == kLMLogLevelError);
-    TEST_ASSERT([self.fileName isEqualToString:@"-[LMLogTest testError]"]);
-    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMLogTest testError]"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
     TEST_ASSERT([self.message isEqualToString:@"Testing ERROR Log: Hello World 123"]);
 }
 
@@ -167,8 +167,8 @@
     LMErrorIf(YES, @"Testing ERROR IF YES Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
 
     TEST_ASSERT(self.code == kLMLogLevelError);
-    TEST_ASSERT([self.fileName isEqualToString:@"-[LMLogTest testErrorIfYes]"]);
-    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMLogTest testErrorIfYes]"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
     TEST_ASSERT([self.message isEqualToString:@"Testing ERROR IF YES Log: Hello World 123"]);
 }
 
@@ -176,8 +176,8 @@
     LMErrorIf(NO, @"Testing DEBUG IF NO Log: %@ %d", @"Hello World", 123);
 
     TEST_ASSERT(self.code == -1);
-    TEST_ASSERT(self.fileName == nil);
-    TEST_ASSERT(self.fileLineNumber == nil);
+    TEST_ASSERT(self.source == nil);
+    TEST_ASSERT(self.line == nil);
     TEST_ASSERT(self.message == nil);
 }
 
@@ -185,8 +185,8 @@
     LMCritical(@"Testing CRITICAL Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
     
     TEST_ASSERT(self.code == kLMLogLevelCritical);
-    TEST_ASSERT([self.fileName isEqualToString:@"-[LMLogTest testCritical]"]);
-    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMLogTest testCritical]"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
     TEST_ASSERT([self.message isEqualToString:@"Testing CRITICAL Log: Hello World 123"]);
 }
 
@@ -194,8 +194,8 @@
     LMCriticalIf(YES, @"Testing CRITICAL IF YES Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
 
     TEST_ASSERT(self.code == kLMLogLevelCritical);
-    TEST_ASSERT([self.fileName isEqualToString:@"-[LMLogTest testCriticalIfYes]"]);
-    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMLogTest testCriticalIfYes]"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
     TEST_ASSERT([self.message isEqualToString:@"Testing CRITICAL IF YES Log: Hello World 123"]);
 }
 
@@ -203,8 +203,8 @@
     LMCriticalIf(NO, @"Testing DEBUG IF NO Log: %@ %d", @"Hello World", 123);
 
     TEST_ASSERT(self.code == -1);
-    TEST_ASSERT(self.fileName == nil);
-    TEST_ASSERT(self.fileLineNumber == nil);
+    TEST_ASSERT(self.source == nil);
+    TEST_ASSERT(self.line == nil);
     TEST_ASSERT(self.message == nil);
 }
 
@@ -222,8 +222,8 @@
     }, ^(id error) {
         if ([[error domain] isEqualToString:kLMErrorLogDomain]) {
             self.message = [NSString stringWithFormat:@"%@ %@", self.message, [[error userInfo] objectForKey:kLMLogMessageStringErrorKey]];
-            self.fileName = [[error userInfo] objectForKey:kLMErrorFileNameErrorKey];
-            self.fileLineNumber = [[error userInfo] objectForKey:kLMErrorFileLineNumberErrorKey];
+            self.source = [error source];
+            self.line = [error line];
             self.code = [error code];
 
             //NSLog(@"%d-%@:%@: >%@<", self.code, self.fileName, self.fileLineNumber, self.message);
@@ -233,16 +233,16 @@
     });
 
     TEST_ASSERT(self.code == kLMLogLevelCritical);
-    TEST_ASSERT([self.fileName isEqualToString:@"__-[LMLogTest testLogMessages]_block_invoke_1"]);
-    TEST_ASSERT([self.fileLineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"__-[LMLogTest testLogMessages]_block_invoke_1"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
     TEST_ASSERT([self.message isEqualToString:@" DEBUG INFO NOTICE WARN ERROR CRITICAL"]);
 }
 
 #pragma mark -
 #pragma mark Accessors
 @synthesize message=_message;
-@synthesize fileName=_fileName;
-@synthesize fileLineNumber=_fileLineNumber;
+@synthesize source=_source;
+@synthesize line=_line;
 @synthesize code=_code;
 
 @end

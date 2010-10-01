@@ -11,14 +11,14 @@
 
 @interface LMLogTest : MATesting {
     NSString *_message;
-    NSString *_fileName;
-    NSString *_fileLineNumber;
+    NSString *_source;
+    NSString *_line;
     NSInteger _code;
 }
 
 @property (nonatomic, retain) NSString *message;
-@property (nonatomic, retain) NSString *fileName;
-@property (nonatomic, retain) NSString *fileLineNumber;
+@property (nonatomic, retain) NSString *source;
+@property (nonatomic, retain) NSString *line;
 @property (nonatomic, assign) NSInteger code;
 
 @end

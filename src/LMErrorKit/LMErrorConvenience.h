@@ -112,6 +112,13 @@ static inline LMErrorResult InternalChkMachFunction(kern_return_t result, NSStri
 
 
 #pragma mark -
+#pragma mark Category on NSError
+@interface NSError (LMErrorKit)
+- (NSString *)source;
+- (NSString *)line;
+@end
+
+#pragma mark -
 @interface LMErrorConvenience : NSObject {
 
 }

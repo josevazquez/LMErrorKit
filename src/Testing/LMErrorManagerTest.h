@@ -14,14 +14,14 @@
     NSString *_handlerName;
     NSString *_domain;
     NSInteger _code;
-    NSString *_fileName;
-    NSString *_lineNumber;
+    NSString *_source;
+    NSString *_line;
 }
 
 @property (nonatomic, retain) NSString *handlerName;
 @property (nonatomic, retain) NSString *domain;
 @property (nonatomic, assign) NSInteger code;
-@property (nonatomic, retain) NSString *fileName;
-@property (nonatomic, retain) NSString *lineNumber;
+@property (nonatomic, retain) NSString *source;
+@property (nonatomic, retain) NSString *line;
 
 @end

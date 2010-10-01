@@ -20,8 +20,8 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
 - (void)dealloc {
     [_handlerName release], _handlerName=nil;
     [_domain release], _domain=nil;
-    [_fileName release], _fileName=nil;
-    [_lineNumber release], _lineNumber=nil;
+    [_source release], _source=nil;
+    [_line release], _line=nil;
     [super dealloc];
 }
 
@@ -37,8 +37,8 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
         self.handlerName = kHandlerNameGeneric;
         self.domain = [error domain];
         self.code = [error code];
-        self.fileName = [[error userInfo] objectForKey:kLMErrorFileNameErrorKey];
-        self.lineNumber = [[error userInfo] objectForKey:kLMErrorFileLineNumberErrorKey];
+        self.source = [error source];
+        self.line = [error line];
         return kLMHandled;
     });
     LMPushHandlerWithBlock(^(id error) {
@@ -47,8 +47,8 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
             self.handlerName = kHandlerNamePOSIXErrorEINPROGRESS;
             self.domain = [error domain];
             self.code = [error code];
-            self.fileName = [[error userInfo] objectForKey:kLMErrorFileNameErrorKey];
-            self.lineNumber = [[error userInfo] objectForKey:kLMErrorFileLineNumberErrorKey];
+            self.source = [error source];
+            self.line = [error line];
             return kLMHandled;
         }
         return kLMPassed;
@@ -59,8 +59,8 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
             self.handlerName = kHandlerNamePOSIXErrorENXIO;
             self.domain = [error domain];
             self.code = [error code];
-            self.fileName = [[error userInfo] objectForKey:kLMErrorFileNameErrorKey];
-            self.lineNumber = [[error userInfo] objectForKey:kLMErrorFileLineNumberErrorKey];
+            self.source = [error source];
+            self.line = [error line];
             return kLMHandled;
         }
         return kLMPassed;
@@ -70,8 +70,8 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
 - (void)setUp {
     self.handlerName = nil;
     self.domain = nil;
-    self.fileName = nil;
-    self.lineNumber = nil;
+    self.source = nil;
+    self.line = nil;
     self.code = -1;
 }
 
@@ -82,8 +82,8 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNamePOSIXErrorEINPROGRESS]);
     TEST_ASSERT([self.domain isEqualToString:NSPOSIXErrorDomain]);
     TEST_ASSERT(self.code == kPOSIXErrorEINPROGRESS);
-    TEST_ASSERT([self.fileName isEqualToString:@"-[LMErrorManagerTest testBlockHandler]"]);
-    TEST_ASSERT([self.lineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMErrorManagerTest testBlockHandler]"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
 
     result = LMPostPOSIXError(kPOSIXErrorENXIO);
 
@@ -125,8 +125,8 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
     TEST_ASSERT([self.domain isEqualToString:NSOSStatusErrorDomain]);
     TEST_ASSERT(self.code == paramErr);
-    TEST_ASSERT([self.fileName isEqualToString:@"-[LMErrorManagerTest testPostOSStatusError]"]);
-    TEST_ASSERT([self.lineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMErrorManagerTest testPostOSStatusError]"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
 }
 
 - (void)testPostMachError {
@@ -136,8 +136,8 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
     TEST_ASSERT([self.domain isEqualToString:NSMachErrorDomain]);
     TEST_ASSERT(self.code == KERN_FAILURE);
-    TEST_ASSERT([self.fileName isEqualToString:@"-[LMErrorManagerTest testPostMachError]"]);
-    TEST_ASSERT([self.lineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMErrorManagerTest testPostMachError]"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
 }
 
 - (void)testChkOSStatus {
@@ -149,8 +149,8 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
     TEST_ASSERT([self.domain isEqualToString:NSOSStatusErrorDomain]);
     TEST_ASSERT(self.code == nsvErr); // no such volume
-    TEST_ASSERT([self.fileName isEqualToString:@"-[LMErrorManagerTest testChkOSStatus]"]);
-    TEST_ASSERT([self.lineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMErrorManagerTest testChkOSStatus]"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
 }
 
 - (void)testChkPOSIX {
@@ -160,8 +160,8 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
     TEST_ASSERT([self.domain isEqualToString:NSPOSIXErrorDomain]);
     TEST_ASSERT(self.code == ENOENT); // O_CREAT is not set and the named file does not exist.
-    TEST_ASSERT([self.fileName isEqualToString:@"-[LMErrorManagerTest testChkPOSIX]"]);
-    TEST_ASSERT([self.lineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMErrorManagerTest testChkPOSIX]"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
 }
 
 - (void)testChkMach {
@@ -171,8 +171,8 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
     TEST_ASSERT([self.domain isEqualToString:NSMachErrorDomain]);
     TEST_ASSERT(self.code == KERN_INVALID_ADDRESS);
-    TEST_ASSERT([self.fileName isEqualToString:@"-[LMErrorManagerTest testChkMach]"]);
-    TEST_ASSERT([self.lineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMErrorManagerTest testChkMach]"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
     NSLog(@"vm_deallocate returned: %X", self.code);
 }
 
@@ -186,8 +186,8 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
         self.handlerName = kHandlerNameLocalBlock;
         self.domain = [error domain];
         self.code = [error code];
-        self.fileName = [[error userInfo] objectForKey:kLMErrorFileNameErrorKey];
-        self.lineNumber = [[error userInfo] objectForKey:kLMErrorFileLineNumberErrorKey];
+        self.source = [error source];
+        self.line = [error line];
         return kLMHandled;
     });
 
@@ -195,8 +195,8 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameLocalBlock]);
     TEST_ASSERT([self.domain isEqualToString:NSOSStatusErrorDomain]);
     TEST_ASSERT(self.code == unitTblFullErr);
-    TEST_ASSERT([self.fileName isEqualToString:@"__-[LMErrorManagerTest testRunBlockWithBlockHandler]_block_invoke_1"]);
-    TEST_ASSERT([self.lineNumber isEqualToString:line]);
+    TEST_ASSERT([self.source isEqualToString:@"__-[LMErrorManagerTest testRunBlockWithBlockHandler]_block_invoke_1"]);
+    TEST_ASSERT([self.line isEqualToString:line]);
 }
 
 #pragma mark -
@@ -204,7 +204,7 @@ NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
 @synthesize handlerName=_handlerName;
 @synthesize domain=_domain;
 @synthesize code=_code;
-@synthesize fileName=_fileName;
-@synthesize lineNumber=_lineNumber;
+@synthesize source=_source;
+@synthesize line=_line;
 
 @end
