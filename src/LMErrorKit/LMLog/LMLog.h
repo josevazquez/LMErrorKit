@@ -6,7 +6,7 @@
 //  Copyright 2010 Little Mustard LLC. All rights reserved.
 */
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 // Return constants for error handlers.
 #define kLMLogLevelNone     (0) // Critical starts at 2 for syslog compatibility

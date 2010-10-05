@@ -6,7 +6,7 @@
 //  Copyright 2010 Little Mustard LLC. All rights reserved.
 */
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import "LMErrorKitTypes.h"
 #import "LMErrorHandler.h"
 #import "LMErrorManager.h"
