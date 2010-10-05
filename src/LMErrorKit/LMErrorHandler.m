@@ -7,9 +7,7 @@
 */
 
 #import "LMErrorHandler.h"
-
-#warning move to a separate file with all define error codes
-NSString *const kLMErrorInternalDomain = @"com.littlemustard.LMErrorKit.InternalDomain";
+#import "LMErrorInternalErrors.h"
 
 void throwError(NSError *error) {
     NSLog(@"failed to throw the error: %@", error);

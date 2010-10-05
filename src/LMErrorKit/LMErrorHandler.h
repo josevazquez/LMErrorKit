@@ -10,8 +10,6 @@
 #import "LMErrorKitTypes.h"
 #import "LMErrorHandlerDelegate.h"
 
-FOUNDATION_EXPORT NSString *const kLMErrorInternalDomain;
-
 // Callback type constants. For internal use only.
 enum LMErrorHandlerCallbackType {
     kLMErrorHandlerCallbackTypeSelector,
