@@ -19,8 +19,8 @@
 #define kLMLogLevelAll      (8)
 typedef int LMLogLevel;
 
-FOUNDATION_EXPORT NSString *const kLMErrorLogDomain;
-FOUNDATION_EXPORT NSString *const kLMLogMessageStringErrorKey;
+extern NSString *const kLMErrorLogDomain;
+extern NSString *const kLMLogMessageStringErrorKey;
 
 #ifndef LMLOG_LEVEL
 #define LMLOG_LEVEL 0
