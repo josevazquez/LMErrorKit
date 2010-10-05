@@ -8,7 +8,8 @@
 
 #import "LMErrorHandler.h"
 
-NSString *const LMErrorInternalDomain = @"com.littlemustard.LMErrorKit.InternalDomain";
+#warning move to a separate file with all define error codes
+NSString *const kLMErrorInternalDomain = @"com.littlemustard.LMErrorKit.InternalDomain";
 
 void throwError(NSError *error) {
     NSLog(@"failed to throw the error: %@", error);
@@ -64,7 +65,7 @@ void throwError(NSError *error) {
     
     // Verify that selector takes just one (id) argument
     if ([errorHandler validArgumentCountForSelectorHandler] != 1) {
-        throwError([NSError errorWithDomain:NSOSStatusErrorDomain code:kEINVALErr userInfo:nil]);
+        throwError([NSError errorWithDomain:kLMErrorInternalDomain code:1 userInfo:nil]);
         return nil;
     }
     
@@ -81,7 +82,7 @@ void throwError(NSError *error) {
     // Verify that selector takes two (id) arguments
     if ([errorHandler validArgumentCountForSelectorHandler] != 2) {
         #warning Try using the wrong Handler to check user experience on error.
-        throwError([NSError errorWithDomain:NSOSStatusErrorDomain code:kEINVALErr userInfo:nil]);
+        throwError([NSError errorWithDomain:kLMErrorInternalDomain code:1 userInfo:nil]);
         return nil;
     }
 
