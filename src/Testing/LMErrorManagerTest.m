@@ -9,10 +9,10 @@
 #import "LMErrorManagerTest.h"
 #include <mach/mach.h>
 
-NSString * const kHandlerNameGeneric = @"kHandlerNameGeneric";
-NSString * const kHandlerNamePOSIXErrorEINPROGRESS = @"kHandlerNamePOSIXErrorEINPROGRESS";
-NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
-NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
+static NSString * const kHandlerNameGeneric = @"kHandlerNameGeneric";
+static NSString * const kHandlerNamePOSIXErrorEINPROGRESS = @"kHandlerNamePOSIXErrorEINPROGRESS";
+static NSString * const kHandlerNamePOSIXErrorENXIO = @"kHandlerNamePOSIXErrorENXIO";
+static NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
 
 
 @implementation LMErrorManagerTest
