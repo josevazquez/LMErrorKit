@@ -9,3 +9,9 @@
 #import <Foundation/Foundation.h>
 
 FOUNDATION_EXPORT NSString *const kLMErrorInternalDomain;
+
+enum LMErrorInternalError {
+    kLMInternalErrorInvalidHandlerReturnValue = 0,
+    kLMInternalErrorCount
+};
+typedef int LMErrorInternalError;
