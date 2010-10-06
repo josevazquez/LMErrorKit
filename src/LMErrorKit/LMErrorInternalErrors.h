@@ -11,7 +11,9 @@
 FOUNDATION_EXPORT NSString *const kLMErrorInternalDomain;
 
 enum LMErrorInternalError {
-    kLMInternalErrorInvalidHandlerReturnValue = 0,
-    kLMInternalErrorCount
+    kLMErrorIInternalErrorInvalidHandlerReturnValue = 0,
+    kLMErrorIInternalErrorExpectedSelectorWithOneArguement,
+    kLMErrorIInternalErrorExpectedSelectorWithTwoArguements,
+    kLMErrorInternalErrorCount
 };
 typedef int LMErrorInternalError;

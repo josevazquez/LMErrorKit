@@ -6,14 +6,7 @@
 //  Copyright 2010 Little Mustard LLC. All rights reserved.
 */
 
-#import "LMErrorHandler.h"
-#import "LMErrorInternalErrors.h"
-
-void throwError(NSError *error) {
-    NSLog(@"failed to throw the error: %@", error);
-    #warning Change this to have it throw an error.
-    assert(FALSE);
-}
+#import "LMErrorKit.h"
 
 // private interface
 @interface LMErrorHandler ()
@@ -63,7 +56,7 @@ void throwError(NSError *error) {
     
     // Verify that selector takes just one (id) argument
     if ([errorHandler validArgumentCountForSelectorHandler] != 1) {
-        throwError([NSError errorWithDomain:kLMErrorInternalDomain code:1 userInfo:nil]);
+        LMPostError(kLMErrorInternalDomain, kLMErrorIInternalErrorExpectedSelectorWithOneArguement);
         return nil;
     }
     
@@ -80,7 +73,7 @@ void throwError(NSError *error) {
     // Verify that selector takes two (id) arguments
     if ([errorHandler validArgumentCountForSelectorHandler] != 2) {
         #warning Try using the wrong Handler to check user experience on error.
-        throwError([NSError errorWithDomain:kLMErrorInternalDomain code:1 userInfo:nil]);
+        LMPostError(kLMErrorInternalDomain, kLMErrorIInternalErrorExpectedSelectorWithTwoArguements);
         return nil;
     }
 

@@ -59,7 +59,7 @@ static NSString * const kHandlerNameInternalError = @"kHandlerNameInternalError"
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameInternalError]);
     TEST_ASSERT([self.domain isEqualToString:kLMErrorInternalDomain]);
-    TEST_ASSERT(self.code == kLMInternalErrorInvalidHandlerReturnValue);
+    TEST_ASSERT(self.code == kLMErrorIInternalErrorInvalidHandlerReturnValue);
     TEST_ASSERT([self.source isEqualToString:@"-[LMErrorManager handleError:]"]);
     //NSLog(@"%@", self.line);
     TEST_ASSERT([self.line isEqualToString:@"70"]);

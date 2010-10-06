@@ -64,10 +64,10 @@ NSString * const kLMErrorManagerCurrentStack = @"kLMErrorManagerCurrentStack";
         // means we probably just hit the problem handler trying to handle it's
         // own error. We must ignore this case or else the code will recurse infinetly.
         if (([[error domain] isEqualToString:kLMErrorInternalDomain]) &&
-            ([error code] == kLMInternalErrorInvalidHandlerReturnValue)) continue;
+            ([error code] == kLMErrorIInternalErrorInvalidHandlerReturnValue)) continue;
 
         // Throw an internal Error signaling an invalid LMErrorResult.
-        return LMPostError(kLMErrorInternalDomain, kLMInternalErrorInvalidHandlerReturnValue);
+        return LMPostError(kLMErrorInternalDomain, kLMErrorIInternalErrorInvalidHandlerReturnValue);
     }
 
     // This is the error handler of last resort.
