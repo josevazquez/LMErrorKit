@@ -57,7 +57,7 @@ static inline void LMPopHandler() {
 
 #pragma mark -
 #pragma mark Functions to post errors to the LMErrorManager singleton
-static inline LMErrorResult LMPostError(NSString *domain, NSInteger code, NSString *fileName, NSUInteger lineNumber) {
+static inline LMErrorResult LMInternalPostError(NSString *domain, NSInteger code, NSString *fileName, NSUInteger lineNumber) {
     return [[LMErrorManager sharedManager] handleError:
         [NSError errorWithDomain:domain code:code userInfo:
             [NSDictionary dictionaryWithObjectsAndKeys:
@@ -72,9 +72,10 @@ static inline LMErrorResult LMPostError(NSString *domain, NSInteger code, NSStri
 
 #pragma mark -
 #pragma mark Macros to explicitly post errors
-#define LMPostPOSIXError(code) LMPostError(NSPOSIXErrorDomain, code, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
-#define LMPostOSStatusError(code) LMPostError(NSOSStatusErrorDomain, code, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
-#define LMPostMachError(code) LMPostError(NSMachErrorDomain, code, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
+#define LMPostError(domain, code) LMInternalPostError(domain, code, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
+#define LMPostPOSIXError(code) LMInternalPostError(NSPOSIXErrorDomain, code, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
+#define LMPostOSStatusError(code) LMInternalPostError(NSOSStatusErrorDomain, code, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
+#define LMPostMachError(code) LMInternalPostError(NSMachErrorDomain, code, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
 
 
 #pragma mark -
@@ -96,17 +97,17 @@ static inline void LMRunBlockWithBlockHandler(LMBasicBlock block, LMErrorHandler
 #pragma mark -
 #pragma mark Internal functions to assist public macros
 static inline LMErrorResult InternalChkOSStatusFunction(OSStatus status, NSString *fileName, NSUInteger lineNumber) {
-    if (status != noErr) return LMPostError(NSOSStatusErrorDomain, status, fileName, lineNumber);
+    if (status != noErr) return LMInternalPostError(NSOSStatusErrorDomain, status, fileName, lineNumber);
     return kLMNoError;
 }
 
 static inline int InternalChkPOSIXFunction(int result, NSString *fileName, NSUInteger lineNumber) {
-    if (result == -1) LMPostError(NSPOSIXErrorDomain, errno, fileName, lineNumber);
+    if (result == -1) LMInternalPostError(NSPOSIXErrorDomain, errno, fileName, lineNumber);
     return result;
 }
 
 static inline LMErrorResult InternalChkMachFunction(kern_return_t result, NSString *fileName, NSUInteger lineNumber) {
-    if (result != KERN_SUCCESS) return LMPostError(NSMachErrorDomain, result, fileName, lineNumber);
+    if (result != KERN_SUCCESS) return LMInternalPostError(NSMachErrorDomain, result, fileName, lineNumber);
     return kLMNoError;
 }
 
