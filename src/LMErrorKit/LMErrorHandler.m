@@ -9,6 +9,8 @@
 #import "LMErrorKit.h"
 
 // private interface
+LMErrorResult postBadSelectorHandlerError(NSString *domain, NSInteger code, id receiver, SEL selector);
+
 @interface LMErrorHandler ()
 @property (nonatomic, retain) id receiver;
 @property (nonatomic, assign) SEL selector;
@@ -56,7 +58,7 @@
     
     // Verify that selector takes just one (id) argument
     if ([errorHandler validArgumentCountForSelectorHandler] != 1) {
-        LMPostError(kLMErrorInternalDomain, kLMErrorIInternalErrorExpectedSelectorWithOneArguement);
+        postBadSelectorHandlerError(kLMErrorInternalDomain, kLMErrorIInternalErrorExpectedSelectorWithOneArguement, receiver, selector);
         return nil;
     }
     
@@ -72,8 +74,8 @@
 
     // Verify that selector takes two (id) arguments
     if ([errorHandler validArgumentCountForSelectorHandler] != 2) {
-        #warning Try using the wrong Handler to check user experience on error.
-        LMPostError(kLMErrorInternalDomain, kLMErrorIInternalErrorExpectedSelectorWithTwoArguements);
+        #warning Include an error message with the error.
+        postBadSelectorHandlerError(kLMErrorInternalDomain, kLMErrorIInternalErrorExpectedSelectorWithTwoArguements, receiver, selector);
         return nil;
     }
 
@@ -174,6 +176,18 @@
         }
     }
     return 0;
+}
+
+LMErrorResult postBadSelectorHandlerError(NSString *domain, NSInteger code, id receiver, SEL selector) {
+    return [[LMErrorManager sharedManager] handleError:
+        [NSError errorWithDomain:domain code:code userInfo:
+            [NSDictionary dictionaryWithObjectsAndKeys:
+                [NSString stringWithFormat:@"-[%@ %s]", [receiver class], sel_getName(selector)], kLMErrorFileNameErrorKey,
+                @"", kLMErrorFileLineNumberErrorKey,
+                nil
+            ]
+        ]
+    ];
 }
 
 
