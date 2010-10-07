@@ -61,10 +61,39 @@ static NSString * const kHandlerNameInternalError = @"kHandlerNameInternalError"
     TEST_ASSERT([self.domain isEqualToString:kLMErrorInternalDomain]);
     TEST_ASSERT(self.code == kLMErrorIInternalErrorInvalidHandlerReturnValue);
     TEST_ASSERT([self.source isEqualToString:@"-[LMErrorManager handleError:]"]);
-    //NSLog(@"%@", self.line);
-    TEST_ASSERT([self.line isEqualToString:@"70"]);
+    TEST_ASSERT([self.line isEqualToString:@"71"]);
+    LMPopHandler();
 }
 
+- (LMErrorResult)handleError:(NSError *)error {
+    NSLog(@"Handling Error: %@", error);
+    return kLMPassed;
+}
+
+- (LMErrorResult)handleError:(NSError *)error userObject:(id)obj {
+    NSLog(@"Handling Error: %@ with Object: %@", error, obj);
+    return kLMPassed;
+}
+
+- (void)testWrongSelectorForSelectorHandler {
+    LMPushHandlerWithReceiverSelector(self, @selector(handleError:userObject:));
+
+    TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameInternalError]);
+    TEST_ASSERT([self.domain isEqualToString:kLMErrorInternalDomain]);
+    TEST_ASSERT(self.code == kLMErrorIInternalErrorExpectedSelectorWithOneArguement);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMErrorInternalErrorTest handleError:userObject:]"]);
+    TEST_ASSERT([self.line isEqualToString:@""]);
+}
+
+- (void)testWrongSelectorForSelectorandObjectHandler {
+    LMPushHandlerWithReceiverSelectorObject(self, @selector(handleError:), @"UserObject");
+
+    TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameInternalError]);
+    TEST_ASSERT([self.domain isEqualToString:kLMErrorInternalDomain]);
+    TEST_ASSERT(self.code == kLMErrorIInternalErrorExpectedSelectorWithTwoArguements);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMErrorInternalErrorTest handleError:]"]);
+    TEST_ASSERT([self.line isEqualToString:@""]);
+}
 
 - (void)setUp {
     self.handlerName = nil;
