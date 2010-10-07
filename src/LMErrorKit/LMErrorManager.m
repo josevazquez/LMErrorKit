@@ -39,6 +39,7 @@ NSString * const kLMErrorManagerCurrentStack = @"kLMErrorManagerCurrentStack";
 #pragma mark -
 #pragma mark Handler Management
 - (void)pushHandler:(LMErrorHandler *)handler {
+    if (handler == nil) return;
     NSMutableArray *stack = [self stackForCurrentThread];
     [stack addObject:handler];
 }
