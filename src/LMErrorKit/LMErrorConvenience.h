@@ -12,8 +12,8 @@
 #import "LMErrorManager.h"
 #include <mach/mach.h>
 
-FOUNDATION_EXPORT NSString *const kLMErrorFileNameErrorKey;
-FOUNDATION_EXPORT NSString *const kLMErrorFileLineNumberErrorKey;
+extern NSString *const kLMErrorFileNameErrorKey;
+extern NSString *const kLMErrorFileLineNumberErrorKey;
 
 #pragma mark Functions to push Filters to the filter stack
 static inline void LMPushFilterWithReceiverSelector(id receiver, SEL selector) {
