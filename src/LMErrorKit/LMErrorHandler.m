@@ -58,7 +58,7 @@ LMErrorResult postBadSelectorHandlerError(NSString *domain, NSInteger code, id r
     
     // Verify that selector takes just one (id) argument
     if ([errorHandler validArgumentCountForSelectorHandler] != 1) {
-        postBadSelectorHandlerError(kLMErrorInternalDomain, kLMErrorIInternalErrorExpectedSelectorWithOneArguement, receiver, selector);
+        postBadSelectorHandlerError(kLMErrorInternalDomain, kLMErrorInternalErrorExpectedSelectorWithOneArguement, receiver, selector);
         return nil;
     }
     
@@ -75,7 +75,7 @@ LMErrorResult postBadSelectorHandlerError(NSString *domain, NSInteger code, id r
     // Verify that selector takes two (id) arguments
     if ([errorHandler validArgumentCountForSelectorHandler] != 2) {
         #warning Include an error message with the error.
-        postBadSelectorHandlerError(kLMErrorInternalDomain, kLMErrorIInternalErrorExpectedSelectorWithTwoArguements, receiver, selector);
+        postBadSelectorHandlerError(kLMErrorInternalDomain, kLMErrorInternalErrorExpectedSelectorWithTwoArguements, receiver, selector);
         return nil;
     }
 

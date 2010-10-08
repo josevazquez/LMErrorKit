@@ -63,7 +63,7 @@ static NSString * const kHandlerNameInternalError = @"kHandlerNameInternalError"
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameInternalError]);
     TEST_ASSERT([self.domain isEqualToString:kLMErrorInternalDomain]);
-    TEST_ASSERT(self.code == kLMErrorIInternalErrorInvalidHandlerReturnValue);
+    TEST_ASSERT(self.code == kLMErrorInternalErrorInvalidHandlerReturnValue);
     TEST_ASSERT([self.source isEqualToString:@"-[LMErrorManager filterError:]"]);
     TEST_ASSERT([self.line isEqualToString:@"93"]);
 }
@@ -83,7 +83,7 @@ static NSString * const kHandlerNameInternalError = @"kHandlerNameInternalError"
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameInternalError]);
     TEST_ASSERT([self.domain isEqualToString:kLMErrorInternalDomain]);
-    TEST_ASSERT(self.code == kLMErrorIInternalErrorInvalidHandlerReturnValue);
+    TEST_ASSERT(self.code == kLMErrorInternalErrorInvalidHandlerReturnValue);
     TEST_ASSERT([self.source isEqualToString:@"-[LMErrorManager handleError:]"]);
     TEST_ASSERT([self.line isEqualToString:@"122"]);
     LMPopHandler();
@@ -104,7 +104,7 @@ static NSString * const kHandlerNameInternalError = @"kHandlerNameInternalError"
 
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameInternalError]);
     TEST_ASSERT([self.domain isEqualToString:kLMErrorInternalDomain]);
-    TEST_ASSERT(self.code == kLMErrorIInternalErrorExpectedSelectorWithOneArguement);
+    TEST_ASSERT(self.code == kLMErrorInternalErrorExpectedSelectorWithOneArguement);
     TEST_ASSERT([self.source isEqualToString:@"-[LMErrorInternalErrorTest handleError:userObject:]"]);
     TEST_ASSERT([self.line isEqualToString:@""]);
 }
@@ -114,7 +114,7 @@ static NSString * const kHandlerNameInternalError = @"kHandlerNameInternalError"
 
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameInternalError]);
     TEST_ASSERT([self.domain isEqualToString:kLMErrorInternalDomain]);
-    TEST_ASSERT(self.code == kLMErrorIInternalErrorExpectedSelectorWithTwoArguements);
+    TEST_ASSERT(self.code == kLMErrorInternalErrorExpectedSelectorWithTwoArguements);
     TEST_ASSERT([self.source isEqualToString:@"-[LMErrorInternalErrorTest handleError:]"]);
     TEST_ASSERT([self.line isEqualToString:@""]);
 }

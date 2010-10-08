@@ -87,10 +87,10 @@ NSString * const kLMErrorManagerCurrentStack = @"kLMErrorManagerCurrentStack";
         // means we probably just hit the problem handler trying to handle it's
         // own error. We must ignore this case or else the code will recurse infinetly.
         if (([[error domain] isEqualToString:kLMErrorInternalDomain]) &&
-            ([error code] == kLMErrorIInternalErrorInvalidHandlerReturnValue)) continue;
+            ([error code] == kLMErrorInternalErrorInvalidHandlerReturnValue)) continue;
 
         // Throw an internal Error signaling an invalid LMErrorResult.
-        return LMPostError(kLMErrorInternalDomain, kLMErrorIInternalErrorInvalidHandlerReturnValue);
+        return LMPostError(kLMErrorInternalDomain, kLMErrorInternalErrorInvalidHandlerReturnValue);
     }
     return kLMPassed;
 }
@@ -115,11 +115,11 @@ NSString * const kLMErrorManagerCurrentStack = @"kLMErrorManagerCurrentStack";
         // means we probably just hit the problem handler trying to handle it's
         // own error. We must ignore this case or else the code will recurse infinetly.
         if (([[error domain] isEqualToString:kLMErrorInternalDomain]) &&
-            ([error code] == kLMErrorIInternalErrorInvalidHandlerReturnValue)) continue;
+            ([error code] == kLMErrorInternalErrorInvalidHandlerReturnValue)) continue;
 
         // Throw an internal Error signaling an invalid LMErrorResult.
         #warning This internal error should wrap the current error.
-        return LMPostError(kLMErrorInternalDomain, kLMErrorIInternalErrorInvalidHandlerReturnValue);
+        return LMPostError(kLMErrorInternalDomain, kLMErrorInternalErrorInvalidHandlerReturnValue);
     }
 
     // This is the error handler of last resort.
