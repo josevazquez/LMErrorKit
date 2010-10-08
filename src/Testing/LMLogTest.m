@@ -206,36 +206,6 @@
     TEST_ASSERT(self.message == nil);
 }
 
-- (void)testLogMessages {
-    self.message = @"";
-    __block NSString *line;
-
-    LMRunBlockWithBlockHandler(^(void) {
-        LMDebug(@"DEBUG");
-        LMInfo(@"INFO");
-        LMNotice(@"NOTICE");
-        LMWarn(@"WARN");
-        LMError(@"ERROR");
-        LMCritical(@"CRITICAL"); line = [NSString stringWithFormat:@"%d", __LINE__];
-    }, ^(id error) {
-        if ([[error domain] isEqualToString:kLMErrorLogDomain]) {
-            self.message = [NSString stringWithFormat:@"%@ %@", self.message, [[error userInfo] objectForKey:kLMLogMessageStringErrorKey]];
-            self.source = [error source];
-            self.line = [error line];
-            self.code = [error code];
-
-            //NSLog(@"%d-%@:%@: >%@<", self.code, self.fileName, self.fileLineNumber, self.message);
-            return kLMHandled;
-        }
-        return kLMPassed;
-    });
-
-    TEST_ASSERT(self.code == kLMLogLevelCritical);
-    TEST_ASSERT([self.source isEqualToString:@"__-[LMLogTest testLogMessages]_block_invoke_1"]);
-    TEST_ASSERT([self.line isEqualToString:line]);
-    TEST_ASSERT([self.message isEqualToString:@" DEBUG INFO NOTICE WARN ERROR CRITICAL"]);
-}
-
 #pragma mark -
 #pragma mark Accessors
 @synthesize message=_message;
