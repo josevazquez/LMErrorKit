@@ -65,7 +65,7 @@ static NSString * const kHandlerNameInternalError = @"kHandlerNameInternalError"
     TEST_ASSERT([self.domain isEqualToString:kLMErrorInternalDomain]);
     TEST_ASSERT(self.code == kLMErrorInternalErrorInvalidHandlerReturnValue);
     TEST_ASSERT([self.source isEqualToString:@"-[LMErrorManager filterError:]"]);
-    TEST_ASSERT([self.line isEqualToString:@"93"]);
+    TEST_ASSERT([self.line isEqualToString:@"94"]);
 }
 
 - (void)testBadErrorHandlerReturnInternalError {
@@ -85,7 +85,7 @@ static NSString * const kHandlerNameInternalError = @"kHandlerNameInternalError"
     TEST_ASSERT([self.domain isEqualToString:kLMErrorInternalDomain]);
     TEST_ASSERT(self.code == kLMErrorInternalErrorInvalidHandlerReturnValue);
     TEST_ASSERT([self.source isEqualToString:@"-[LMErrorManager handleError:]"]);
-    TEST_ASSERT([self.line isEqualToString:@"122"]);
+    TEST_ASSERT([self.line isEqualToString:@"129"]);
     LMPopHandler();
 }
 

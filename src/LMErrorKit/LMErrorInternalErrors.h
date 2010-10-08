@@ -14,6 +14,8 @@ enum LMErrorInternalError {
     kLMErrorInternalErrorInvalidHandlerReturnValue = 0,
     kLMErrorInternalErrorExpectedSelectorWithOneArguement,
     kLMErrorInternalErrorExpectedSelectorWithTwoArguements,
+    kLMErrorInternalErrorThreadDictionaryUnavailable,
+    kLMErrorInternalErrorFailedToOpenASLHandle,
     kLMErrorInternalErrorCount
 };
 typedef int LMErrorInternalError;

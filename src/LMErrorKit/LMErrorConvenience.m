@@ -7,12 +7,17 @@
 */
 
 #import "LMErrorConvenience.h"
+#import "LMErrorInternalErrors.h"
+#import "LMLog.h"
+#import <asl.h>
 
 NSString *const kLMErrorFileNameErrorKey       = @"kLMErrorFileNameErrorKey";
 NSString *const kLMErrorFileLineNumberErrorKey = @"kLMErrorFileLineNumberErrorKey";
 
 
 #pragma mark Category on NSError
+static NSString *const kLMErrorASLClientHandleForThreadKey = @"kLMErrorASLClientHandleForThreadKey";
+
 @implementation NSError (LMErrorKit)
 - (NSString *)source {
     return [[self userInfo] objectForKey:kLMErrorFileNameErrorKey];
@@ -21,6 +26,29 @@ NSString *const kLMErrorFileLineNumberErrorKey = @"kLMErrorFileLineNumberErrorKe
 - (NSString *)line {
     return [[self userInfo] objectForKey:kLMErrorFileLineNumberErrorKey];
 }
+
+- (NSString *)logMessage {
+    return [[self userInfo] objectForKey:kLMLogMessageStringErrorKey];
+}
+
+- (void)sendToASL {
+    NSMutableDictionary *currentDictionary = [[NSThread currentThread] threadDictionary];
+    if (!currentDictionary) LMPostError(kLMErrorInternalDomain, kLMErrorInternalErrorThreadDictionaryUnavailable);
+
+    aslclient client;
+    NSData *data = [currentDictionary objectForKey:kLMErrorASLClientHandleForThreadKey];
+    if (data) {
+        memcpy(&client, [data bytes], sizeof(client));
+    } else {
+        client = asl_open([[[NSThread currentThread] name] UTF8String], "com.littlemustard.LMErrorKit", ASL_OPT_STDERR);
+        if (client == NULL) LMPostError(kLMErrorInternalDomain, kLMErrorInternalErrorFailedToOpenASLHandle);
+
+        data = [NSData dataWithBytes:&client length:sizeof(client)];
+        [currentDictionary setObject:data forKey:kLMErrorASLClientHandleForThreadKey];
+    }
+    asl_log(client, NULL, [self code], "%s", [[self logMessage] UTF8String]);
+}
+
 @end
 
 

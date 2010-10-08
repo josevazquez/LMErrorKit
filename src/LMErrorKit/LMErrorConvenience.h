@@ -149,6 +149,8 @@ static inline LMErrorResult InternalChkMachFunction(kern_return_t result, NSStri
 @interface NSError (LMErrorKit)
 - (NSString *)source;
 - (NSString *)line;
+- (NSString *)logMessage;
+- (void)sendToASL;
 @end
 
 #pragma mark -
