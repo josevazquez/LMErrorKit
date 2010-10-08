@@ -15,7 +15,39 @@
 FOUNDATION_EXPORT NSString *const kLMErrorFileNameErrorKey;
 FOUNDATION_EXPORT NSString *const kLMErrorFileLineNumberErrorKey;
 
+#pragma mark Functions to push Filters to the filter stack
+static inline void LMPushFilterWithReceiverSelector(id receiver, SEL selector) {
+    [[LMErrorManager sharedManager] pushFilter:
+     [LMErrorHandler errorHandlerWithReceiver:receiver selector:selector]
+     ];
+}
 
+static inline void LMPushFilterWithReceiverSelectorObject(id receiver, SEL selector, id object) {
+    [[LMErrorManager sharedManager] pushFilter:
+     [LMErrorHandler errorHandlerWithReceiver:receiver selector:selector userObject:object]
+     ];
+}
+
+static inline void LMPushFilterWithFunction(LMErrorHandlerFunction function, void *data, LMErrorHandlerContextDestructor destructor) {
+    [[LMErrorManager sharedManager] pushFilter:
+     [LMErrorHandler errorHandlerWithFunction:function userData:data destructor:destructor]
+     ];
+}
+
+static inline void LMPushFilterWithBlock(LMErrorHandlerBlock blockHandler) {
+    [[LMErrorManager sharedManager] pushFilter:
+     [LMErrorHandler errorHandlerWithBlock:blockHandler]
+     ];
+}
+
+static inline void LMPushFilterWithDelegate(id <LMErrorHandlerDelegate> delegate) {
+    [[LMErrorManager sharedManager] pushFilter:
+     [LMErrorHandler errorHandlerWithDelegate:delegate]
+     ];
+}
+
+
+#pragma mark -
 #pragma mark Functions to push Error Handlers to the thread stack
 static inline void LMPushHandlerWithReceiverSelector(id receiver, SEL selector) {
     [[LMErrorManager sharedManager] pushHandler:

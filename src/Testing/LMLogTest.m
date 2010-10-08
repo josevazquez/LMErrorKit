@@ -25,14 +25,12 @@
 }
 
 - (void)setUpClass {
-    LMPushHandlerWithBlock(^(id error) {
+    LMPushFilterWithBlock(^(id error) {
         if ([[error domain] isEqualToString:kLMErrorLogDomain]) {
             self.message = [[error userInfo] objectForKey:kLMLogMessageStringErrorKey];
             self.source = [error source];
             self.line = [error line];
             self.code = [error code];
-
-            //NSLog(@"%d:%@:%@: %@", self.code, self.fileName, self.fileLineNumber, self.message);
             return kLMHandled;
         }
         return kLMPassed;

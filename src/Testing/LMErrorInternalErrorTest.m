@@ -8,6 +8,7 @@
 
 #import "LMErrorInternalErrorTest.h"
 
+static NSString * const kFilterNameBadReturnValue = @"kFilterNameBadReturnValue";
 static NSString * const kHandlerNameBadReturnValue = @"kHandlerNameBadReturnValue";
 static NSString * const kHandlerNameGeneric = @"kHandlerNameGeneric";
 static NSString * const kHandlerNameInternalError = @"kHandlerNameInternalError";
@@ -44,6 +45,29 @@ static NSString * const kHandlerNameInternalError = @"kHandlerNameInternalError"
     });
 }
 
+- (void)testBadFilterReturnInternalError {
+    LMPushFilterWithBlock(^(id error) {
+        if ([[error domain] isEqualToString:kLMErrorLogDomain]) {
+            self.handlerName = kFilterNameBadReturnValue;
+            self.domain = [error domain];
+            self.code = [error code];
+            self.source = [error source];
+            self.line = [error line];
+            return 0xDEAD;
+        }
+        return kLMPassed;
+    });
+
+    LMErrorResult result = LMError(@"Test Error log");
+
+    TEST_ASSERT(result == kLMHandled);
+    TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameInternalError]);
+    TEST_ASSERT([self.domain isEqualToString:kLMErrorInternalDomain]);
+    TEST_ASSERT(self.code == kLMErrorIInternalErrorInvalidHandlerReturnValue);
+    TEST_ASSERT([self.source isEqualToString:@"-[LMErrorManager filterError:]"]);
+    TEST_ASSERT([self.line isEqualToString:@"93"]);
+}
+
 - (void)testBadErrorHandlerReturnInternalError {
     LMPushHandlerWithBlock(^(id error) {
         self.handlerName = kHandlerNameBadReturnValue;
@@ -61,7 +85,7 @@ static NSString * const kHandlerNameInternalError = @"kHandlerNameInternalError"
     TEST_ASSERT([self.domain isEqualToString:kLMErrorInternalDomain]);
     TEST_ASSERT(self.code == kLMErrorIInternalErrorInvalidHandlerReturnValue);
     TEST_ASSERT([self.source isEqualToString:@"-[LMErrorManager handleError:]"]);
-    TEST_ASSERT([self.line isEqualToString:@"71"]);
+    TEST_ASSERT([self.line isEqualToString:@"122"]);
     LMPopHandler();
 }
 
@@ -102,7 +126,6 @@ static NSString * const kHandlerNameInternalError = @"kHandlerNameInternalError"
     self.line = nil;
     self.code = -1;
 }
-
 
 
 #pragma mark -

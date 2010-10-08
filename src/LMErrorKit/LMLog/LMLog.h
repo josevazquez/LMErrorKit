@@ -23,7 +23,7 @@ extern NSString *const kLMErrorLogDomain;
 extern NSString *const kLMLogMessageStringErrorKey;
 
 #ifndef LMLOG_LEVEL
-#define LMLOG_LEVEL 0
+#define LMLOG_LEVEL kLMLogLevelAll
 #endif
 
 #define LMPostLog(logLevel, value, ...) \

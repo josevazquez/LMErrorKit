@@ -11,3 +11,4 @@
 #import <LMErrorKit/LMErrorHandler.h>
 #import <LMErrorKit/LMErrorManager.h>
 #import <LMErrorKit/LMErrorConvenience.h>
+#import <LMErrorKit/LMLog.h>
