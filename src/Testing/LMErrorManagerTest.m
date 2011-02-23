@@ -170,10 +170,13 @@ static NSString * const kHandlerNameLocalBlock = @"kHandlerNameLocalBlock";
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameGeneric]);
     TEST_ASSERT([self.domain isEqualToString:NSMachErrorDomain]);
-    TEST_ASSERT(self.code == KERN_INVALID_ADDRESS);
+    TEST_ASSERT(self.code == (err_mach_ipc | KERN_NO_SPACE));
     TEST_ASSERT([self.source isEqualToString:@"-[LMErrorManagerTest testChkMach]"]);
     TEST_ASSERT([self.line isEqualToString:line]);
-    NSLog(@"vm_deallocate returned: %X", self.code);
+    //NSLog(@"vm_deallocate returned:        %lX", self.code);
+    //NSLog(@"vm_deallocate returned system: %lX", err_get_system(self.code));
+    //NSLog(@"vm_deallocate returned sub:    %lX", err_get_sub(self.code));
+    //NSLog(@"vm_deallocate returned code:   %lX", err_get_code(self.code));
 }
 
 - (void)testRunBlockWithBlockHandler {
