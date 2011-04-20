@@ -6,7 +6,7 @@
 //  Copyright 2010 Little Mustard LLC. All rights reserved.
 */
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 
 #define TEST(func) MAT_Test(func, #func)
@@ -31,6 +31,6 @@ void MAT_Test(void (*func)(void), const char *name);
 @interface MATesting : NSObject {
 }
 
-+ (void)runTests;
++ (NSString *)runTests;
 
 @end

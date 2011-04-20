@@ -36,7 +36,7 @@ typedef int LMErrorResult;
 typedef LMErrorResult (*LMErrorHandlerFunction) (NSError *error, void *userData);
 
 
-// Type definitino for optional userData destructor.
+// Type definition for optional userData destructor.
 typedef void (*LMErrorHandlerContextDestructor) (void *ptr);
 
 

@@ -44,7 +44,7 @@ LMErrorResult errorHandlerFunction(NSError *error, void *message) {
 }
 
 void userDataDestructor(void *ptr) {
-    NSLog(@"Data Destructor was called with pointer to 0x%08X", ptr);
+    NSLog(@"Data Destructor was called with pointer to %p", ptr);
 }
 
 - (LMErrorResult)handleLMError:(NSError *)error {

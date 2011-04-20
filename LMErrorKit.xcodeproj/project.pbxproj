@@ -21,6 +21,37 @@
 		820BC07A1249A5F100DEBE59 /* LMErrorManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BC0791249A5F100DEBE59 /* LMErrorManagerTest.m */; };
 		820BC125124C102800DEBE59 /* LMErrorConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BC121124C0CB400DEBE59 /* LMErrorConvenience.m */; };
 		820BC12A124C108900DEBE59 /* LMErrorConvenience.h in Headers */ = {isa = PBXBuildFile; fileRef = 820BC120124C0CB400DEBE59 /* LMErrorConvenience.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8213EC42135E555A0024978A /* LMLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 82791694124E9794008AEA13 /* LMLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8213EC43135E556B0024978A /* LMErrorHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 82F30DC0124427CB00A441FC /* LMErrorHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8213EC44135E556E0024978A /* LMErrorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 820BC024124979FD00DEBE59 /* LMErrorManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8213EC45135E55740024978A /* LMErrorInternalErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D08214125BED7C0004A3C6 /* LMErrorInternalErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8213EC46135E557D0024978A /* LMErrorKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 82F30E1D12444B2800A441FC /* LMErrorKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8213EC47135E558B0024978A /* LMErrorKitTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 8279180312513217008AEA13 /* LMErrorKitTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8213EC48135E55950024978A /* LMErrorHandlerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 820BBC781246B92900DEBE59 /* LMErrorHandlerDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8213EC49135E559A0024978A /* LMErrorConvenience.h in Headers */ = {isa = PBXBuildFile; fileRef = 820BC120124C0CB400DEBE59 /* LMErrorConvenience.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8213EC51135E597D0024978A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8213EC50135E597D0024978A /* UIKit.framework */; };
+		8213EC52135E597D0024978A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8249AC53135E539200541714 /* Foundation.framework */; };
+		8213EC54135E597D0024978A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8213EC53135E597D0024978A /* CoreGraphics.framework */; };
+		8213EC5A135E597D0024978A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8213EC58135E597D0024978A /* InfoPlist.strings */; };
+		8213EC5D135E597D0024978A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8213EC5C135E597D0024978A /* main.m */; };
+		8213EC60135E597D0024978A /* LMErrorKitExample_iOSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8213EC5F135E597D0024978A /* LMErrorKitExample_iOSAppDelegate.m */; };
+		8213EC63135E597E0024978A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8213EC61135E597E0024978A /* MainWindow.xib */; };
+		8213EC66135E597E0024978A /* LMErrorKitExample_iOSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8213EC65135E597E0024978A /* LMErrorKitExample_iOSViewController.m */; };
+		8213EC69135E597E0024978A /* LMErrorKitExample_iOSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8213EC67135E597E0024978A /* LMErrorKitExample_iOSViewController.xib */; };
+		8213EC70135E5A820024978A /* libLMErrorKit_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8249AC52135E539200541714 /* libLMErrorKit_iOS.a */; };
+		8213EC76135E66D50024978A /* MATesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BBD891247F08100DEBE59 /* MATesting.m */; };
+		8213EC79135E66F80024978A /* LMLogTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 827916BC124F0EDA008AEA13 /* LMLogTest.m */; };
+		8213EC7B135E71BE0024978A /* MARTNSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BBDD91248661B00DEBE59 /* MARTNSObject.m */; };
+		8213EC7C135E71BE0024978A /* RTIvar.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BBDDC1248661B00DEBE59 /* RTIvar.m */; };
+		8213EC7D135E71BE0024978A /* RTMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BBDDE1248661B00DEBE59 /* RTMethod.m */; };
+		8213EC7E135E71BE0024978A /* RTUnregisteredClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BBDE01248661B00DEBE59 /* RTUnregisteredClass.m */; };
+		8249AC54135E539200541714 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8249AC53135E539200541714 /* Foundation.framework */; };
+		8249AC5C135E549700541714 /* LMLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 82791695124E9794008AEA13 /* LMLog.m */; };
+		8249AC5E135E549700541714 /* LMErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F30DC1124427CB00A441FC /* LMErrorHandler.m */; };
+		8249AC60135E549700541714 /* LMErrorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BC025124979FD00DEBE59 /* LMErrorManager.m */; };
+		8249AC62135E549700541714 /* LMErrorInternalErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D08215125BED7C0004A3C6 /* LMErrorInternalErrors.m */; };
+		8249AC65135E549700541714 /* LMErrorKit-Info.plist in Sources */ = {isa = PBXBuildFile; fileRef = 82F30DB6124426AD00A441FC /* LMErrorKit-Info.plist */; };
+		8249AC68135E549700541714 /* LMErrorConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BC121124C0CB400DEBE59 /* LMErrorConvenience.m */; };
 		827916BD124F0EDA008AEA13 /* LMLogTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 827916BC124F0EDA008AEA13 /* LMLogTest.m */; };
 		827916BE124F0F0C008AEA13 /* LMLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 82791695124E9794008AEA13 /* LMLog.m */; };
 		827916C7124F1A7C008AEA13 /* LMLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 82791694124E9794008AEA13 /* LMLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -38,6 +69,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8213EC6E135E5A760024978A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8249AC51135E539200541714;
+			remoteInfo = LMErrorKit_iOS;
+		};
 		82F30DE2124433AF00A441FC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -91,6 +129,22 @@
 		820BC0791249A5F100DEBE59 /* LMErrorManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMErrorManagerTest.m; sourceTree = "<group>"; };
 		820BC120124C0CB400DEBE59 /* LMErrorConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMErrorConvenience.h; sourceTree = "<group>"; };
 		820BC121124C0CB400DEBE59 /* LMErrorConvenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMErrorConvenience.m; sourceTree = "<group>"; };
+		8213EC4E135E597D0024978A /* LMErrorKitExample_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LMErrorKitExample_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8213EC50135E597D0024978A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		8213EC53135E597D0024978A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		8213EC57135E597D0024978A /* LMErrorKitExample_iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LMErrorKitExample_iOS-Info.plist"; sourceTree = "<group>"; };
+		8213EC59135E597D0024978A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8213EC5B135E597D0024978A /* LMErrorKitExample_iOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LMErrorKitExample_iOS-Prefix.pch"; sourceTree = "<group>"; };
+		8213EC5C135E597D0024978A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8213EC5E135E597D0024978A /* LMErrorKitExample_iOSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMErrorKitExample_iOSAppDelegate.h; sourceTree = "<group>"; };
+		8213EC5F135E597D0024978A /* LMErrorKitExample_iOSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMErrorKitExample_iOSAppDelegate.m; sourceTree = "<group>"; };
+		8213EC62135E597E0024978A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		8213EC64135E597E0024978A /* LMErrorKitExample_iOSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMErrorKitExample_iOSViewController.h; sourceTree = "<group>"; };
+		8213EC65135E597E0024978A /* LMErrorKitExample_iOSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMErrorKitExample_iOSViewController.m; sourceTree = "<group>"; };
+		8213EC68135E597E0024978A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LMErrorKitExample_iOSViewController.xib; sourceTree = "<group>"; };
+		8249AC52135E539200541714 /* libLMErrorKit_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLMErrorKit_iOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8249AC53135E539200541714 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8249AC57135E539200541714 /* LMErrorKit_iOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LMErrorKit_iOS-Prefix.pch"; sourceTree = "<group>"; };
 		82791694124E9794008AEA13 /* LMLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMLog.h; sourceTree = "<group>"; };
 		82791695124E9794008AEA13 /* LMLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMLog.m; sourceTree = "<group>"; };
 		827916BB124F0EDA008AEA13 /* LMLogTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMLogTest.h; sourceTree = "<group>"; };
@@ -110,6 +164,25 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8213EC4B135E597D0024978A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8213EC70135E5A820024978A /* libLMErrorKit_iOS.a in Frameworks */,
+				8213EC51135E597D0024978A /* UIKit.framework in Frameworks */,
+				8213EC52135E597D0024978A /* Foundation.framework in Frameworks */,
+				8213EC54135E597D0024978A /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8249AC4F135E539200541714 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8249AC54135E539200541714 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		82F30DB3124426AD00A441FC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -163,6 +236,7 @@
 			children = (
 				8D1107320486CEB800E47090 /* ErrorExample.app */,
 				82F30DB5124426AD00A441FC /* LMErrorKit.framework */,
+				8213EC4E135E597D0024978A /* LMErrorKitExample_iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -170,8 +244,11 @@
 		29B97314FDCFA39411CA2CEA /* LMErrorManagment */ = {
 			isa = PBXGroup;
 			children = (
+				8249AC52135E539200541714 /* libLMErrorKit_iOS.a */,
 				080E96DDFE201D6D7F000001 /* src */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				8249AC55135E539200541714 /* LMErrorKit_iOS */,
+				8213EC55135E597D0024978A /* LMErrorKitExample_iOS */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -202,6 +279,9 @@
 			isa = PBXGroup;
 			children = (
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				8249AC53135E539200541714 /* Foundation.framework */,
+				8213EC50135E597D0024978A /* UIKit.framework */,
+				8213EC53135E597D0024978A /* CoreGraphics.framework */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -237,6 +317,47 @@
 				820BBDE01248661B00DEBE59 /* RTUnregisteredClass.m */,
 			);
 			path = MAObjCRuntime;
+			sourceTree = "<group>";
+		};
+		8213EC55135E597D0024978A /* LMErrorKitExample_iOS */ = {
+			isa = PBXGroup;
+			children = (
+				8213EC5E135E597D0024978A /* LMErrorKitExample_iOSAppDelegate.h */,
+				8213EC5F135E597D0024978A /* LMErrorKitExample_iOSAppDelegate.m */,
+				8213EC61135E597E0024978A /* MainWindow.xib */,
+				8213EC64135E597E0024978A /* LMErrorKitExample_iOSViewController.h */,
+				8213EC65135E597E0024978A /* LMErrorKitExample_iOSViewController.m */,
+				8213EC67135E597E0024978A /* LMErrorKitExample_iOSViewController.xib */,
+				8213EC56135E597D0024978A /* Supporting Files */,
+			);
+			path = LMErrorKitExample_iOS;
+			sourceTree = "<group>";
+		};
+		8213EC56135E597D0024978A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8213EC57135E597D0024978A /* LMErrorKitExample_iOS-Info.plist */,
+				8213EC58135E597D0024978A /* InfoPlist.strings */,
+				8213EC5B135E597D0024978A /* LMErrorKitExample_iOS-Prefix.pch */,
+				8213EC5C135E597D0024978A /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8249AC55135E539200541714 /* LMErrorKit_iOS */ = {
+			isa = PBXGroup;
+			children = (
+				8249AC56135E539200541714 /* Supporting Files */,
+			);
+			path = LMErrorKit_iOS;
+			sourceTree = "<group>";
+		};
+		8249AC56135E539200541714 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8249AC57135E539200541714 /* LMErrorKit_iOS-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		82791692124E96D4008AEA13 /* LMLog */ = {
@@ -281,6 +402,21 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		8249AC50135E539200541714 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8213EC42135E555A0024978A /* LMLog.h in Headers */,
+				8213EC43135E556B0024978A /* LMErrorHandler.h in Headers */,
+				8213EC44135E556E0024978A /* LMErrorManager.h in Headers */,
+				8213EC45135E55740024978A /* LMErrorInternalErrors.h in Headers */,
+				8213EC46135E557D0024978A /* LMErrorKit.h in Headers */,
+				8213EC47135E558B0024978A /* LMErrorKitTypes.h in Headers */,
+				8213EC48135E55950024978A /* LMErrorHandlerDelegate.h in Headers */,
+				8213EC49135E559A0024978A /* LMErrorConvenience.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		82F30DB0124426AD00A441FC /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -298,6 +434,41 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		8213EC4D135E597D0024978A /* LMErrorKitExample_iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8213EC6A135E597E0024978A /* Build configuration list for PBXNativeTarget "LMErrorKitExample_iOS" */;
+			buildPhases = (
+				8213EC4A135E597D0024978A /* Sources */,
+				8213EC4B135E597D0024978A /* Frameworks */,
+				8213EC4C135E597D0024978A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8213EC6F135E5A760024978A /* PBXTargetDependency */,
+			);
+			name = LMErrorKitExample_iOS;
+			productName = LMErrorKitExample_iOS;
+			productReference = 8213EC4E135E597D0024978A /* LMErrorKitExample_iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8249AC51135E539200541714 /* LMErrorKit_iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8249AC5A135E539200541714 /* Build configuration list for PBXNativeTarget "LMErrorKit_iOS" */;
+			buildPhases = (
+				8249AC4E135E539200541714 /* Sources */,
+				8249AC4F135E539200541714 /* Frameworks */,
+				8249AC50135E539200541714 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LMErrorKit_iOS;
+			productName = LMErrorKit_iOS;
+			productReference = 8249AC52135E539200541714 /* libLMErrorKit_iOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		82F30DB4124426AD00A441FC /* LMErrorKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 82F30DB9124426AD00A441FC /* Build configuration list for PBXNativeTarget "LMErrorKit" */;
@@ -350,18 +521,31 @@
 				Japanese,
 				French,
 				German,
+				en,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* LMErrorManagment */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D1107260486CEB800E47090 /* ErrorExample */,
 				82F30DB4124426AD00A441FC /* LMErrorKit */,
+				8D1107260486CEB800E47090 /* ErrorExample */,
+				8249AC51135E539200541714 /* LMErrorKit_iOS */,
+				8213EC4D135E597D0024978A /* LMErrorKitExample_iOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8213EC4C135E597D0024978A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8213EC5A135E597D0024978A /* InfoPlist.strings in Resources */,
+				8213EC63135E597E0024978A /* MainWindow.xib in Resources */,
+				8213EC69135E597E0024978A /* LMErrorKitExample_iOSViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		82F30DB1124426AD00A441FC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -381,6 +565,35 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8213EC4A135E597D0024978A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8213EC7B135E71BE0024978A /* MARTNSObject.m in Sources */,
+				8213EC7C135E71BE0024978A /* RTIvar.m in Sources */,
+				8213EC7D135E71BE0024978A /* RTMethod.m in Sources */,
+				8213EC7E135E71BE0024978A /* RTUnregisteredClass.m in Sources */,
+				8213EC5D135E597D0024978A /* main.m in Sources */,
+				8213EC60135E597D0024978A /* LMErrorKitExample_iOSAppDelegate.m in Sources */,
+				8213EC66135E597E0024978A /* LMErrorKitExample_iOSViewController.m in Sources */,
+				8213EC76135E66D50024978A /* MATesting.m in Sources */,
+				8213EC79135E66F80024978A /* LMLogTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8249AC4E135E539200541714 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8249AC5C135E549700541714 /* LMLog.m in Sources */,
+				8249AC5E135E549700541714 /* LMErrorHandler.m in Sources */,
+				8249AC60135E549700541714 /* LMErrorManager.m in Sources */,
+				8249AC62135E549700541714 /* LMErrorInternalErrors.m in Sources */,
+				8249AC65135E549700541714 /* LMErrorKit-Info.plist in Sources */,
+				8249AC68135E549700541714 /* LMErrorConvenience.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		82F30DB2124426AD00A441FC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -414,6 +627,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8213EC6F135E5A760024978A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8249AC51135E539200541714 /* LMErrorKit_iOS */;
+			targetProxy = 8213EC6E135E5A760024978A /* PBXContainerItemProxy */;
+		};
 		82F30DE3124433AF00A441FC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 82F30DB4124426AD00A441FC /* LMErrorKit */;
@@ -438,9 +656,108 @@
 			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
+		8213EC58135E597D0024978A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8213EC59135E597D0024978A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		8213EC61135E597E0024978A /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8213EC62135E597E0024978A /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		8213EC67135E597E0024978A /* LMErrorKitExample_iOSViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8213EC68135E597E0024978A /* en */,
+			);
+			name = LMErrorKitExample_iOSViewController.xib;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8213EC6B135E597E0024978A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LMErrorKitExample_iOS/LMErrorKitExample_iOS-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				INFOPLIST_FILE = "LMErrorKitExample_iOS/LMErrorKitExample_iOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		8213EC6C135E597E0024978A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LMErrorKitExample_iOS/LMErrorKitExample_iOS-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				INFOPLIST_FILE = "LMErrorKitExample_iOS/LMErrorKitExample_iOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		8249AC58135E539200541714 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DSTROOT = /tmp/LMErrorKit_iOS.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LMErrorKit_iOS/LMErrorKit_iOS-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		8249AC59135E539200541714 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DSTROOT = /tmp/LMErrorKit_iOS.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LMErrorKit_iOS/LMErrorKit_iOS-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
 		82F30DB7124426AD00A441FC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -534,6 +851,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -547,6 +865,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
@@ -557,6 +876,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8213EC6A135E597E0024978A /* Build configuration list for PBXNativeTarget "LMErrorKitExample_iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8213EC6B135E597E0024978A /* Debug */,
+				8213EC6C135E597E0024978A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8249AC5A135E539200541714 /* Build configuration list for PBXNativeTarget "LMErrorKit_iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8249AC58135E539200541714 /* Debug */,
+				8249AC59135E539200541714 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		82F30DB9124426AD00A441FC /* Build configuration list for PBXNativeTarget "LMErrorKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

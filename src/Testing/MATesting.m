@@ -44,7 +44,8 @@ void runMethodWithNameOnReceiver(id receiver, NSArray *methods, NSString *name) 
     }
 }
 
-+ (void)runTests {
++ (NSString *)runTests {
+    NSString *retVal = nil;
     @try {
         gMAT_FailureCount = 0;
         gMAT_AssertionCount = 0;
@@ -95,10 +96,13 @@ void runMethodWithNameOnReceiver(id receiver, NSArray *methods, NSString *name) 
         NSString *assertCountMessage = [NSString stringWithFormat: @"%d assertion%s", gMAT_AssertionCount, gMAT_AssertionCount > 1 ? "s" : ""];
         NSString *testCountMessage = [NSString stringWithFormat: @"%d test%s", gMAT_testCount, gMAT_testCount > 1 ? "s" : ""];
         NSLog(@"Tests complete. %@, %@: %@", testCountMessage, assertCountMessage, message);
+        retVal = [NSString stringWithFormat:@"Tests complete. %@, %@: %@", testCountMessage, assertCountMessage, message];
     }
     @catch(id exception) {
         NSLog(@"FAILED: exception: %@", exception);
+        retVal = [NSString stringWithFormat:@"FAILED: exception: %@", exception];
     }
+    return retVal;
 }
 
 @end
