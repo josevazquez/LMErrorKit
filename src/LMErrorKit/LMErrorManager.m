@@ -38,7 +38,7 @@ NSString * const kLMErrorManagerCurrentStack = @"kLMErrorManagerCurrentStack";
 - (NSMutableArray *)stackForCurrentThread {
     NSMutableDictionary *currentDictionary = [[NSThread currentThread] threadDictionary];
     #warning Will this cause an infinite recursion? Push it to the main thread?
-    if (!currentDictionary) LMPostError(kLMErrorInternalDomain, kLMErrorInternalErrorThreadDictionaryUnavailable);
+    if (!currentDictionary) LMPostDomainCode(kLMErrorInternalDomain, kLMErrorInternalErrorThreadDictionaryUnavailable);
 
     NSMutableArray *stack = [currentDictionary objectForKey:kLMErrorManagerCurrentStack];
     if (stack == nil) {
@@ -91,7 +91,7 @@ NSString * const kLMErrorManagerCurrentStack = @"kLMErrorManagerCurrentStack";
             ([error code] == kLMErrorInternalErrorInvalidHandlerReturnValue)) continue;
 
         // Throw an internal Error signaling an invalid LMErrorResult.
-        return LMPostError(kLMErrorInternalDomain, kLMErrorInternalErrorInvalidHandlerReturnValue);
+        return LMPostDomainCode(kLMErrorInternalDomain, kLMErrorInternalErrorInvalidHandlerReturnValue);
     }
     // In case there is no filter added for logging purposes we do the default
     // filtering here.
@@ -126,7 +126,7 @@ NSString * const kLMErrorManagerCurrentStack = @"kLMErrorManagerCurrentStack";
 
         // Throw an internal Error signaling an invalid LMErrorResult.
         #warning This internal error should wrap the current error.
-        return LMPostError(kLMErrorInternalDomain, kLMErrorInternalErrorInvalidHandlerReturnValue);
+        return LMPostDomainCode(kLMErrorInternalDomain, kLMErrorInternalErrorInvalidHandlerReturnValue);
     }
 
     // This is the error handler of last resort.

@@ -104,7 +104,7 @@ static inline LMErrorResult LMInternalPostError(NSString *domain, NSInteger code
 
 #pragma mark -
 #pragma mark Macros to explicitly post errors
-#define LMPostError(domain, code) LMInternalPostError(domain, code, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
+#define LMPostDomainCode(domain, code) LMInternalPostError(domain, code, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
 #define LMPostPOSIXError(code) LMInternalPostError(NSPOSIXErrorDomain, code, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
 #define LMPostOSStatusError(code) LMInternalPostError(NSOSStatusErrorDomain, code, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
 #define LMPostMachError(code) LMInternalPostError(NSMachErrorDomain, code, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
