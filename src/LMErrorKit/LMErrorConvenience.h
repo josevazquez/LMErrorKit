@@ -89,6 +89,15 @@ static inline void LMPopHandler() {
 
 #pragma mark -
 #pragma mark Functions to post errors to the LMErrorManager singleton
+static inline LMErrorResult LMInternalPostError(NSError *error, NSString *fileName, NSUInteger lineNumber) {
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:[error userInfo]];
+    [dictionary setObject:fileName forKey:kLMErrorFileNameErrorKey];
+    [dictionary setObject:[NSString stringWithFormat:@"%ld", (long)lineNumber] forKey:kLMErrorFileLineNumberErrorKey];
+    return [[LMErrorManager sharedManager] handleError:[NSError errorWithDomain:[error domain]
+                                                                           code:[error code]
+                                                                       userInfo:dictionary]];
+}
+
 static inline LMErrorResult LMInternalPostDomainCode(NSString *domain, NSInteger code, NSString *fileName, NSUInteger lineNumber) {
     return [[LMErrorManager sharedManager] handleError:
         [NSError errorWithDomain:domain code:code userInfo:
@@ -104,6 +113,7 @@ static inline LMErrorResult LMInternalPostDomainCode(NSString *domain, NSInteger
 
 #pragma mark -
 #pragma mark Macros to explicitly post errors
+#define LMPostError(error) LMInternalPostError(error, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
 #define LMPostDomainCode(domain, code) LMInternalPostDomainCode(domain, code, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
 #define LMPostPOSIXError(code) LMInternalPostDomainCode(NSPOSIXErrorDomain, code, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
 #define LMPostOSStatusError(code) LMInternalPostDomainCode(NSOSStatusErrorDomain, code, [NSString stringWithFormat:@"%s",__LM_FILE__], __LM_LINE__)
