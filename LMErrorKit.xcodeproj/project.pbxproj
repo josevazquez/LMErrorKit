@@ -360,19 +360,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		82791692124E96D4008AEA13 /* LMLog */ = {
+		82DCE02012440C070049B96C /* LMErrorKit */ = {
 			isa = PBXGroup;
 			children = (
 				82791694124E9794008AEA13 /* LMLog.h */,
 				82791695124E9794008AEA13 /* LMLog.m */,
-			);
-			path = LMLog;
-			sourceTree = "<group>";
-		};
-		82DCE02012440C070049B96C /* LMErrorKit */ = {
-			isa = PBXGroup;
-			children = (
-				82791692124E96D4008AEA13 /* LMLog */,
 				82F30DC0124427CB00A441FC /* LMErrorHandler.h */,
 				82F30DC1124427CB00A441FC /* LMErrorHandler.m */,
 				820BC024124979FD00DEBE59 /* LMErrorManager.h */,
