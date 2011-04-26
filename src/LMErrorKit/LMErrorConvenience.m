@@ -33,7 +33,7 @@ static NSString *const kLMErrorASLClientHandleForThreadKey = @"kLMErrorASLClient
 
 - (void)sendToASL {
     NSMutableDictionary *currentDictionary = [[NSThread currentThread] threadDictionary];
-    if (!currentDictionary) LMPostError(kLMErrorInternalDomain, kLMErrorInternalErrorThreadDictionaryUnavailable);
+    if (!currentDictionary) LMPostDomainCode(kLMErrorInternalDomain, kLMErrorInternalErrorThreadDictionaryUnavailable);
 
     aslclient client;
     NSData *data = [currentDictionary objectForKey:kLMErrorASLClientHandleForThreadKey];
@@ -41,7 +41,7 @@ static NSString *const kLMErrorASLClientHandleForThreadKey = @"kLMErrorASLClient
         memcpy(&client, [data bytes], sizeof(client));
     } else {
         client = asl_open([[[NSThread currentThread] name] UTF8String], "com.littlemustard.LMErrorKit", ASL_OPT_STDERR);
-        if (client == NULL) LMPostError(kLMErrorInternalDomain, kLMErrorInternalErrorFailedToOpenASLHandle);
+        if (client == NULL) LMPostDomainCode(kLMErrorInternalDomain, kLMErrorInternalErrorFailedToOpenASLHandle);
 
         data = [NSData dataWithBytes:&client length:sizeof(client)];
         [currentDictionary setObject:data forKey:kLMErrorASLClientHandleForThreadKey];
