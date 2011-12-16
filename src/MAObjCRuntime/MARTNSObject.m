@@ -13,7 +13,7 @@
 + (NSArray *)rt_subclasses
 {
     Class *buffer = NULL;
-    
+
     int count, size;
     do
     {
@@ -21,7 +21,7 @@
         buffer = realloc(buffer, count * sizeof(*buffer));
         size = objc_getClassList(buffer, count);
     } while(size != count);
-    
+
     NSMutableArray *array = [NSMutableArray array];
     for(int i = 0; i < count; i++)
     {
@@ -83,11 +83,11 @@
 {
     unsigned int count;
     Method *methods = class_copyMethodList(self, &count);
-    
+
     NSMutableArray *array = [NSMutableArray array];
     for(unsigned i = 0; i < count; i++)
         [array addObject: [RTMethod methodWithObjCMethod: methods[i]]];
-    
+
     return array;
 }
 
@@ -95,7 +95,7 @@
 {
     Method m = class_getInstanceMethod(self, sel);
     if(!m) return nil;
-    
+
     return [RTMethod methodWithObjCMethod: m];
 }
 
@@ -108,11 +108,11 @@
 {
     unsigned int count;
     Ivar *list = class_copyIvarList(self, &count);
-    
+
     NSMutableArray *array = [NSMutableArray array];
     for(unsigned i = 0; i < count; i++)
         [array addObject: [RTIvar ivarWithObjCIvar: list[i]]];
-    
+
     return array;
 }
 

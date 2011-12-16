@@ -171,7 +171,7 @@
     NSMethodSignature *signature = [target methodSignatureForSelector: [self selector]];
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature: signature];
     NSUInteger argumentCount = [signature numberOfArguments];
-    
+
     [invocation setTarget: target];
     [invocation setSelector: [self selector]];
     for(NSUInteger i = 2; i < argumentCount; i++)
@@ -184,23 +184,23 @@
         }
         const char *typeStr = va_arg(args, char *);
         void *argPtr = va_arg(args, void *);
-        
+
         NSUInteger inSize;
         NSGetSizeAndAlignment(typeStr, &inSize, NULL);
         NSUInteger sigSize;
         NSGetSizeAndAlignment([signature getArgumentTypeAtIndex: i], &sigSize, NULL);
-        
+
         if(inSize != sigSize)
         {
             NSLog(@"%s: size mismatch between passed-in argument and required argument; in type: %s (%lu) requested: %s (%lu)", __func__, typeStr, (long)inSize, [signature getArgumentTypeAtIndex: i], (long)sigSize);
             abort();
         }
-        
+
         [invocation setArgument: argPtr atIndex: i];
     }
-    
+
     [invocation invoke];
-    
+
     if([signature methodReturnLength] && retPtr)
         [invocation getReturnValue: retPtr];
 }
@@ -208,14 +208,14 @@
 - (id)sendToTarget: (id)target, ...
 {
     NSParameterAssert([[self signature] hasPrefix: [NSString stringWithUTF8String: @encode(id)]]);
-    
+
     id retVal;
-    
+
     va_list args;
     va_start(args, target);
     [self _returnValue: &retVal sendToTarget: target arguments: args];
     va_end(args);
-    
+
     return retVal;
 }
 
@@ -234,14 +234,14 @@
 - (id)rt_sendMethod: (RTMethod *)method, ...
 {
     NSParameterAssert([[method signature] hasPrefix: [NSString stringWithUTF8String: @encode(id)]]);
-    
+
     id retVal;
-    
+
     va_list args;
     va_start(args, method);
     [method _returnValue: &retVal sendToTarget: self arguments: args];
     va_end(args);
-    
+
     return retVal;
 }
 
@@ -257,14 +257,14 @@
 {
     RTMethod *method = [[self rt_class] rt_methodForSelector: sel];
     NSParameterAssert([[method signature] hasPrefix: [NSString stringWithUTF8String: @encode(id)]]);
-    
+
     id retVal;
-    
+
     va_list args;
     va_start(args, sel);
     [method _returnValue: &retVal sendToTarget: self arguments: args];
     va_end(args);
-    
+
     return retVal;
 }
 

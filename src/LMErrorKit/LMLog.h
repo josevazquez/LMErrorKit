@@ -43,7 +43,7 @@ extern NSString *const kLMLogMessageStringErrorKey;
 #if LMLOG_LEVEL>=kLMLogLevelDebug
 #define LMDebug(value, ...) LMPostLog(kLMLogLevelDebug, value, ## __VA_ARGS__)
 #define LMDebugIf(expression, value, ...) if(expression){LMPostLog(kLMLogLevelDebug, value, ## __VA_ARGS__)}
-#else 
+#else
 #define LMDebug(value, ...)
 #define LMDebugIf(expression, value, ...)
 #endif
@@ -51,7 +51,7 @@ extern NSString *const kLMLogMessageStringErrorKey;
 #if LMLOG_LEVEL>=kLMLogLevelInfo
 #define LMInfo(value, ...) LMPostLog(kLMLogLevelInfo, value, ## __VA_ARGS__)
 #define LMInfoIf(expression, value, ...) if(expression){LMPostLog(kLMLogLevelInfo, value, ## __VA_ARGS__)}
-#else 
+#else
 #define LMInfo(value, ...)
 #define LMInfoIf(expression, value, ...)
 #endif
@@ -67,7 +67,7 @@ extern NSString *const kLMLogMessageStringErrorKey;
 #if LMLOG_LEVEL>=kLMLogLevelWarn
 #define LMWarn(value, ...) LMPostLog(kLMLogLevelWarn, value, ## __VA_ARGS__)
 #define LMWarnIf(expression, value, ...) if(expression){LMPostLog(kLMLogLevelWarn, value, ## __VA_ARGS__)}
-#else 
+#else
 #define LMWarn(value, ...)
 #define LMWarnIf(expression, value, ...)
 #endif
@@ -75,7 +75,7 @@ extern NSString *const kLMLogMessageStringErrorKey;
 #if LMLOG_LEVEL>=kLMLogLevelError
 #define LMError(value, ...) LMPostLog(kLMLogLevelError, value, ## __VA_ARGS__)
 #define LMErrorIf(expression, value, ...) if(expression){LMPostLog(kLMLogLevelError, value, ## __VA_ARGS__)}
-#else 
+#else
 #define LMError(value, ...)
 #define LMErrorIf(expression, value, ...)
 #endif
@@ -83,7 +83,7 @@ extern NSString *const kLMLogMessageStringErrorKey;
 #if LMLOG_LEVEL>=kLMLogLevelCritical
 #define LMCritical(value, ...) LMPostLog(kLMLogLevelCritical, value, ## __VA_ARGS__)
 #define LMCriticalIf(expression, value, ...) if(expression){LMPostLog(kLMLogLevelCritical, value, ## __VA_ARGS__)}
-#else 
+#else
 #define LMCritical(value, ...)
 #define LMCriticalIf(expression, value, ...)
 #endif

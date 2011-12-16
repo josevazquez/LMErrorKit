@@ -73,7 +73,7 @@
 
 - (void)testInfo {
     LMInfo(@"Testing INFO Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
-    
+
     TEST_ASSERT(self.code == kLMLogLevelInfo);
     TEST_ASSERT([self.source isEqualToString:@"-[LMLogTest testInfo]"]);
     TEST_ASSERT([self.line isEqualToString:line]);
@@ -100,7 +100,7 @@
 
 - (void)testNotice {
     LMNotice(@"Testing NOTICE Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
-    
+
     TEST_ASSERT(self.code == kLMLogLevelNotice);
     TEST_ASSERT([self.source isEqualToString:@"-[LMLogTest testNotice]"]);
     TEST_ASSERT([self.line isEqualToString:line]);
@@ -127,7 +127,7 @@
 
 - (void)testWarn {
     LMWarn(@"Testing WARN Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
-    
+
     TEST_ASSERT(self.code == kLMLogLevelWarn);
     TEST_ASSERT([self.source isEqualToString:@"-[LMLogTest testWarn]"]);
     TEST_ASSERT([self.line isEqualToString:line]);
@@ -154,7 +154,7 @@
 
 - (void)testError {
     LMError(@"Testing ERROR Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
-    
+
     TEST_ASSERT(self.code == kLMLogLevelError);
     TEST_ASSERT([self.source isEqualToString:@"-[LMLogTest testError]"]);
     TEST_ASSERT([self.line isEqualToString:line]);
@@ -181,7 +181,7 @@
 
 - (void)testCritical {
     LMCritical(@"Testing CRITICAL Log: %@ %d", @"Hello World", 123); NSString *line = [NSString stringWithFormat:@"%d", __LINE__];
-    
+
     TEST_ASSERT(self.code == kLMLogLevelCritical);
     TEST_ASSERT([self.source isEqualToString:@"-[LMLogTest testCritical]"]);
     TEST_ASSERT([self.line isEqualToString:line]);

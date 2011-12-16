@@ -42,7 +42,7 @@ static void TestSubclasses(void)
     TEST_ASSERT([subs containsObject: [NSArray class]]);
     TEST_ASSERT([subs containsObject: [NSSet class]]);
     TEST_ASSERT([subs containsObject: [NSObject class]]);
-    
+
     subs = [NSString rt_subclasses];
     TEST_ASSERT([subs containsObject: [NSString class]]);
     TEST_ASSERT(![subs containsObject: [NSObject class]]);
@@ -51,10 +51,10 @@ static void TestSubclasses(void)
 static void TestCreateClass(void)
 {
     Class subclass = [NSObject rt_createSubclassNamed: @"MATestSubclass"];
-    
+
     TEST_ASSERT(subclass);
     TEST_ASSERT(NSClassFromString(@"MATestSubclass"));
-    
+
     [subclass rt_destroyClass];
 }
 
@@ -68,11 +68,11 @@ static void TestMetaclass(void)
 static void TestSetSuperclass(void)
 {
     Class subclass = [NSObject rt_createSubclassNamed: @"MATestSubclass"];
-    
+
     TEST_ASSERT(![subclass isSubclassOfClass: [NSString class]]);
     [subclass rt_setSuperclass: [NSString class]];
     TEST_ASSERT([subclass isSubclassOfClass: [NSString class]]);
-    
+
     [subclass rt_destroyClass];
 }
 
@@ -95,13 +95,13 @@ static void TestSetClass(void)
 static void TestMethodList(void)
 {
     NSArray *methods = [NSObject rt_methods];
-    
+
     SEL sel = @selector(description);
     NSUInteger index = [methods indexOfObjectPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
         return [obj selector] == sel;
     }];
     TEST_ASSERT(index < [methods count]);
-    
+
     RTMethod *method = [methods objectAtIndex: index];
     TEST_ASSERT([method implementation] == [NSObject instanceMethodForSelector: sel]);
     TEST_ASSERT([[NSMethodSignature signatureWithObjCTypes: [[method signature] UTF8String]] isEqual: [NSObject instanceMethodSignatureForSelector: sel]]);
@@ -131,7 +131,7 @@ static void AddMethodTester(id self, SEL _cmd)
 static void TestAddMethod(void)
 {
     gAddMethodFlag = NO;
-    
+
     id obj = [[NSObject alloc] init];
     [NSObject rt_addMethod: [RTMethod methodWithSelector: @selector(rt_addMethodTester) implementation: (IMP)AddMethodTester signature: @"v@:"]];
     [obj rt_addMethodTester];
@@ -142,7 +142,7 @@ static void TestAddMethod(void)
 static void TestSetMethod(void)
 {
     gAddMethodFlag = NO;
-    
+
     id obj = [[NSObject alloc] init];
     RTMethod *method = [NSObject rt_methodForSelector: @selector(finalize)];
     IMP oldImp = [method implementation];
@@ -165,7 +165,7 @@ static void TestIvarQuery(void)
 {
     NSArray *ivars = [SampleClass rt_ivars];
     TEST_ASSERT([[ivars valueForKey: @"name"] containsObject: @"someIvar"]);
-    
+
     RTIvar *ivar = [SampleClass rt_ivarForName: @"someIvar"];
     TEST_ASSERT([[ivar name] isEqual: @"someIvar"]);
     TEST_ASSERT([[ivar typeEncoding] isEqual: [NSString stringWithUTF8String: @encode(id)]]);
@@ -175,14 +175,14 @@ static void TestIvarQuery(void)
 static void TestIvarAdd(void)
 {
     RTUnregisteredClass *unreg = [NSObject rt_createUnregisteredSubclassNamed: @"IvarAddTester"];
-    
+
     [unreg addIvar: [RTIvar ivarWithName: @"testVar" encode: @encode(void *)]];
     Class c = [unreg registerClass];
-    
+
     TEST_ASSERT([[c rt_ivars] count] == 1);
     TEST_ASSERT([c rt_instanceSize] == 2 * sizeof(void *));
     TEST_ASSERT([[c rt_ivarForName: @"testVar"] offset] == sizeof(void *));
-    
+
     [c rt_destroyClass];
 }
 
@@ -204,16 +204,16 @@ static void TestMessageSending(void)
     id obj1 = [[[NSObject rt_class] rt_methodForSelector: @selector(alloc)] sendToTarget: [NSObject class]];
     id obj2;
     [[[NSObject rt_class] rt_methodForSelector: @selector(alloc)] returnValue: &obj2 sendToTarget: [NSObject class]];
-    
+
     TEST_ASSERT(obj1);
     TEST_ASSERT(obj2);
-    
+
     BOOL equal;
     [[NSObject rt_methodForSelector: @selector(isEqual:)] returnValue: &equal sendToTarget: obj1, RTARG(obj1)];
     TEST_ASSERT(equal);
     [[NSObject rt_methodForSelector: @selector(isEqual:)] returnValue: &equal sendToTarget: obj1, RTARG(obj2)];
     TEST_ASSERT(!equal);
-    
+
     [obj1 release];
     [obj2 release];
 }
@@ -223,30 +223,30 @@ static void TestMessageSendingNSObjectCategory(void)
     id obj1 = [NSObject rt_sendMethod: [[NSObject rt_class] rt_methodForSelector: @selector(alloc)]];
     id obj2;
     [NSObject rt_returnValue: &obj2 sendMethod: [[NSObject rt_class] rt_methodForSelector: @selector(alloc)]];
-    
+
     TEST_ASSERT(obj1);
     TEST_ASSERT(obj2);
-    
+
     BOOL equal;
     [obj1 rt_returnValue: &equal sendMethod: [NSObject rt_methodForSelector: @selector(isEqual:)], RTARG(obj1)];
     TEST_ASSERT(equal);
     [obj1 rt_returnValue: &equal sendMethod: [NSObject rt_methodForSelector: @selector(isEqual:)], RTARG(obj2)];
     TEST_ASSERT(!equal);
-    
+
     [obj1 release];
     [obj2 release];
-    
+
     obj1 = [NSObject rt_sendSelector: @selector(alloc)];
     [NSObject rt_returnValue: &obj2 sendSelector: @selector(alloc)];
-    
+
     TEST_ASSERT(obj1);
     TEST_ASSERT(obj2);
-    
+
     [obj1 rt_returnValue: &equal sendSelector: @selector(isEqual:), RTARG(obj1)];
     TEST_ASSERT(equal);
     [obj1 rt_returnValue: &equal sendSelector: @selector(isEqual:), RTARG(obj2)];
     TEST_ASSERT(!equal);
-    
+
     [obj1 release];
     [obj2 release];
 }
@@ -271,7 +271,7 @@ int main(int argc, char **argv)
             TEST(TestEquality);
             TEST(TestMessageSending);
             TEST(TestMessageSendingNSObjectCategory);
-            
+
             NSString *message;
             if(gFailureCount)
                 message = [NSString stringWithFormat: @"FAILED: %d total assertion failure%s", gFailureCount, gFailureCount > 1 ? "s" : ""];
