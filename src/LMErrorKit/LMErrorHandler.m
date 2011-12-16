@@ -55,13 +55,13 @@ LMErrorResult postBadSelectorHandlerError(NSString *domain, NSInteger code, id r
     errorHandler.receiver = receiver;
     errorHandler.selector = selector;
     errorHandler.userObject = nil;
-    
+
     // Verify that selector takes just one (id) argument
     if ([errorHandler validArgumentCountForSelectorHandler] != 1) {
         postBadSelectorHandlerError(kLMErrorInternalDomain, kLMErrorInternalErrorExpectedSelectorWithOneArguement, receiver, selector);
         return nil;
     }
-    
+
     errorHandler.callbackType = kLMErrorHandlerCallbackTypeSelector;
     return errorHandler;
 }
@@ -166,7 +166,7 @@ LMErrorResult postBadSelectorHandlerError(NSString *domain, NSInteger code, id r
             return 1;
         }
     }
-    
+
     if (argumentCount == 4) { // two arguments plus self and _cmd
         // verify that the arguments are both of type id
         if (strcmp([signature getArgumentTypeAtIndex:2], @encode(id))==0) {     // this argument should be an NSError*

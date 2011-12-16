@@ -17,15 +17,15 @@ You can query any class's methods, instance variables, or other attributes using
 
     // get all subclasses of a class
     NSArray *subclasses = [MyClass rt_subclasses];
-    
+
     // check out the methods on NSString
     NSArray *methods = [NSString rt_methods];
     for(RTMethod *method in methods)
         NSLog(@"%@", method);
-    
+
     // does it have any ivars?
     NSLog(@"%@", [NSString rt_ivars]);
-    
+
     // how big is a constant string instance?
     NSLog(@"%ld", (long)[[@"foo" rt_class] rt_instanceSize]);
 
@@ -39,7 +39,7 @@ You can add new methods using +rt_addMethod:. You can modify the implementation 
     {
         return @"HELLO WORLD!";
     }
-    
+
     Method *description = [NSObject rt_methodForSelector: @selector(description)];
     [description setImplementation: (IMP)NewDescription];
 

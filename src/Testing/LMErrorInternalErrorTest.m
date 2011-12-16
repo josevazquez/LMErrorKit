@@ -77,9 +77,9 @@ static NSString * const kHandlerNameInternalError = @"kHandlerNameInternalError"
         self.line = [error line];
         return 0xDEAD;
     });
-    
+
     LMErrorResult result = LMPostOSStatusError(paramErr);
-    
+
     TEST_ASSERT(result == kLMHandled);
     TEST_ASSERT([self.handlerName isEqualToString:kHandlerNameInternalError]);
     TEST_ASSERT([self.domain isEqualToString:kLMErrorInternalDomain]);

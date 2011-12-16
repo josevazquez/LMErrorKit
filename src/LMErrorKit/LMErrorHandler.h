@@ -27,7 +27,7 @@ typedef enum LMErrorHandlerCallbackType LMErrorHandlerCallbackType;
     id _receiver;
     SEL _selector;
     id _userObject;
-    
+
     void *_userData;
     LMErrorHandlerFunction _function;
     LMErrorHandlerContextDestructor _destructor;
