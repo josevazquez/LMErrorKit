@@ -12,7 +12,7 @@ Once the programer creates a handler, it can be given to the LMErrorManager sing
 
 As the application progresses, more handlers can be added to the stack to handle more specific errors. Once the scope of a handler has come to an end, the programer can pop the handler off the stack. 
 
-When an error is posted, the LMErrorManager receives it and works it way down the stack. It will invoke handleError: on each handler in the stack until can handle the error. A handler, that can not handle an error simply returns a value of kLMPassed.
+When an error is posted, the LMErrorManager receives it and works it way down the stack. It will invoke handleError: on each handler in the stack until it can handle the error. A handler, that can not handle an error simply returns a value of kLMPassed.
 
 In addition to handling errors, LMLog uses LMErrorKit to post logs. This logging system uses levels compatible with those of syslog. Much like errors, the programer can add handlers to deal with logs. For example, depending on the programer's needs logs could be sent to NSLog(), sent over the network or added to the database. (NOTE: The dedicated stack for dealing with things like logs is not currently implemented.)
 
@@ -48,7 +48,7 @@ LMLog can be used for sending log messages.
 
 	LMDebug(@"This will not be executed because Debug level is lower than Info set above");
 	LMNotice(@"Notice is above Info so it will be sent");
-	LMInfo(@"Additional information can be included usin a format : %@ %d", myObj, i);
+	LMInfo(@"Additional information can be included using a format : %@ %d", myObj, i);
 	
 	// Conditional variations exist for each level as well.
 	LMErrorIf(i != 42, @"We must seek the answer");
