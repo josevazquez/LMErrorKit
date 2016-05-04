@@ -51,7 +51,7 @@ LMLog can be used for sending log messages.
 	LMInfo(@"Additional information can be included using a format : %@ %d", myObj, i);
 	
 	// Conditional variations exist for each level as well.
-	LMErrorIf(i != 42, @"We must seek the answer");
+	LMErrorIf(i != 42, @"This answer will not do.");
 	
 
 ## Extras
